@@ -1,0 +1,142 @@
+# Antes de mandar fabricar
+
+Este projeto foi validado em software: **ERC e DRC zerados, netlist conferida
+item a item contra a intenção de projeto**. Mas nenhuma placa foi fabricada nem
+testada num TK real.
+
+Os itens abaixo dependem de medir peças físicas ou de decisões que não dá para
+verificar de dentro do KiCad. Confira antes de gastar dinheiro com PCB.
+
+---
+
+## 1. O padrão de furação do soquete de borda (CRÍTICO)
+
+**Onde:** placa expansora, conector `J1`.
+
+O footprint usa a grade industrial de conectores de borda de passo 0,1":
+
+| Dimensão | Valor adotado |
+| --- | --- |
+| Passo entre contatos | 2,54 mm (0,100") |
+| Distância entre as duas fileiras de terminais | **5,08 mm (0,200")** |
+| Furo | 1,0 mm (terminal típico é 0,635 mm quadrado) |
+
+Essa é a grade padrão da família (EDAC, Sullins e similares especificam
+"0.100 C-C × 0.200 grid, solder tail 0.025 square"), mas **modelos variam**.
+
+**O que fazer:** com o conector em mãos, meça a distância entre as duas fileiras
+de terminais. Se não for 5,08 mm, ajuste `hardware/lib/tkmem128.pretty/ZX_TK_Bus_Socket_56.kicad_mod`
+(a variável `yf`/`yr` no gerador, ou os pads diretamente) antes de gerar os
+gerbers.
+
+---
+
+## 2. Qual fileira do soquete é qual (CRÍTICO)
+
+**Onde:** placa expansora, conector `J1`.
+
+O projeto assume:
+
+- fileira de terminais **mais próxima da borda frontal** → pinos **1..28**
+  (fileira de baixo do TK)
+- fileira **mais afastada** → pinos **29..56** (fileira de cima do TK)
+
+Trocar as duas inverte a placa inteira e **pode danificar o micro** (alimentação
+onde deveriam estar sinais).
+
+**O que fazer:** antes de soldar qualquer CI, monte só o soquete `J1` na
+expansora e faça um teste de continuidade com o TK **desligado e desconectado**:
+
+1. Encaixe a expansora nos dedos do TK.
+2. Meça continuidade entre o contato **3** do soquete (que deve ser +5 V) e o
+   ponto de +5 V do TK.
+3. Meça o contato **6** (GND) contra o terra do TK.
+
+Se +5 V e GND aparecerem trocados ou em contatos inesperados, a fileira está
+invertida: gire o footprint 180° no eixo Y (troque as fileiras) e regenere.
+
+---
+
+## 3. A chaveta do soquete
+
+O soquete de 56 vias vem **sem chaveta**. Onde ficariam os contatos **5 e 52**
+você precisa encaixar um pedacinho de PCB (ou material equivalente, ~1,6 mm) que
+sirva de guia, casando com o rasgo entre os dedos da placa do TK.
+
+Sem isso, é fácil plugar deslocado por uma posição — e aí sinais e alimentação
+vão para os lugares errados.
+
+---
+
+## 4. Acabamento dos dedos de borda
+
+**Onde:** placa expansora, `J2`.
+
+Peça explicitamente à fábrica:
+
+- **ENIG (ouro)** nos dedos — HASL descasca com a inserção repetida
+- **chanfro de 45°** na borda dos dedos (às vezes chamado *gold finger
+  beveling*); costuma ser item separado no pedido
+
+Sem chanfro, a placa entra forçando e arranha os contatos do conector do TK.
+
+---
+
+## 5. Polaridade do ROMCS
+
+**Onde:** placa principal, `JP2`.
+
+O sinal `ROMCS` do barramento (pino 25) é **ativo em nível alto** para desligar a
+ROM interna, enquanto a saída do GAL (`/ROMCS`) é ativa em nível baixo. JP2
+oferece as duas estratégias, mas **qual funciona no seu TK só o teste dirá**:
+
+| JP2 | Comportamento |
+| --- | --- |
+| aberto | ROM do TK (comece por aqui) |
+| 1-2 | Aciona `ROMCS` pela saída do GAL — comportamento da placa original |
+| 2-3 | Fixa `ROMCS` em nível alto, estilo cartucho da Interface 2 |
+
+`R5` fica em série. Comece com 0 Ω (fio). Se houver disputa de barramento
+(imagem instável, travamentos ao usar a ROM 128), troque por 100–470 Ω.
+
+Se você não vai usar a EPROM — e ela é dispensável, ver o README — deixe JP1 em
+2-3 e JP2 aberto e nada disso importa.
+
+---
+
+## 6. Conector angular na placa principal
+
+**Onde:** placa principal, `J1`.
+
+A placa principal fica **em pé** e a expansora **deitada**. Para isso, `J1` tem
+que ser um **soquete fêmea 2×28 angular** (*right angle*), não um vertical — o
+land pattern é o mesmo, mas o corpo precisa sair perpendicular à placa.
+
+Na expansora, `J3` é um **header macho 2×28 vertical** comum.
+
+---
+
+## 7. Caixa Patola PB 085/3
+
+A placa principal tem **78,74 × 66,04 mm**, a medida certa para a caixa, mas
+**não tem furos de fixação**: as duas torres da caixa ficam bem no meio das
+bordas onde passam os conectores.
+
+Na adaptação documentada por Edu Luccas, uma das torres é desgastada com
+micro-retífica ao abrir a fenda do conector, e a placa é fixada com **pedaços de
+EVA** colados no fundo e nas laterais. Duas fendas são abertas na caixa: uma
+maior para o soquete de borda e uma menor para a passagem.
+
+---
+
+## Resumo
+
+| Item | Risco se errar |
+| --- | --- |
+| 1. Grade do soquete | Conector não entra na placa |
+| 2. Fileira invertida | **Pode danificar o TK** |
+| 3. Chaveta | **Pode danificar o TK** |
+| 4. Acabamento dos dedos | Contato ruim, desgaste rápido |
+| 5. ROMCS | ROM 128 instável (só afeta quem usa a EPROM) |
+| 6. Conector angular | Placa não fica em pé |
+| 7. Caixa | Não fecha |

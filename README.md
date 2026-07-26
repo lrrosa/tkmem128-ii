@@ -1,0 +1,299 @@
+# TKMEM-128 KiCad
+
+Expansão externa de **128 KB (ou 512 KB) de RAM paginada no padrão ZX Spectrum 128**
+para os micros brasileiros **TK90X e TK95** (clones do ZX Spectrum 48K, da
+Microdigital). Redesenho completo em **KiCad 10**, com arquivos de fabricação
+prontos.
+
+> **Estado: projeto validado em software, ainda não montado em hardware.**
+> ERC e DRC estão zerados e a netlist foi conferida contra a intenção de projeto,
+> mas nenhuma placa foi fabricada nem testada num TK. Antes de mandar fabricar,
+> leia [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — há itens que
+> dependem de medir peças físicas.
+
+---
+
+## Este projeto é uma derivação
+
+Ele não inventa o circuito: junta e redesenha dois trabalhos anteriores.
+
+| Origem | Autor | O que veio de lá |
+| --- | --- | --- |
+| **external 128kb upgrade** (`zx48_to_128-EASY_3`), 2009 | **Velesoft** (Pavel Cimbal, República Tcheca) | O circuito base: as equações do GAL20V8, o latch da porta `0x7FFD` e o esquema de paginação da SRAM, incluindo a extensão de 512K |
+| **TKMEM-128**, 2012 | **Luccas Eletrônica** (Edu Luccas, Brasil) | A adaptação ao TK90X/TK95: soquete de EPROM com a ROM do Spectrum 128, jumpers de seleção de ROM, a auto-desativação da RAM interna de 32K pelo pino 17 do barramento, e a divisão em placa principal + expansor |
+
+Créditos também a **Flávio Matsumoto**, que sugeriu o circuito do Velesoft para
+os TKs e identificou a caixa Patola PB 085/3, e a **Daniel Jose Viana
+(danjovic)**, cujo trabalho documentou as cotas da placa para essa caixa.
+
+Este redesenho é distribuído sob **CERN-OHL-S v2** (ver [LICENSE.txt](LICENSE.txt)),
+uma licença *fortemente recíproca*: quem fabricar, modificar ou distribuir
+precisa disponibilizar as fontes das modificações sob a mesma licença.
+
+---
+
+## O que a placa faz
+
+O ZX Spectrum 128 difere do 48K em três coisas: 128K de RAM em 8 bancos de 16K,
+o chip de som AY-3-8912, e o espelhamento da memória de vídeo ("shadow video").
+Esta placa entrega **a primeira**. O som AY exige interface separada; o shadow
+video é inviável numa interface externa, porque exigiria interceptar a RAM baixa
+da ULA dentro do micro.
+
+Na prática a grande maioria dos jogos de 128K funciona — a exceção são os poucos
+títulos que dependem do shadow video.
+
+### Mapa de memória
+
+| Faixa | Quem responde |
+| --- | --- |
+| `0x0000-0x3FFF` | ROM — interna do TK, ou a 27C256 da placa (jumper) |
+| `0x4000-0x7FFF` | RAM baixa **interna do TK** (memória de vídeo da ULA). Não é decodificada aqui |
+| `0x8000-0xBFFF` | SRAM externa, **banco 2 fixo** |
+| `0xC000-0xFFFF` | SRAM externa, banco selecionado pela porta `0x7FFD` |
+
+Como a SRAM externa cobre `0x8000-0xFFFF`, **a RAM interna de 32K do TK precisa
+ser desativada** — é a única alteração necessária dentro do micro. Veja
+[`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md).
+
+### Porta 0x7FFD
+
+Um `74HCT273` latcheia o barramento de dados quando o GAL detecta a escrita na
+porta (`A15=0`, `A5=1`, `A1=0`, `/IORQ` e `/WR` ativos):
+
+| Bit | Sinal | Função |
+| --- | --- | --- |
+| 0–2 | `BANK0..BANK2` | Banco de RAM em `0xC000` |
+| 3 | `VRAM` | Shadow screen — latcheado, **sem uso** nesta arquitetura (disponível em TP1) |
+| 4 | `ROMA14` | Seleciona a metade da 27C256 |
+| 5 | `DIS128` | Trava a paginação até o reset |
+| 6–7 | `BANK3..BANK4` | Extensão 512K (só no modo ZX512) |
+
+A trava do bit 5 é elegante: `DIS128` entra na equação do clock do latch
+(`CLK7FFD = ... + DIS128`), então ao ser setado o clock fica preso em nível alto
+e o latch nunca mais é acionado.
+
+---
+
+## As duas placas
+
+O conjunto reproduz a arquitetura da TKMEM-128 original: a placa de componentes
+fica **em pé** dentro da caixa, e uma placa **deitada** sai pela base levando o
+conector de borda.
+
+```
+        ┌───────────────────────────┐
+        │   placa principal (em pé) │   78,74 × 66,04 mm
+        │   GAL + latch + SRAM +    │   caixa Patola PB 085/3
+        │   EPROM + jumpers         │
+        └────────────┬──────────────┘
+                     │ header 2×28
+   ┌─────────────────┴───────────────────────┐
+   │        placa expansora (deitada)        │   78,74 × 45 mm
+   │  soquete de borda ─── header ─── dedos  │
+   └──────┬──────────────────────────┬───────┘
+          │                          │
+       TK90X/TK95              outros periféricos
+```
+
+| Placa | Arquivo | Conteúdo |
+| --- | --- | --- |
+| Principal | [`hardware/tkmem128.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 4 jumpers, desacoplamento |
+| Expansora | [`hardware/expansor/`](hardware/expansor/) | Soquete de borda fêmea 56 vias, header 2×28, dedos de borda para passagem |
+
+As duas são de **2 camadas**, com plano de terra nas duas faces.
+
+![Placa principal](docs/img/placa-principal.png)
+
+![Placa expansora](docs/img/placa-expansora.png)
+
+---
+
+## O que mudou em relação ao original
+
+| Melhoria | Motivo |
+| --- | --- |
+| **Passagem do barramento** (dedos de borda na expansora) | O original ocupava o barramento; agora dá para encadear outros periféricos |
+| **Desacoplamento por CI** (100 nF em cada um) + 10 µF de reservatório | O original tinha desacoplamento mínimo |
+| **Plano de terra nas duas faces** | Retorno de corrente e imunidade a ruído |
+| **Jumper JP2 com duas estratégias de ROMCS** | O `ROMCS` do barramento é **ativo em nível alto** para desligar a ROM interna, o oposto da saída `/ROMCS` do GAL. É a explicação mais provável para a ROM 128 do original "funcionar num TK e não em outro". JP2 permite escolher entre acionar pelo GAL ou fixar em nível alto (como fazem os cartuchos da Interface 2), com R5 em série |
+| **Jumper de auto-desativação sem posição perigosa** | Na placa original o jumper tinha uma posição "Spectrum" que, num TK, **danificava o micro**. Aqui JP4 é simplesmente aberto/fechado, com R4 de 1 kΩ em série limitando corrente |
+| **Bit N da porta 7FFD no flip-flop N** | O original embaralhava as entradas do latch; aqui a ordem é natural e o esquemático se lê sozinho |
+| **Endereços e dados da EPROM 1:1** | Obrigatório (o conteúdo da ROM é fixo) e documentado |
+| **Pontos de teste** (`VRAM`, `CLK7FFD`) | Para depurar sem grampear em perna de CI |
+| **LED de energia** (opcional) | Diagnóstico imediato |
+| **Solder jumpers SJ1/SJ2** | Terra extra nos pinos 7 (ZX Spectrum) ou 15 (TK), que diferem entre as máquinas |
+| **Peças em produção na BOM** | AS6C1008 e ATF20V8B no lugar de peças só encontráveis como estoque antigo |
+
+---
+
+## Configuração dos jumpers
+
+| Jumper | Posição | Efeito |
+| --- | --- | --- |
+| **JP1** SELECIONA ROM | 1-2 | ROM 128: a EPROM da placa responde em `0x0000-0x3FFF` |
+| | 2-3 | ROM TK: EPROM desligada (padrão) |
+| **JP2** ROMCS BARRAMENTO | aberto | Usa a ROM interna do TK (padrão) |
+| | 1-2 | Aciona `ROMCS` pelo GAL (comportamento da placa original) |
+| | 2-3 | Fixa `ROMCS` em nível alto (estilo Interface 2) |
+| **JP3** ZX128/ZX512 | aberto | 128K — SRAM `AS6C1008` (padrão) |
+| | fechado | 512K — SRAM `AS6C4008` |
+| **JP4** AUTO-DESATIVA 32K | fechado | Injeta nível 1 no pino 17 e desliga a RAM interna do TK |
+| | aberto | Não mexe no TK (use se desativou a RAM de outro jeito) |
+| **SJ1** | fechado | **Só em ZX Spectrum**: pino 7 é GND lá |
+| **SJ2** | fechado | **Só em TK90X/TK95**: pino 15 é GND lá |
+
+> ⚠️ **JP1 em 1-2 sem JP2** não faz nada útil: sem desligar a ROM interna, os dois
+> chips disputam o barramento de dados. Use os dois juntos ou nenhum.
+
+---
+
+## Lista de material
+
+### Placa principal
+
+| Ref | Valor | Encapsulamento | Observação |
+| --- | --- | --- | --- |
+| U1 | GAL20V8B ou **ATF20V8B-15PC** | DIP-24 300 mil | Gravado com [`hardware/gal/`](hardware/gal/) |
+| U2 | 74HCT273 | DIP-20 300 mil | Latch da porta 7FFD |
+| U3 | **AS6C1008-55PCN** (128K×8) | DIP-32 600 mil | Ou `AS6C4008-55PCN` (512K×8) no modo ZX512 |
+| U4 | 27C256 | DIP-28 600 mil | **Opcional** — ver seção da ROM |
+| R2, R4 | 1 kΩ | axial, vertical | |
+| R5 | 0 Ω | axial, vertical | Fio; 100–470 Ω se houver disputa no ROMCS |
+| R3 | 2,2 kΩ | axial, vertical | Opcional (LED) |
+| C1–C5 | 100 nF cerâmico | disco 5 mm, passo 5 mm | |
+| C6 | 10 µF eletrolítico | radial 5 mm, passo 2 mm | |
+| D1 | LED 3 mm | | Opcional |
+| JP1, JP2 | header 1×3 | passo 2,54 mm | |
+| JP3, JP4 | header 1×2 | passo 2,54 mm | |
+| J1 | soquete fêmea 2×28 **angular** | passo 2,54 mm | Liga à expansora |
+| — | soquetes torneados DIP-20/24/28/32 | | Recomendado |
+
+### Placa expansora
+
+| Ref | Valor | Observação |
+| --- | --- | --- |
+| J1 | soquete de borda fêmea 56 vias (2×28), passo 0,1" | Encaixa nos dedos do TK |
+| J3 | header macho 2×28 vertical, passo 2,54 mm | Recebe a placa principal |
+| J2 | — | Dedos de borda na própria PCB |
+| C1 | 100 nF cerâmico | |
+
+---
+
+## Montagem
+
+Guias detalhados:
+
+- [`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md) — desativar a RAM interna de 32K
+- [`docs/MONTAGEM.md`](docs/MONTAGEM.md) — ordem de montagem, chaveta do soquete, caixa
+- [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — conferências obrigatórias
+
+Dois pontos que costumam pegar quem monta:
+
+1. **A chaveta do soquete de borda.** O soquete de 56 vias vem sem chaveta. Onde
+   ficariam os contatos **5 e 52** você encaixa um pedacinho de PCB (ou material
+   equivalente) para servir de guia, casando com o rasgo entre os dedos do TK.
+   Sem isso é fácil plugar deslocado e danificar o micro.
+2. **Os pinos 5 e 52 do header 2×28** entre as placas **não são barramento** —
+   são terra adicional. Não misture com um expansor de outra origem sem
+   conferir.
+
+---
+
+## Fabricação
+
+Arquivos prontos em [`production/`](production/): Gerber X2, furação Excellon,
+BOM e mapa de posições, para as duas placas.
+
+Especificação: **2 camadas**, 1,6 mm, trilha mínima 0,25 mm, isolação 0,2 mm,
+furo mínimo 0,3 mm — faixa mais barata de qualquer fábrica.
+
+**A placa expansora precisa de acabamento em ouro (ENIG) e chanfro de 45° na
+borda dos dedos.** Os dedos de borda entram e saem do conector do TK muitos
+ciclos; HASL descasca. Peça o chanfro explicitamente, é um item à parte no
+pedido.
+
+---
+
+## Gravando o GAL
+
+Fonte em [`hardware/gal/tkmem128.pld`](hardware/gal/tkmem128.pld) (sintaxe
+GALasm) e instruções em [`hardware/gal/README.md`](hardware/gal/README.md),
+incluindo a pinagem completa e como conferir o resultado contra o mapa de
+fusíveis de referência do Velesoft.
+
+Programadores XGecu (T48/T56) gravam tanto GAL20V8B quanto ATF20V8B.
+
+---
+
+## A ROM do Spectrum 128
+
+**A imagem da ROM não está neste repositório** — ela é copyright da Amstrad/Sky.
+O hardware (soquete U4 + jumpers) está lá; a imagem você monta com as suas
+cópias de `128-0.rom` e `128-1.rom`:
+
+```bash
+cat 128-0.rom 128-1.rom > rom_tkmem128_27c256.bin
+```
+
+A ordem importa: `A14` da EPROM vem de `ROMA14` (bit 4 da porta 7FFD), então a
+ROM 0 (editor do 128) tem que ficar na metade baixa.
+
+Vale dizer que **a ROM é dispensável**: o autor da TKMEM-128 original deixou de
+fornecê-la depois de constatar que os jogos de 128K não dependem dela, e que ela
+causava incompatibilidades entre unidades diferentes de TK90X.
+
+---
+
+## Estrutura do repositório
+
+```
+hardware/
+  tkmem128.kicad_pro/.kicad_sch/.kicad_pcb   placa principal
+  expansor/                                   placa expansora
+  lib/                                        símbolos e footprints próprios
+  gal/                                        fonte e documentação do GAL
+production/
+  placa-principal/                            gerbers, furação, BOM, posições, PDF
+  placa-expansora/                            idem
+docs/
+  PREPARAR-O-TK.md   MONTAGEM.md   ANTES-DE-FABRICAR.md
+  relatorios/                                 saídas de ERC e DRC
+tools/                                        geradores do projeto KiCad
+```
+
+A biblioteca de símbolos e footprints é **local ao projeto** — nada depende da
+versão das bibliotecas do seu KiCad.
+
+O projeto KiCad é **gerado por script** a partir de uma descrição única da
+netlist ([`tools/`](tools/)), o que garante que esquemático e placa não possam
+divergir. Para usar ou modificar a placa você não precisa disso: abra o projeto
+no KiCad normalmente.
+
+### Estado da verificação
+
+| Placa | ERC | DRC | Ligações |
+| --- | --- | --- | --- |
+| Principal | 0 | 0 erros (12 avisos cosméticos de serigrafia) | 0 pendentes |
+| Expansora | 0 | 0 erros (1 aviso) | 0 pendentes |
+
+A netlist exportada pelo KiCad foi comparada nó a nó com a intenção de projeto:
+**74 nets e 250 nós, zero divergência**.
+
+---
+
+## Licença
+
+Hardware sob **CERN-OHL-S v2** — ver [LICENSE.txt](LICENSE.txt).
+
+```
+Copyright Leonardo Rosa e contribuidores.
+Derivado de: "external 128kb upgrade" (Velesoft, 2009)
+             TKMEM-128 (Luccas Eletrônica, 2012)
+
+Este código-fonte é licenciado sob CERN-OHL-S v2 ou posterior.
+Você pode redistribuí-lo e modificá-lo nos termos dessa licença.
+Distribuído SEM QUALQUER GARANTIA, incluindo as de COMERCIALIZAÇÃO,
+ADEQUAÇÃO A UM FIM ESPECÍFICO E NÃO-VIOLAÇÃO.
+Consulte a CERN-OHL-S v2 para os termos aplicáveis.
+```

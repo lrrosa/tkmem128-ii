@@ -1,0 +1,5 @@
+"Ref","Valor","Encapsulamento","Descricao","Qtd"
+"C1","100n","Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm","Desacoplamento na entrada de alimentacao","1"
+"J1","Barramento TK","tkmem128:ZX_TK_Bus_Socket_56","Soquete de borda femea 56 vias - encaixa nos dedos do TK90X/TK95","1"
+"J2","Passagem","tkmem128:ZX_TK_Bus_Fingers_56","Dedos de borda 56 vias - passagem do barramento a outros perifericos","1"
+"J3","Para a placa principal","tkmem128:ZX_TK_Bus_Header_2x28","Header macho 2x28 vertical - recebe a placa principal em pe","1"

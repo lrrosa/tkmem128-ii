@@ -1,0 +1,8 @@
+# estado de interface do KiCad, nao faz parte do projeto
+*.kicad_prl
+fp-info-cache
+
+# backups automaticos
+*-backups/
+*.kicad_sch-bak
+*.kicad_pcb-bak

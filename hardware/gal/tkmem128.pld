@@ -1,0 +1,75 @@
+GAL20V8
+TKMEM128
+
+MREQ  ZX512 A1    WR      DIS128 BANK2 A5    BANK0 BANK4 BANK3 BANK1 GND
+A15   A14   ROMCS CLK7FFD SA18   SA17  RAMCS SA16  SA15  SA14  IORQ  VCC
+
+
+; ---------------------------------------------------------------------------
+; Decodificacao de enderecos da TKMEM-128
+;
+; Fonte em sintaxe GALasm (galasm / GALer). A logica reproduz o decodificador
+; da expansao "external 128kb upgrade" (zx48_to_128-EASY_3) do Velesoft, 2009.
+;
+; ATENCAO: este arquivo e uma reescrita em sintaxe moderna e NAO foi conferido
+; contra hardware. Antes de confiar nele, monte com galasm e compare o mapa de
+; fusiveis com o .jed de referencia (veja gal/README.md).
+; ---------------------------------------------------------------------------
+
+
+; ROM da placa: 0x0000-0x3FFF
+/ROMCS = /MREQ * /A14 * /A15
+
+; SRAM externa: 0x8000-0xFFFF (os 32K "de cima")
+; E por isso que a RAM interna de 32K do TK precisa ser desativada.
+/RAMCS = /MREQ * A15
+
+; Clock do latch da porta 0x7FFD (A15=0, A1=0, A5=1).
+; O termo "+ DIS128" e a trava de paginacao: quando o bit 5 do 7FFD e setado,
+; CLK7FFD fica presa em nivel alto e o latch nunca mais e clocado.
+CLK7FFD = /IORQ * /WR * /A15 * A5 * /A1
+        + DIS128
+
+; Endereco alto da SRAM.
+; Em 0xC000-0xFFFF (A14*A15) vale o banco selecionado pelo 7FFD.
+; O termo extra de SA15 fixa o banco 2 na janela 0x8000-0xBFFF.
+SA14 = A14 * A15 * BANK0
+
+SA15 = A14 * A15 * BANK1
+     + /A14 * A15
+
+SA16 = A14 * A15 * BANK2
+
+; SA17 e SA18 so existem no modo 512K (ZX512 em nivel baixo).
+; No modo 128K a saida SA17 fica em nivel alto e serve de CE2 da SRAM.
+/SA17 = A14 * A15 * BANK3 * /ZX512
+
+SA18 = A14 * A15 * BANK4 * /ZX512
+
+
+DESCRIPTION
+
+TKMEM-128 KiCad - decodificador de enderecos.
+
+Expansao de 128K (ou 512K) paginados no padrao ZX Spectrum 128 para os
+TK90X/TK95. Deriva do projeto do Velesoft (2009) e da TKMEM-128 da Luccas
+Eletronica (2012).
+
+Mapa de memoria resultante:
+
+  0x0000-0x3FFF  ROM   (interna do TK, ou a 27C256 da placa via jumper)
+  0x4000-0x7FFF  RAM baixa interna do TK - NAO decodificada aqui.
+                 E por isso que nao ha shadow video: o banco que a ULA
+                 exibe nunca vem da SRAM externa.
+  0x8000-0xBFFF  SRAM externa, banco 2 fixo
+  0xC000-0xFFFF  SRAM externa, banco selecionado por BANK0..BANK4
+
+Porta 0x7FFD (latch 74HCT273):
+
+  bit 0..2  BANK0..BANK2  banco de RAM em 0xC000
+  bit 3     VRAM          shadow screen - latchado, sem uso nesta arquitetura
+  bit 4     ROMA14        seleciona a metade da 27C256
+  bit 5     DIS128        trava a paginacao ate o reset
+  bit 6..7  BANK3..BANK4  extensao 512K (so com ZX512 ativo)
+
+Licenca: CERN-OHL-S v2

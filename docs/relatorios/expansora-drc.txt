@@ -1,0 +1,23 @@
+** Drc report for tkmem128-expansor.kicad_pcb **
+** Created on 2026-07-26T01:14:33 **
+** Report includes: Errors, Warnings **
+
+** Found 1 DRC violations **
+[starved_thermal]: A conexão do alívio térmico na região está incompleta (camada B.Cu; zona quantidade de raio mín 2; atual 1)
+    Local override; warning
+    @(0.3000 mm, 0.3000 mm): Zone [GND] on B.Cu, priority 0
+    @(38.1000 mm, 21.2700 mm): PTH pad 14 [GND] of J3
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Silkscreen clipped by solder mask
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

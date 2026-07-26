@@ -1,0 +1,328 @@
+(footprint "ZX_TK_Bus_Fingers_56"
+	(version 20260206)
+	(generator "tkmem128-gen")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Dedos de borda 56 vias (28x2) passo 2,54mm para passagem do barramento TK90X/TK95. Requer chanfro 45 graus e ouro ENIG. Coluna 5 = guia (rasgo no contorno da placa).")
+	(tags "conector borda edge fingers 56 ZX Spectrum TK90X TK95 passthrough")
+	(property "Reference" "J**"
+		(at 0 -6.5 0)
+		(layer "F.SilkS")
+		(effects (font (size 1 1) (thickness 0.15)))
+	)
+	(property "Value" "ZX_TK_Bus_Fingers_56"
+		(at 0 6.5 0)
+		(layer "F.Fab")
+		(effects (font (size 1 1) (thickness 0.15)))
+	)
+	(attr through_hole)
+	(pad "56" smd rect
+		(at -34.29 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "1" smd rect
+		(at -34.29 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "55" smd rect
+		(at -31.75 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "2" smd rect
+		(at -31.75 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "54" smd rect
+		(at -29.21 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "3" smd rect
+		(at -29.21 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "53" smd rect
+		(at -26.67 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "4" smd rect
+		(at -26.67 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "51" smd rect
+		(at -21.59 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "6" smd rect
+		(at -21.59 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "50" smd rect
+		(at -19.05 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "7" smd rect
+		(at -19.05 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "49" smd rect
+		(at -16.51 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "8" smd rect
+		(at -16.51 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "48" smd rect
+		(at -13.97 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "9" smd rect
+		(at -13.97 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "47" smd rect
+		(at -11.43 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "10" smd rect
+		(at -11.43 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "46" smd rect
+		(at -8.89 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "11" smd rect
+		(at -8.89 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "45" smd rect
+		(at -6.35 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "12" smd rect
+		(at -6.35 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "44" smd rect
+		(at -3.81 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "13" smd rect
+		(at -3.81 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "43" smd rect
+		(at -1.27 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "14" smd rect
+		(at -1.27 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "42" smd rect
+		(at 1.27 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "15" smd rect
+		(at 1.27 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "41" smd rect
+		(at 3.81 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "16" smd rect
+		(at 3.81 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "40" smd rect
+		(at 6.35 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "17" smd rect
+		(at 6.35 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "39" smd rect
+		(at 8.89 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "18" smd rect
+		(at 8.89 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "38" smd rect
+		(at 11.43 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "19" smd rect
+		(at 11.43 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "37" smd rect
+		(at 13.97 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "20" smd rect
+		(at 13.97 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "36" smd rect
+		(at 16.51 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "21" smd rect
+		(at 16.51 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "35" smd rect
+		(at 19.05 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "22" smd rect
+		(at 19.05 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "34" smd rect
+		(at 21.59 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "23" smd rect
+		(at 21.59 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "33" smd rect
+		(at 24.13 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "24" smd rect
+		(at 24.13 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "32" smd rect
+		(at 26.67 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "25" smd rect
+		(at 26.67 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "31" smd rect
+		(at 29.21 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "26" smd rect
+		(at 29.21 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "30" smd rect
+		(at 31.75 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "27" smd rect
+		(at 31.75 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(pad "29" smd rect
+		(at 34.29 0)
+		(size 1.524 7.62)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "28" smd rect
+		(at 34.29 0)
+		(size 1.524 7.62)
+		(layers "B.Cu" "B.Mask")
+	)
+	(fp_line
+		(start -36.49 -3.81)
+		(end 36.49 -3.81)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 36.49 -3.81)
+		(end 36.49 3.81)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 36.49 3.81)
+		(end -36.49 3.81)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start -36.49 3.81)
+		(end -36.49 -3.81)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+	)
+	(fp_text user "56"
+		(at -34.29 -5.4 0)
+		(layer "F.SilkS")
+		(effects (font (size 1.0 1.0) (thickness 0.15)))
+	)
+	(fp_text user "29"
+		(at 34.29 -5.4 0)
+		(layer "F.SilkS")
+		(effects (font (size 1.0 1.0) (thickness 0.15)))
+	)
+	(fp_text user "PASSAGEM DO BARRAMENTO"
+		(at 0 -5.4 0)
+		(layer "F.Fab")
+		(effects (font (size 1.0 1.0) (thickness 0.15)))
+	)
+)
