@@ -214,17 +214,18 @@ dois pinos de terra a mais.
 | D1 | LED 3 mm | | Opcional |
 | JP1, JP2 | header 1×3 | passo 2,54 mm | |
 | JP3, JP4 | header 1×2 | passo 2,54 mm | |
-| J1 | soquete fêmea 2×28 **angular** | passo 2,54 mm | Liga à expansora |
+| J1 | **TE/AMP 5645235** — conector de borda 56 vias, entrada vertical | passo 2,54 mm, fileiras a 4,85 mm | Único componente do lado do cobre; recebe os dedos do TK |
 | — | soquetes torneados DIP-20/24/28/32 | | Recomendado |
 
-### Placa expansora
+### Tira de expansão
 
-| Ref | Valor | Observação |
+Não leva conector nenhum — os "conectores" são cobre da própria PCB:
+
+| Ref | O que é | Observação |
 | --- | --- | --- |
-| J1 | **TE/AMP 5645235** — soquete de borda 56 vias, passo 2,54 mm, fileiras a 4,85 mm | Encaixa nos dedos do TK. Entrada vertical: ver pendência |
-| J3 | header macho 2×28 vertical, passo 2,54 mm | Recebe a placa principal |
-| J2 | — | Dedos de borda na própria PCB |
-| C1 | 100 nF cerâmico | |
+| J1 | Ilhas de solda nas duas faces, até a borda | Solda nos terminais retos do conector da placa principal, por cima e por baixo |
+| J2 | Dedos de borda | Passagem do barramento ao próximo periférico |
+| C1 | 100 nF cerâmico | Único componente montado |
 
 ---
 
@@ -233,18 +234,20 @@ dois pinos de terra a mais.
 Guias detalhados:
 
 - [`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md) — desativar a RAM interna de 32K
-- [`docs/MONTAGEM.md`](docs/MONTAGEM.md) — ordem de montagem, chaveta do soquete, caixa
+- [`docs/MONTAGEM.md`](docs/MONTAGEM.md) — ordem de montagem, guia do conector, caixa
 - [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — conferências obrigatórias
 
 Dois pontos que costumam pegar quem monta:
 
-1. **A chaveta do soquete de borda.** O soquete de 56 vias vem sem chaveta. Onde
-   ficariam os contatos **5 e 52** você encaixa um pedacinho de PCB (ou material
-   equivalente) para servir de guia, casando com o rasgo entre os dedos do TK.
-   Sem isso é fácil plugar deslocado e danificar o micro.
-2. **Os pinos 5 e 52 do header 2×28** entre as placas **não são barramento** —
-   são terra adicional. Não misture com um expansor de outra origem sem
-   conferir.
+1. **A guia do conector de borda.** O conector de 56 vias vem sem guia. Na
+   posição **5/52** você encaixa um pedacinho de PCB (ou material equivalente)
+   casando com o rasgo entre os dedos do TK — a placa não tem furos ali,
+   porque não há terminal nessa posição. Sem a guia é fácil plugar deslocado
+   e danificar o micro.
+2. **A tira de expansão é soldada dos dois lados.** Ela entra entre as duas
+   fileiras de terminais retos do conector — uma fileira por cima, outra por
+   baixo — e as ilhas chegam até a borda, então o terminal encontra cobre
+   mesmo se for curto.
 
 ---
 
@@ -257,10 +260,11 @@ Especificação: **2 camadas**, 1,6 mm, trilha 0,25 mm, isolação 0,14 mm, furo
 mínimo 0,3 mm. Está dentro da capacidade padrão de qualquer fábrica barata
 (JLCPCB e PCBWay fazem 0,127 mm em 2 camadas), na faixa de preço mais baixa.
 
-**A placa expansora precisa de acabamento em ouro (ENIG) e chanfro de 45° na
-borda dos dedos.** Os dedos de borda entram e saem do conector do TK muitos
-ciclos; HASL descasca. Peça o chanfro explicitamente, é um item à parte no
-pedido.
+**A tira de expansão precisa de acabamento em ouro (ENIG) na placa inteira e
+chanfro de 45° na borda dos dedos.** Os dedos entram e saem do conector do
+periférico seguinte muitos ciclos, e as ilhas de solda do outro extremo também
+chegam à borda — HASL descasca nos dois casos. Peça o chanfro explicitamente,
+é um item à parte no pedido.
 
 ---
 
@@ -304,7 +308,7 @@ causava incompatibilidades entre unidades diferentes de TK90X.
 ```
 hardware/
   tkmem128.kicad_pro/.kicad_sch/.kicad_pcb   placa principal
-  expansor/                                   placa expansora
+  expansor/                                   tira de expansão
   lib/                                        símbolos e footprints próprios
   gal/                                        fonte e documentação do GAL
 production/
@@ -328,11 +332,11 @@ arquivos em `hardware/`; os geradores ficam como registro e ferramenta de apoio.
 
 | Placa | ERC | DRC | Ligações |
 | --- | --- | --- | --- |
-| Principal | 0 | 0 erros (12 avisos cosméticos de serigrafia) | 0 pendentes |
-| Expansora | 0 | 0 erros (1 aviso) | 0 pendentes |
+| Principal | 0 | 0 erros (6 avisos cosméticos) | 0 pendentes |
+| Tira de expansão | 0 | 0 erros (4 avisos cosméticos) | 0 pendentes |
 
-A netlist exportada pelo KiCad foi comparada nó a nó com a intenção de projeto:
-**74 nets e 250 nós, zero divergência**.
+A netlist exportada pelo KiCad foi comparada nó a nó com a intenção de projeto
+nas duas placas: **74 nets na principal e 53 na tira, zero divergência**.
 
 ---
 

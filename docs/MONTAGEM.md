@@ -1,7 +1,7 @@
 # Montagem
 
-Antes de começar, leia [ANTES-DE-FABRICAR.md](ANTES-DE-FABRICAR.md) — há três
-itens que, se estiverem errados, podem danificar o micro.
+Antes de começar, leia [ANTES-DE-FABRICAR.md](ANTES-DE-FABRICAR.md) — há itens
+lá que, se estiverem errados, podem danificar o micro.
 
 ---
 
