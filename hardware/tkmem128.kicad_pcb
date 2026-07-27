@@ -621,7 +621,7 @@
 		(descr "Through hole straight pin header, 1x03, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x03 2.54mm single row")
 		(property "Reference" "JP2"
-			(at 0 -2.38 0)
+			(at 3 3 -90)
 			(layer "F.SilkS")
 			(uuid "6adf89aa-50ec-4662-8504-3a2cc20a81f9")
 			(effects
@@ -857,7 +857,7 @@
 		(descr "THT pad as test Point, diameter 1.5mm, hole diameter 0.7mm")
 		(tags "test point THT pad")
 		(property "Reference" "TP2"
-			(at 0 -1.648 0)
+			(at 0 -2.2 0)
 			(layer "F.SilkS")
 			(uuid "f7f85766-6e80-4bca-8a8a-d2e8669e8fb8")
 			(effects
@@ -957,7 +957,7 @@
 		(descr "Through hole straight pin header, 1x03, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x03 2.54mm single row")
 		(property "Reference" "JP1"
-			(at 0 -2.38 0)
+			(at 3 2.5 -90)
 			(layer "F.SilkS")
 			(uuid "93cdd5c8-d239-40f4-95dc-23829ef8fd84")
 			(effects
@@ -1193,7 +1193,7 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm diameter 5mm width 2.5mm Capacitor")
 		(property "Reference" "C5"
-			(at 2.5 -2.5 0)
+			(at 2.5 2.3 0)
 			(layer "F.SilkS")
 			(uuid "21ca4582-4f48-4e41-be7a-449eba156346")
 			(effects
@@ -1381,7 +1381,7 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm diameter 5mm width 2.5mm Capacitor")
 		(property "Reference" "C4"
-			(at 2.5 -2.5 0)
+			(at 2.5 2.3 0)
 			(layer "F.SilkS")
 			(uuid "b553e944-3f23-4e04-9ee8-4bf6817a1dea")
 			(effects
@@ -1988,7 +1988,7 @@
 		(descr "Resistor, Axial_DIN0207 series, Axial, Vertical, pin pitch=2.54mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Vertical pin pitch 2.54mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R3"
-			(at 1.27 -2.37 0)
+			(at 0 2.2 0)
 			(layer "F.SilkS")
 			(uuid "b0ec9d97-0478-4802-85ac-f4fd0f5d962e")
 			(effects
@@ -2147,7 +2147,7 @@
 		(descr "THT pad as test Point, diameter 1.5mm, hole diameter 0.7mm")
 		(tags "test point THT pad")
 		(property "Reference" "TP1"
-			(at 0 -1.648 0)
+			(at 0 -2.2 0)
 			(layer "F.SilkS")
 			(uuid "1169482a-e876-4fd0-82e9-cd28d5483e0f")
 			(effects
@@ -2738,7 +2738,7 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm diameter 5mm width 2.5mm Capacitor")
 		(property "Reference" "C2"
-			(at 2.5 -2.5 0)
+			(at 2.5 2.3 0)
 			(layer "F.SilkS")
 			(uuid "628c3433-d57b-414b-94c3-dee9ac7e0161")
 			(effects
@@ -2926,7 +2926,7 @@
 		(descr "Through hole straight pin header, 1x02, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x02 2.54mm single row")
 		(property "Reference" "JP4"
-			(at 0 -2.38 0)
+			(at 3 1 -90)
 			(layer "F.SilkS")
 			(uuid "4216efb5-bf96-4198-8146-9ac190fbcbe7")
 			(effects
@@ -3153,7 +3153,7 @@
 		(descr "Resistor, Axial_DIN0207 series, Axial, Vertical, pin pitch=2.54mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Vertical pin pitch 2.54mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R5"
-			(at 1.27 -2.37 0)
+			(at 0 2.2 0)
 			(layer "F.SilkS")
 			(uuid "5c8c810e-012d-43f1-bc77-1f3b94b1b740")
 			(effects
@@ -3312,7 +3312,7 @@
 		(descr "Header 2x28 passo 2,54mm ligando a placa principal (soquete femea angular) a placa expansora (pino macho vertical). Numeracao 1..56 do TK; posicoes 5 e 52 = GND adicional.")
 		(tags "header 2x28 TK90X TK95 interligacao placas")
 		(property "Reference" "J1"
-			(at 0 -5 0)
+			(at 0 -4.23 0)
 			(layer "F.SilkS")
 			(uuid "178e00ed-476f-4e60-a8b4-982c4708cfbe")
 			(effects
@@ -3437,19 +3437,8 @@
 			(layer "F.CrtYd")
 			(uuid "321befdf-7ec7-40b3-92de-3f6a5ac49fb9")
 		)
-		(fp_text user "1"
-			(at -34.29 -4.2 0)
-			(layer "F.SilkS")
-			(uuid "2cd84576-1aed-46e5-897e-8d3501ed696c")
-			(effects
-				(font
-					(size 0.9 0.9)
-					(thickness 0.15)
-				)
-			)
-		)
 		(fp_text user "56"
-			(at -29.21 -4.2 0)
+			(at -37.37 -1.73 0)
 			(layer "F.SilkS")
 			(uuid "eaf38cce-b803-4e33-8b58-07fa6142e267")
 			(effects
@@ -3459,8 +3448,19 @@
 				)
 			)
 		)
+		(fp_text user "1"
+			(at -37.37 1.77 0)
+			(layer "F.SilkS")
+			(uuid "2cd84576-1aed-46e5-897e-8d3501ed696c")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.15)
+				)
+			)
+		)
 		(fp_text user "29"
-			(at 29.21 -4.2 0)
+			(at 37.63 -1.73 0)
 			(layer "F.SilkS")
 			(uuid "b98b9f70-e95a-48b0-9000-dd180ab02ae7")
 			(effects
@@ -3471,7 +3471,7 @@
 			)
 		)
 		(fp_text user "28"
-			(at 34.29 -4.2 0)
+			(at 37.63 1.77 0)
 			(layer "F.SilkS")
 			(uuid "e72f52cc-eb79-48c5-b3c9-85f22bc0247d")
 			(effects
@@ -3994,7 +3994,7 @@
 		(descr "CP, Radial series, Radial, pin pitch=2.00mm, diameter=5mm, height=7mm, Electrolytic Capacitor")
 		(tags "CP Radial series Radial pin pitch 2.00mm diameter 5mm height 7mm Electrolytic Capacitor")
 		(property "Reference" "C6"
-			(at 1 -3.75 0)
+			(at 1 3.8 0)
 			(layer "F.SilkS")
 			(uuid "323d0691-83bd-4459-9343-6741e007ff27")
 			(effects
@@ -5344,7 +5344,7 @@
 		(descr "LED, diameter 3.0mm, 2 pins, generated by kicad-footprint-generator")
 		(tags "LED")
 		(property "Reference" "D1"
-			(at 1.27 -2.96 0)
+			(at 1.27 3.3 0)
 			(layer "F.SilkS")
 			(uuid "79fe6d6d-51c0-4366-a105-aae17a792f7b")
 			(effects
@@ -6018,7 +6018,7 @@
 		(descr "SMD Solder Jumper, 1x1.5mm, rounded Pads, 0.3mm gap, open")
 		(tags "solder jumper open")
 		(property "Reference" "SJ1"
-			(at 0 -1.8 0)
+			(at 0 2.2 0)
 			(layer "F.SilkS")
 			(uuid "26cd38c3-8ec7-45c2-808d-894a5b2021d6")
 			(effects
@@ -6280,7 +6280,7 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm diameter 5mm width 2.5mm Capacitor")
 		(property "Reference" "C1"
-			(at 2.5 -2.5 0)
+			(at 2.5 2.3 0)
 			(layer "F.SilkS")
 			(uuid "9551771e-9e34-47d1-a302-c4475c02a7a0")
 			(effects
@@ -6468,7 +6468,7 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm diameter 5mm width 2.5mm Capacitor")
 		(property "Reference" "C3"
-			(at 2.5 -2.5 0)
+			(at 2.5 2.3 0)
 			(layer "F.SilkS")
 			(uuid "6b99b0a7-1d5a-48d2-8cce-2035be48a218")
 			(effects
@@ -6656,7 +6656,7 @@
 		(descr "Resistor, Axial_DIN0207 series, Axial, Vertical, pin pitch=2.54mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Vertical pin pitch 2.54mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R4"
-			(at 1.27 -2.37 0)
+			(at 0 2.2 0)
 			(layer "F.SilkS")
 			(uuid "649d9931-8e8f-44b9-a622-8c25cc99be05")
 			(effects
@@ -6815,7 +6815,7 @@
 		(descr "SMD Solder Jumper, 1x1.5mm, rounded Pads, 0.3mm gap, open")
 		(tags "solder jumper open")
 		(property "Reference" "SJ2"
-			(at 0 -1.8 0)
+			(at 0 2.2 0)
 			(layer "F.SilkS")
 			(uuid "fe1dba3a-06a8-4089-a76c-063e9965480b")
 			(effects
@@ -7077,7 +7077,7 @@
 		(descr "Resistor, Axial_DIN0207 series, Axial, Vertical, pin pitch=2.54mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Vertical pin pitch 2.54mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R2"
-			(at 1.27 -2.37 0)
+			(at 0 2.2 0)
 			(layer "F.SilkS")
 			(uuid "016bbc79-f3a1-487e-a649-1ad6bb8c657d")
 			(effects
@@ -7236,7 +7236,7 @@
 		(descr "Through hole straight pin header, 1x02, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x02 2.54mm single row")
 		(property "Reference" "JP3"
-			(at 0 -2.38 0)
+			(at 3 1.5 -90)
 			(layer "F.SilkS")
 			(uuid "87a848ae-7333-449a-b443-e1db47b34ac4")
 			(effects
@@ -7497,7 +7497,7 @@
 		(uuid "6907d4e0-3a51-43b6-bd26-257fd2a0650d")
 	)
 	(gr_text "5 e 52 = GND"
-		(at 60 58.5 0)
+		(at 20 58 0)
 		(layer "F.SilkS")
 		(uuid "65ad5f5c-a929-421d-b70c-0dd27a3d6d25")
 		(effects
@@ -7507,8 +7507,52 @@
 			)
 		)
 	)
-	(gr_text "KiCad v1.0"
-		(at 52 53.5 0)
+	(gr_text "27C256"
+		(at 34.5 43.5 0)
+		(layer "F.SilkS")
+		(uuid "9afee092-28e0-4bd5-8ac8-0384b70c121c")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "ATF20V8B"
+		(at 51 41 0)
+		(layer "F.SilkS")
+		(uuid "69823285-a1e4-432b-af59-160e880a07cc")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "74HCT273"
+		(at 63.5 38.5 0)
+		(layer "F.SilkS")
+		(uuid "1f39a35c-aa28-4066-81c1-585e09931af5")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "AS6C1008-55PCN / AS6C4008-55PCN"
+		(at 3.5 24 90)
+		(layer "F.SilkS")
+		(uuid "c66dc1c7-8fd3-471f-af4c-9feac7afc3ab")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "LRRosa 2026 v1.0"
+		(at 65 55 0)
 		(layer "F.SilkS")
 		(uuid "52a826ae-8349-43ec-9237-0cad670ef0d8")
 		(effects
@@ -7519,7 +7563,7 @@
 		)
 	)
 	(gr_text "TKMEM-128"
-		(at 52 51 0)
+		(at 65 52.5 0)
 		(layer "F.SilkS")
 		(uuid "e3069aac-0e65-4f0c-8064-ba4853006158")
 		(effects
@@ -7529,8 +7573,8 @@
 			)
 		)
 	)
-	(gr_text "     NAO feche JP4 em ZX Spectrum: o pino 17 la e o V do video"
-		(at 39.37 19.5 0)
+	(gr_text "     NÃO feche JP4 em ZX Spectrum: o pino 17 lá é o V do vídeo"
+		(at 30.5 26 -90)
 		(layer "B.SilkS")
 		(uuid "a15a5294-20d8-4783-b088-c63cdaafa772")
 		(effects
@@ -7541,32 +7585,8 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "SJ1 e SJ2 sao terra extra, opcionais - podem ficar abertos"
-		(at 39.37 22.5 0)
-		(layer "B.SilkS")
-		(uuid "9aab6ce1-2c56-436d-942e-ee530ff7377c")
-		(effects
-			(font
-				(size 0.9 0.9)
-				(thickness 0.15)
-			)
-			(justify mirror)
-		)
-	)
-	(gr_text "SJ1  fechar SO em ZX Spectrum (pino 7 = GND la)"
-		(at 39.37 25 0)
-		(layer "B.SilkS")
-		(uuid "bae5dbab-3a14-4ce9-83d6-62b4c84b761e")
-		(effects
-			(font
-				(size 0.9 0.9)
-				(thickness 0.15)
-			)
-			(justify mirror)
-		)
-	)
-	(gr_text "SJ2  fechar SO em TK90X/TK95 (pino 15 = GND la)"
-		(at 39.37 27.5 0)
+	(gr_text "SJ2  fechar SÓ em TK90X/TK95 (pino 15 = GND lá)"
+		(at 11 26.2 -90)
 		(layer "B.SilkS")
 		(uuid "7a2e9225-63a3-49c6-9239-353d8b426118")
 		(effects
@@ -7577,8 +7597,32 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "Derivado de Velesoft 2009 e Luccas Eletronica 2012"
-		(at 39.37 38 0)
+	(gr_text "SJ1  fechar SÓ em ZX Spectrum (pino 7 = GND lá)"
+		(at 13.5 26.5 -90)
+		(layer "B.SilkS")
+		(uuid "bae5dbab-3a14-4ce9-83d6-62b4c84b761e")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(gr_text "SJ1 e SJ2 são terra extra, opcionais - podem ficar abertos"
+		(at 16 23.5 -90)
+		(layer "B.SilkS")
+		(uuid "9aab6ce1-2c56-436d-942e-ee530ff7377c")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(gr_text "Derivado de Velesoft 2009 e Luccas Eletrônica 2012"
+		(at 39.5 58 0)
 		(layer "B.SilkS")
 		(uuid "c16994a3-3f04-4e76-9eb4-38f6a934dfd1")
 		(effects
@@ -7589,44 +7633,8 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "JP1  1-2 = ROM 128   |   2-3 = ROM do TK"
-		(at 39.37 8 0)
-		(layer "B.SilkS")
-		(uuid "e753ca6e-1edb-4dc2-bc7f-c07dbf4c9428")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify mirror)
-		)
-	)
-	(gr_text "JP2  aberto = ROM do TK  |  1-2 = pelo GAL  |  2-3 = +5V"
-		(at 39.37 11 0)
-		(layer "B.SilkS")
-		(uuid "99ba6a16-b456-44f6-b179-f07903098114")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify mirror)
-		)
-	)
-	(gr_text "JP3  fechado = 512K (AS6C4008)"
-		(at 39.37 14 0)
-		(layer "B.SilkS")
-		(uuid "5400b34d-aed3-4ff3-9673-cab175728b28")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify mirror)
-		)
-	)
 	(gr_text "JP4  fechado = auto-desativa a RAM de 32K do TK"
-		(at 39.37 17 0)
+		(at 33 24.5 -90)
 		(layer "B.SilkS")
 		(uuid "e4ca3cef-8e15-41ea-8bed-5059c803762d")
 		(effects
@@ -7637,8 +7645,44 @@
 			(justify mirror)
 		)
 	)
+	(gr_text "JP3  fechado = 512K (AS6C4008)"
+		(at 38 31.7037 -90)
+		(layer "B.SilkS")
+		(uuid "5400b34d-aed3-4ff3-9673-cab175728b28")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(gr_text "JP2  aberto = ROM do TK  |  1-2 = pelo GAL  |  2-3 = +5V"
+		(at 62.5 28.5 -90)
+		(layer "B.SilkS")
+		(uuid "99ba6a16-b456-44f6-b179-f07903098114")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(gr_text "JP1  1-2 = ROM 128   |   2-3 = ROM do TK"
+		(at 65 35 -90)
+		(layer "B.SilkS")
+		(uuid "e753ca6e-1edb-4dc2-bc7f-c07dbf4c9428")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
 	(gr_text "github.com/lrrosa/tkmem128-kicad"
-		(at 39.37 35 0)
+		(at 39.5 55 0)
 		(layer "B.SilkS")
 		(uuid "b27711a8-2469-42f6-9bd0-2986dfe2b8d1")
 		(effects
@@ -7650,7 +7694,7 @@
 		)
 	)
 	(gr_text "CERN-OHL-S v2"
-		(at 39.37 32 0)
+		(at 39.5 52 0)
 		(layer "B.SilkS")
 		(uuid "18917b32-377a-4f25-931a-f68d83ca2caf")
 		(effects

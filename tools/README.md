@@ -6,8 +6,18 @@ sempre coerentes entre si — não existe a possibilidade de o esquemático dize
 uma coisa e a placa outra.
 
 Você **não precisa destes arquivos** para fabricar ou modificar a placa: abra o
-projeto no KiCad normalmente. Eles estão aqui porque são a fonte real do
-desenho, e porque a CERN-OHL-S pede a fonte completa.
+projeto no KiCad normalmente. Eles estão aqui porque documentam como o desenho
+nasceu, e porque a CERN-OHL-S pede a fonte completa.
+
+> ⚠️ **Os geradores são ferramenta de bootstrap, não a fonte corrente.**
+> O esquemático e o posicionamento foram refinados à mão no KiCad depois de
+> gerados. Rodar `gen_schematic.py` ou `gen_pcb.py` de novo **sobrescreve esse
+> trabalho**. A fonte corrente são os arquivos em `hardware/`.
+>
+> O que continua seguro rodar a qualquer momento: `gen_symbols.py` e
+> `gen_footprints.py` (bibliotecas), `galgen.py` (o `.jed` do GAL), e o trio de
+> roteamento `mk_decoy.py` / `import_ses.py` / `add_zones.py` quando você
+> quiser reroteá-las de propósito.
 
 ## Arquivos
 
@@ -27,7 +37,7 @@ desenho, e porque a CERN-OHL-S pede a fonte completa.
 | `maze.py` | Roteador de labirinto A* de duas camadas com via, para fechar a última ligação quando o autorouter desiste |
 | `galgen.py` | Monta o mapa de fusíveis do GAL20V8 das equações e confere contra um `.jed` de referência |
 
-## Refazendo tudo do zero
+## Refazendo tudo do zero (destrói os ajustes manuais)
 
 Símbolos e footprints usam o Python comum; o resto usa o Python embutido do
 KiCad (que traz o módulo `pcbnew`).

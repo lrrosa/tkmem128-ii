@@ -1,32 +1,8 @@
 ** Drc report for tkmem128-expansor.kicad_pcb **
-** Created on 2026-07-26T21:59:05 **
-** Report includes: Errors, Warnings **
+** Created on 2026-07-26T23:45:24 **
+** Report includes: Errors **
 
-** Found 6 DRC violations **
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: configuração da serigrafia da placa; warning
-    @(0.0000 mm, 0.0000 mm): Segment on Edge.Cuts
-    @(39.3700 mm, -0.5000 mm): Reference field of J1
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: configuração da serigrafia da placa; warning
-    @(0.0000 mm, 0.0000 mm): Segment on Edge.Cuts
-    @(5.0800 mm, -0.2000 mm): Footprint text of J1 (1)
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: configuração da serigrafia da placa; warning
-    @(0.0000 mm, 0.0000 mm): Segment on Edge.Cuts
-    @(73.6600 mm, -0.2000 mm): Footprint text of J1 (28)
-[starved_thermal]: A conexão do alívio térmico na região está incompleta (camada B.Cu; 4 raios conectados à ilha isolada)
-    Local override; warning
-    @(0.3000 mm, 0.3000 mm): Zone [GND] on B.Cu, priority 0
-    @(11.0000 mm, 45.0000 mm): PTH pad 2 [GND] of C1
-[starved_thermal]: A conexão do alívio térmico na região está incompleta (camada B.Cu; zona quantidade de raio mín 2; atual 1)
-    Local override; warning
-    @(0.3000 mm, 0.3000 mm): Zone [GND] on B.Cu, priority 0
-    @(38.1000 mm, 36.2700 mm): PTH pad 14 [GND] of J3
-[silk_overlap]: Silkscreen clearance
-    Rule: configuração da serigrafia da placa; warning
-    @(39.3700 mm, 31.8000 mm): PCB text 'PLACA PRINCIPAL AQUI' on F.Silkscreen
-    @(3.1800 mm, 31.8000 mm): Segment of J3 on F.Silkscreen
+** Found 0 DRC violations **
 
 ** Found 0 unconnected pads **
 

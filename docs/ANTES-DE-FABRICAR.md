@@ -31,6 +31,41 @@ gerbers.
 
 ---
 
+## 1b. A fenda do soquete tem que ficar NO PLANO da placa (CRÍTICO)
+
+**Onde:** placa expansora, conector `J1`.
+
+Nas placas reais — tanto na TKMEM-128 da Luccas quanto em outras expansões do
+TK — a fenda do soquete que recebe os dedos do TK fica **exatamente no plano da
+própria placa**, alinhada com os dedos de passagem. Tudo coplanar.
+
+O footprint atual (`ZX_TK_Bus_Socket_56`) é uma grade 2×28 de furos comuns, ou
+seja, o conector é **soldado por cima** e a fenda fica alguns milímetros acima
+do plano da placa. Isso tem duas consequências:
+
+1. A expansora fica pendurada abaixo do plano da placa-mãe do TK, pela altura do
+   ombro do conector (tipicamente 4 a 6 mm).
+2. Pior: os dedos de passagem ficam nesse mesmo plano rebaixado, então **o
+   próximo periférico da corrente desce outro tanto** — uma escadinha que só
+   piora a cada estágio. Nas placas originais o degrau é zero.
+
+**Como as placas reais resolvem** — duas construções possíveis, e não dá para
+distinguir pelas fotos:
+
+| Construção | Como monta |
+| --- | --- |
+| **Straddle / edge mount** | O corpo do conector abraça a borda da placa; os contatos soldam em ilhas nas **duas faces**, rente à borda. Exige um land pattern diferente do atual. |
+| **Corpo abaixo da placa** | Os terminais sobem pela placa e o corpo fica pendurado embaixo, deixando a fenda na altura da placa. Usa furos, mas com o conector montado **por baixo**. |
+
+**A medida que resolve:** com o conector em mãos, meça a **distância da linha de
+centro da fenda até o ombro onde ele assenta na placa**. Se der praticamente
+zero, é straddle. Se der 4–6 mm, é o tipo comum e ele precisa ser montado por
+baixo (ou trocado por um straddle).
+
+Enquanto isso não for medido, **a placa expansora não deve ser fabricada**.
+
+---
+
 ## 2. Qual fileira do soquete é qual (CRÍTICO)
 
 **Onde:** placa expansora, conector `J1`.

@@ -407,19 +407,8 @@
 			(layer "F.CrtYd")
 			(uuid "a9e6faf6-cce2-47d5-a7d5-581a4217925c")
 		)
-		(fp_text user "1"
-			(at -34.29 -4.2 0)
-			(layer "F.SilkS")
-			(uuid "7aada377-a755-4d8a-b013-41b67e222341")
-			(effects
-				(font
-					(size 0.9 0.9)
-					(thickness 0.15)
-				)
-			)
-		)
 		(fp_text user "56"
-			(at -29.21 -4.2 0)
+			(at -37.37 -2 0)
 			(layer "F.SilkS")
 			(uuid "eba6a8e5-78d7-4074-a487-a46799b469e6")
 			(effects
@@ -429,8 +418,19 @@
 				)
 			)
 		)
+		(fp_text user "1"
+			(at -37.37 1.5 0)
+			(layer "F.SilkS")
+			(uuid "7aada377-a755-4d8a-b013-41b67e222341")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.15)
+				)
+			)
+		)
 		(fp_text user "29"
-			(at 29.21 -4.2 0)
+			(at 37.63 -2 0)
 			(layer "F.SilkS")
 			(uuid "23a0fbd2-50a6-414b-afaf-497fb050a76c")
 			(effects
@@ -441,7 +441,7 @@
 			)
 		)
 		(fp_text user "28"
-			(at 34.29 -4.2 0)
+			(at 37.63 2 0)
 			(layer "F.SilkS")
 			(uuid "9049d613-0973-43c0-8c5c-e35f3683bbda")
 			(effects
@@ -1099,10 +1099,10 @@
 			(layer "F.CrtYd")
 			(uuid "2ec16b38-ee55-4aa3-927c-0baf20882611")
 		)
-		(fp_text user "1"
-			(at -34.29 -6.2 0)
+		(fp_text user "56"
+			(at -37.87 3.5 0)
 			(layer "F.SilkS")
-			(uuid "041d5f0d-315a-4d70-9238-3d85f0f8772b")
+			(uuid "eff2e8f7-7937-400d-97a0-46e76fb20f84")
 			(effects
 				(font
 					(size 1 1)
@@ -1110,10 +1110,10 @@
 				)
 			)
 		)
-		(fp_text user "56"
-			(at -34.29 6.2 0)
+		(fp_text user "1"
+			(at -37.37 -3 0)
 			(layer "F.SilkS")
-			(uuid "eff2e8f7-7937-400d-97a0-46e76fb20f84")
+			(uuid "041d5f0d-315a-4d70-9238-3d85f0f8772b")
 			(effects
 				(font
 					(size 1 1)
@@ -1133,7 +1133,7 @@
 			)
 		)
 		(fp_text user "28"
-			(at 34.29 -6.2 0)
+			(at 37.93 -3 0)
 			(layer "F.SilkS")
 			(uuid "e1af1944-048f-4411-b045-d2a47fdad9ea")
 			(effects
@@ -1144,7 +1144,7 @@
 			)
 		)
 		(fp_text user "29"
-			(at 34.29 6.2 0)
+			(at 37.93 3.5 0)
 			(layer "F.SilkS")
 			(uuid "22ff2151-743f-463f-8ca0-77b1cb3e244c")
 			(effects
@@ -2259,7 +2259,7 @@
 		(uuid "dd51e92c-5f9f-4e69-8b47-3ae2e36a543d")
 	)
 	(gr_text "parede da caixa"
-		(at 20 17.6 0)
+		(at 20 20.5 0)
 		(layer "F.SilkS")
 		(uuid "390470f3-032c-4284-a5ef-67f5c3d763bc")
 		(effects
@@ -2270,7 +2270,7 @@
 		)
 	)
 	(gr_text "parede da caixa"
-		(at 20 52.8 0)
+		(at 20 49.5 0)
 		(layer "F.SilkS")
 		(uuid "bbf5049c-2a9e-4545-a8df-62f20553323b")
 		(effects
@@ -2280,19 +2280,8 @@
 			)
 		)
 	)
-	(gr_text "PLACA PRINCIPAL AQUI"
-		(at 39.37 31.8 0)
-		(layer "F.SilkS")
-		(uuid "127c5a91-ebb8-487c-9d1c-a280dde1cbd1")
-		(effects
-			(font
-				(size 0.9 0.9)
-				(thickness 0.15)
-			)
-		)
-	)
 	(gr_text "J3: 5 e 52 = GND"
-		(at 62 39 0)
+		(at 18.5 39.5 0)
 		(layer "F.SilkS")
 		(uuid "fc2cd82a-b9cc-4fb7-a1ba-efb93cab6789")
 		(effects
@@ -2302,8 +2291,19 @@
 			)
 		)
 	)
+	(gr_text "PLACA PRINCIPAL AQUI"
+		(at 39 30.8 0)
+		(layer "F.SilkS")
+		(uuid "127c5a91-ebb8-487c-9d1c-a280dde1cbd1")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.15)
+			)
+		)
+	)
 	(gr_text "TK90X / TK95"
-		(at 39.37 29.5 0)
+		(at 39 28.5 0)
 		(layer "F.SilkS")
 		(uuid "6ce8462c-9339-48f5-948e-5af0af963ca2")
 		(effects
@@ -2314,7 +2314,7 @@
 		)
 	)
 	(gr_text "TKMEM-128  EXPANSOR DO BARRAMENTO"
-		(at 39.37 27 0)
+		(at 39 26 0)
 		(layer "F.SilkS")
 		(uuid "be95451f-ec8e-4302-9909-f723dc79f877")
 		(effects
@@ -2324,10 +2324,10 @@
 			)
 		)
 	)
-	(gr_text "<- TK"
-		(at 8 15 0)
+	(gr_text "PASSAGEM ->"
+		(at 71 48 -90)
 		(layer "F.SilkS")
-		(uuid "2944ab5e-98f5-4db5-a208-5e25fa6ba563")
+		(uuid "c027c38a-a018-4459-89fe-67a4dc6e7c80")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -2335,10 +2335,10 @@
 			)
 		)
 	)
-	(gr_text "PASSAGEM ->"
-		(at 60 55 0)
+	(gr_text "<- TK"
+		(at 6.5 24 270)
 		(layer "F.SilkS")
-		(uuid "c027c38a-a018-4459-89fe-67a4dc6e7c80")
+		(uuid "2944ab5e-98f5-4db5-a208-5e25fa6ba563")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -2358,7 +2358,7 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "Derivado de Velesoft 2009 e Luccas Eletronica 2012"
+	(gr_text "Derivado de Velesoft 2009 e Luccas Eletrônica 2012"
 		(at 39.37 47 0)
 		(layer "B.SilkS")
 		(uuid "fcfde386-6256-4bf1-980a-b23f5085cb4f")

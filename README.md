@@ -10,6 +10,10 @@ prontos.
 > mas nenhuma placa foi fabricada nem testada num TK. Antes de mandar fabricar,
 > leia [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — há itens que
 > dependem de medir peças físicas.
+>
+> **A placa expansora tem uma pendência conhecida**: o soquete de borda precisa
+> ficar com a fenda no plano da placa, e o footprint atual monta o conector por
+> cima. Ver o item 1b do documento acima.
 
 ---
 
@@ -296,10 +300,10 @@ tools/                                        geradores do projeto KiCad
 A biblioteca de símbolos e footprints é **local ao projeto** — nada depende da
 versão das bibliotecas do seu KiCad.
 
-O projeto KiCad é **gerado por script** a partir de uma descrição única da
-netlist ([`tools/`](tools/)), o que garante que esquemático e placa não possam
-divergir. Para usar ou modificar a placa você não precisa disso: abra o projeto
-no KiCad normalmente.
+O projeto KiCad **nasceu gerado por script** a partir de uma descrição única da
+netlist ([`tools/`](tools/)) — é o que garante que esquemático e placa não
+divergem — e depois foi refinado à mão no KiCad. A fonte corrente são os
+arquivos em `hardware/`; os geradores ficam como registro e ferramenta de apoio.
 
 ### Estado da verificação
 
