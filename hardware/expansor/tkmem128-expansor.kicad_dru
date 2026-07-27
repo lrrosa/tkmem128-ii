@@ -10,3 +10,9 @@
 (rule "solder_jumpers"
   (condition "A.Reference == 'SJ1' || A.Reference == 'SJ2'")
   (constraint solder_mask_expansion (min -1mm) (max 1mm)))
+
+# As ilhas de J1 chegam de proposito ate a borda da tira, para acomodar
+# conectores com terminal mais curto: dispensa a folga cobre-borda ali.
+(rule "ilhas_de_solda_ate_a_borda"
+  (condition "A.Reference == 'J1'")
+  (constraint edge_clearance (min -0.2mm)))

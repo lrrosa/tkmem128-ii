@@ -47,6 +47,8 @@ borda.
    perpendicular à placa principal, no plano do cartão do TK.
 2. **Solde dos dois lados** — por cima e por baixo. Comece pelas duas pontas
    de cada face para travar o alinhamento, depois preencha o resto.
+   As ilhas chegam até a aresta da tira, então não importa se o seu conector
+   tem o terminal mais curto: sempre há cobre embaixo dele.
 3. Confira com multímetro alguns pontos contra os dedos da outra extremidade
    antes de energizar.
 

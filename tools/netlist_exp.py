@@ -26,6 +26,7 @@ PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/"
             "expansor")
 BOARD_W, BOARD_H = 78.74, 45.0
 KEYSLOT_COL = 5             # rasgo da guia nos dedos de J2
+EDGE_PADS_TOP = True        # as ilhas de J1 chegam ate a aresta y=0
 SHEET = "A3"
 TITLE = "TKMEM-128 KiCad - tira de expansao do barramento TK90X/TK95"
 
@@ -51,7 +52,7 @@ PLACE_SCH = {"J1": (70, 190), "J2": (250, 190)}
 SCH_DISC_ORIGIN = (360, 60)
 
 PLACE_PCB = {
-    "J1": (39.37, 6.5, 0),        # ilhas: encostam nos terminais do conector
+    "J1": (39.37, 2.5, 0),        # ilhas comecam na borda (y=0) e entram 5 mm
     "J2": (39.37, 41.19, 0),      # dedos: passagem a outros perifericos
     "C1": (6.0, 20.0, 0),
 }
@@ -67,8 +68,8 @@ LINES = [
 SILK = [
     ("TKMEM-128  TIRA DE EXPANSAO DO BARRAMENTO", 39.37, 15.0, 1.1, "F"),
     ("TK90X / TK95", 39.37, 17.5, 1.0, "F"),
-    ("<- solda nos terminais do conector, pelo lado dos componentes",
-     39.37, 12.0, 0.85, "F"),
+    ("ilhas ate a borda: servem para terminal curto ou longo",
+     39.37, 10.0, 0.8, "F"),
     ("parede de tras da caixa", 20.0, 28.6, 0.85, "F"),
     ("PASSAGEM ->", 60.0, 34.0, 1.2, "F"),
     ("CERN-OHL-S v2  |  github.com/lrrosa/tkmem128-kicad", 39.37, 22.0, 0.9, "B"),

@@ -113,6 +113,9 @@ Peça explicitamente à fábrica:
 - **chanfro de 45°** na borda dos dedos (às vezes chamado *gold finger
   beveling*); costuma ser item separado no pedido
 
+O ENIG vale para a tira inteira: as ilhas de solda do outro extremo (`J1`)
+também chegam à borda e ficam melhor sem HASL.
+
 Sem chanfro, a placa entra forçando e arranha os contatos do conector do TK.
 
 ---
@@ -151,6 +154,11 @@ Por isso ela tem ilhas de solda nas **duas faces**, nas mesmas posições
 (`J1`, 54 vias, passo 2,54 mm, sem furos), e **a solda é feita dos dois lados**:
 por cima e por baixo. Do outro extremo ficam os dedos de borda (`J2`) para o
 próximo periférico.
+
+As ilhas **chegam até a aresta da tira** e entram 5 mm. Os terminais do TE
+5645235 avançam 3,18 ± 0,51 mm, mas há conectores com terminal mais curto — com
+a ilha começando na borda, o terminal encontra cobre em qualquer caso, e a
+solda fica fácil independentemente de quanto a tira entra.
 
 Isso é o que mantém tudo coplanar. Não substitua por um header: qualquer
 conector empilhado reintroduz o degrau.

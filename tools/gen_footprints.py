@@ -185,12 +185,17 @@ def gen_solderpads():
     Mesma convencao de face dos dedos de J2: F.Cu leva 29..56 (a fileira de
     cima do TK) e B.Cu leva 1..28.
     """
-    L = 4.5       # comprimento da ilha, para dar fillet farto no terminal
+    # A ilha comeca NA BORDA da tira e entra 5 mm. Os terminais do conector
+    # so avancam 3,18 mm (+-0,51), e ha modelos com terminal mais curto — com
+    # a ilha chegando na borda, o terminal sempre encontra cobre.
+    L = 5.0
     W = 1.7
     s = HDR % ("ZX_TK_Bus_SolderPads_56",
                "Ilhas de solda nas duas faces (54 vias, passo 2,54mm) para a "
                "tira de expansao ser soldada entre os terminais retos do "
-               "conector TE 5645235. F.Cu = 29..56, B.Cu = 1..28. Sem furos.",
+               "conector TE 5645235. As ilhas chegam ate a borda da tira, para "
+               "acomodar conectores com terminal mais curto. "
+               "F.Cu = 29..56, B.Cu = 1..28. Sem furos.",
                "tira expansao ilhas solda TK90X TK95 barramento",
                -5.5, "ZX_TK_Bus_SolderPads_56", 5.5)
     for c in range(1, NCOL + 1):
@@ -205,17 +210,15 @@ def gen_solderpads():
               % (bottom_pin(c), x, W, L))
     x1, x2 = X0 - 2.0, col_x(NCOL) + 2.0
     for ly, w in (("F.SilkS", 0.15), ("F.CrtYd", 0.05)):
-        s += line(x1, -L / 2 - 0.3, x2, -L / 2 - 0.3, ly, w)
-        s += line(x2, -L / 2 - 0.3, x2, L / 2 + 0.3, ly, w)
-        s += line(x2, L / 2 + 0.3, x1, L / 2 + 0.3, ly, w)
-        s += line(x1, L / 2 + 0.3, x1, -L / 2 - 0.3, ly, w)
+        s += line(x1, -L / 2, x2, -L / 2, ly, w)
+        s += line(x2, -L / 2, x2, L / 2 + 0.4, ly, w)
+        s += line(x2, L / 2 + 0.4, x1, L / 2 + 0.4, ly, w)
+        s += line(x1, L / 2 + 0.4, x1, -L / 2, ly, w)
     xk = col_x(KEYCOL)
-    s += line(xk, -L / 2 - 0.3, xk, L / 2 + 0.3, "F.SilkS")
-    s += text("56", col_x(1), -4.0, "F.SilkS", 0.9)
-    s += text("29", col_x(NCOL), -4.0, "F.SilkS", 0.9)
-    s += text("SOLDAR DOS DOIS LADOS", 0, -4.0, "F.SilkS", 0.9)
-    s += text("1", col_x(1), 4.0, "F.SilkS", 0.9)
-    s += text("28", col_x(NCOL), 4.0, "F.SilkS", 0.9)
+    s += line(xk, -L / 2, xk, L / 2 + 0.4, "F.SilkS")
+    s += text("1", col_x(1), L / 2 + 1.4, "F.SilkS", 0.9)
+    s += text("28", col_x(NCOL), L / 2 + 1.4, "F.SilkS", 0.9)
+    s += text("SOLDAR DOS DOIS LADOS", 0, L / 2 + 1.4, "F.SilkS", 0.9)
     return s + ')\n'
 
 

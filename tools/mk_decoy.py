@@ -28,6 +28,8 @@ for z in list(b.Zones()):
 
 tol = pcbnew.FromMM(0.01)
 has_fingers = BOARD.KEYSLOT_COL is not None
+# arestas onde o cobre chega de proposito ate a borda
+borda_topo = getattr(BOARD, 'EDGE_PADS_TOP', False)
 
 
 def adj(x, y):
@@ -35,7 +37,7 @@ def adj(x, y):
         x = pcbnew.FromMM(INSET)
     elif abs(x - pcbnew.FromMM(W)) < tol:
         x = pcbnew.FromMM(W - INSET)
-    if abs(y) < tol:
+    if abs(y) < tol and not borda_topo:
         y = pcbnew.FromMM(INSET)
     elif abs(y - pcbnew.FromMM(H)) < tol and not has_fingers:
         y = pcbnew.FromMM(H - INSET)
