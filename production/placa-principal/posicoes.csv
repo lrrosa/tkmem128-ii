@@ -6,7 +6,7 @@ Ref,Val,Package,PosX,PosY,Rot,Side
 "C5","100n","C_Disc_D5.0mm_W2.5mm_P5.00mm",36.000000,-47.200000,0.000000,top
 "C6","10u","CP_Radial_D5.0mm_P2.00mm",44.000000,-47.200000,0.000000,top
 "D1","LED","LED_D3.0mm",52.000000,-47.200000,0.000000,top
-"J1","Para a expansora","ZX_TK_Bus_Header_2x28",39.370000,-62.230000,0.000000,top
+"J1","Barramento TK","ZX_TK_Bus_Socket_56",39.370000,-62.230000,0.000000,top
 "JP1","SELECIONA ROM","PinHeader_1x03_P2.54mm_Vertical",71.500000,-8.000000,0.000000,top
 "JP2","ROMCS BARRAMENTO","PinHeader_1x03_P2.54mm_Vertical",71.500000,-17.000000,0.000000,top
 "JP3","ZX128/ZX512","PinHeader_1x02_P2.54mm_Vertical",71.500000,-26.000000,0.000000,top

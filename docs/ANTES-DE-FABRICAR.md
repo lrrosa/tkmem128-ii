@@ -9,13 +9,12 @@ verificar de dentro do KiCad. Confira antes de gastar dinheiro com PCB.
 
 ---
 
-## 1. O soquete de borda é de entrada VERTICAL (CRÍTICO — bloqueante)
+## 1. O conector de borda (cotas do datasheet)
 
-**Onde:** placa expansora, conector `J1`.
+**Onde:** placa principal, conector `J1`.
 
-O conector usado nas placas do TK é o **TE / AMP 5645235, "Standard Edge II",
-passo 2,54 mm** ([desenho de cliente ENG_CD_5645235](https://www.te.com/)).
-Dados confirmados no desenho:
+O conector é o **TE / AMP 5645235, "Standard Edge II", passo 2,54 mm**
+(desenho de cliente arquivado em [`docs/`](.)). Cotas usadas no footprint:
 
 | Dimensão | Valor |
 | --- | --- |
@@ -24,40 +23,42 @@ Dados confirmados no desenho:
 | **Furo recomendado na PCB** | **1,02 ± 0,08 mm [.040]** |
 | Aceita placa de | 1,37 – 1,78 mm [.054–.070] |
 | Altura do corpo acima da placa | 15,49 mm [.610] |
-| Comprimento do terminal abaixo da placa | 3,18 ± 0,51 mm [.125] |
+| Terminal abaixo da placa | 3,18 ± 0,51 mm [.125] |
 | Largura do corpo | 9,35 mm [.368] |
 | Chanfro da entrada | 1,52 × 45° [.060] |
-| Guia | *inter-contact keying slot*, entre contatos |
 
-O footprint `ZX_TK_Bus_Socket_56` **já foi corrigido** para 4,85 mm e furo de
-1,02 mm (antes estava com a grade genérica de 5,08 mm / 1,0 mm).
+O conector tem contato em **todas as 56 posições**. A guia das posições 5 e 52
+é um pedacinho de PCB que o montador encaixa — por isso o footprint tem 56
+furos, e os das posições 5 e 52 ficam sem uso (ligados a GND, sem contato do
+lado do TK, onde a placa do micro tem o rasgo).
 
-### O problema que o desenho revelou
-
-Pelo corte do datasheet, a fenda fica **em cima** e os terminais **embaixo**:
-o cartão entra **perpendicular** à placa em que o conector está soldado.
-
-Isso é incompatível com o desenho atual da expansora, que é uma placa
-**deitada**, coplanar com o cartão do TK. Com este conector soldado nela, o
-cartão do TK teria que entrar **de pé** — o que não acontece.
-
-A geometria correta, e que bate com as fotos das placas reais (fenda alinhada
-com o plano dos dedos de passagem), é:
-
-- o soquete fica numa placa **perpendicular ao cartão do TK**, isto é, na placa
-  **em pé**;
-- a fenda dele então cai **no plano horizontal** do cartão do TK;
-- os dedos de passagem ficam nesse mesmo plano — **degrau zero** na corrente de
-  periféricos.
-
-**Enquanto isso não for resolvido, a placa expansora não deve ser fabricada.**
-A placa principal não é afetada.
+**Verifique antes de fabricar:** confira com paquímetro as duas fileiras
+(4,85 mm) e o furo (1,02 mm) no conector que você comprou. Modelos de outros
+fabricantes variam.
 
 ---
 
-## 2. Qual fileira do soquete é qual (CRÍTICO)
+## 1b. Orientação: componentes virados para a tira (CRÍTICO)
 
-**Onde:** placa expansora, conector `J1`.
+O conector é de **entrada vertical** — o cartão entra perpendicular à placa em
+que ele está soldado. Por isso ele vai na placa **em pé**, e a fenda cai no
+plano horizontal para receber o cartão do TK.
+
+O corpo do conector fica de **um** lado da placa e os terminais atravessam para
+o **outro**, onde a tira de expansão é soldada.
+
+> ⚠️ **O lado dos componentes tem que ficar virado para a tira de expansão.**
+> Se a placa for montada ao contrário, com os componentes do lado do conector,
+> ela esbarra no micro dentro da caixa e não encaixa direito.
+
+Consequência prática na montagem: solde o conector **pelo lado dos
+componentes**, com o corpo saindo pelo lado do cobre.
+
+---
+
+## 2. Qual fileira do conector é qual (CRÍTICO)
+
+**Onde:** placa principal, conector `J1`.
 
 O projeto assume:
 
@@ -68,10 +69,10 @@ O projeto assume:
 Trocar as duas inverte a placa inteira e **pode danificar o micro** (alimentação
 onde deveriam estar sinais).
 
-**O que fazer:** antes de soldar qualquer CI, monte só o soquete `J1` na
-expansora e faça um teste de continuidade com o TK **desligado e desconectado**:
+**O que fazer:** antes de soldar qualquer CI, monte só o conector `J1` na placa
+principal e faça um teste de continuidade com o TK **desligado e desconectado**:
 
-1. Encaixe a expansora nos dedos do TK.
+1. Encaixe a placa nos dedos do TK.
 2. Meça continuidade entre o contato **3** do soquete (que deve ser +5 V) e o
    ponto de +5 V do TK.
 3. Meça o contato **6** (GND) contra o terra do TK.
@@ -81,9 +82,9 @@ invertida: gire o footprint 180° no eixo Y (troque as fileiras) e regenere.
 
 ---
 
-## 3. A chaveta do soquete
+## 3. A guia do conector
 
-O soquete de 56 vias vem **sem chaveta**. Onde ficariam os contatos **5 e 52**
+O conector de 56 vias vem **sem guia**. Onde ficariam os contatos **5 e 52**
 você precisa encaixar um pedacinho de PCB (ou material equivalente, ~1,6 mm) que
 sirva de guia, casando com o rasgo entre os dedos da placa do TK.
 
@@ -94,7 +95,7 @@ vão para os lugares errados.
 
 ## 4. Acabamento dos dedos de borda
 
-**Onde:** placa expansora, `J2`.
+**Onde:** tira de expansão, `J2`.
 
 Peça explicitamente à fábrica:
 
@@ -128,15 +129,17 @@ Se você não vai usar a EPROM — e ela é dispensável, ver o README — deixe
 
 ---
 
-## 6. Conector angular na placa principal
+## 6. A tira de expansão é soldada, não encaixada
 
-**Onde:** placa principal, `J1`.
+**Onde:** tira de expansão, `J1`.
 
-A placa principal fica **em pé** e a expansora **deitada**. Para isso, `J1` tem
-que ser um **soquete fêmea 2×28 angular** (*right angle*), não um vertical — o
-land pattern é o mesmo, mas o corpo precisa sair perpendicular à placa.
+A tira **não tem conector**: de um lado ela tem 56 ilhas de solda (`J1`, grade
+2,54 × 4,85 mm, sem furos) que encostam nos terminais do conector da placa
+principal e são soldadas ali; do outro lado tem os dedos de borda (`J2`) para o
+próximo periférico.
 
-Na expansora, `J3` é um **header macho 2×28 vertical** comum.
+Isso é o que mantém tudo coplanar. Não substitua por um header: qualquer
+conector empilhado reintroduz o degrau.
 
 ---
 
@@ -178,23 +181,16 @@ acrescentar e reproduzir o roteamento.
 
 ### O conjunto montado também cabe — mas só com a fenda aberta
 
-O `J1` angular e a placa expansora ficam **abaixo** da linha da tampa, dentro da
-fenda cortada na base. Isso é inerente ao formato e é o que a montagem original
-faz.
+O corpo do conector (15,49 mm) e a tira de expansão ficam **fora** do contorno
+da tampa, na fenda cortada na base. Isso é inerente ao formato e é o que a
+montagem original faz.
 
-### A expansora precisa ser mais comprida que a caixa
+### Comprimento da tira de expansão
 
-O comprimento da expansora corre ao longo do eixo de **32 mm** da caixa. Para o
-soquete de borda alcançar o TK e os dedos de passagem ficarem acessíveis, ela tem
-que sobrar dos dois lados:
-
-| Comprimento | Sobra total | Por lado |
-| --- | --- | --- |
-| 45 mm (primeira versão) | 13 mm | 6,5 mm — **insuficiente** |
-| **70 mm (adotado)** | 38 mm | **19 mm** — folgado |
-
-Precisa de ≥12 mm do lado do TK (corpo do soquete ~10 mm) e ≥11 mm do lado da
-passagem (dedos de 7,62 mm).
+A tira sai da placa principal e atravessa a caixa pelo eixo de **32 mm**, indo
+até fora para os dedos de passagem. Com **45 mm** ela cobre a travessia e ainda
+sobra o suficiente do lado de fora. O conector do TK fica na frente, do lado
+oposto — a tira não precisa alcançá-lo.
 
 ### Adaptação da caixa
 
@@ -227,11 +223,12 @@ fazer em casa, vai precisar redesenhar com folga maior.
 
 | Item | Risco se errar |
 | --- | --- |
-| 1. Grade do soquete | Conector não entra na placa |
+| 1. Cotas do conector | Conector não entra na placa |
+| 1b. Orientação invertida | A placa esbarra no micro e não encaixa |
 | 2. Fileira invertida | **Pode danificar o TK** |
 | 3. Chaveta | **Pode danificar o TK** |
 | 4. Acabamento dos dedos | Contato ruim, desgaste rápido |
 | 5. ROMCS | ROM 128 instável (só afeta quem usa a EPROM) |
-| 6. Conector angular | Placa não fica em pé |
+| 6. Tira soldada | Empilhar conector reintroduz o degrau |
 | 7. Caixa | Não fecha |
 | 8. Regras de fabricação | Curto ou trilha aberta se a fábrica não atender 0,14 mm |

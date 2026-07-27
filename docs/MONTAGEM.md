@@ -5,23 +5,19 @@ itens que, se estiverem errados, podem danificar o micro.
 
 ---
 
+## Antes de tudo: a orientação
+
+A placa principal fica **em pé** e o conector de borda é soldado nela. O corpo
+do conector sai por **um** lado e os terminais atravessam para o **outro**, onde
+a tira de expansão é soldada.
+
+> ⚠️ **Os componentes vão do mesmo lado da tira de expansão** — ou seja, o
+> conector é soldado *pelo lado dos componentes*, com o corpo saindo pelo lado
+> do cobre. Montada ao contrário, a placa esbarra no micro dentro da caixa.
+
+---
+
 ## Ordem de montagem
-
-### Placa expansora
-
-1. **Soquete de borda `J1`** — solde primeiro, é a peça que define tudo.
-2. **Teste de continuidade** (item 2 do ANTES-DE-FABRICAR) com o TK
-   **desligado**. Só siga se +5 V e GND caírem nos contatos certos.
-3. **Chaveta**: encaixe um pedacinho de PCB de ~1,6 mm nas posições **5 e 52**
-   do soquete. Ele casa com o rasgo entre os dedos do TK e impede encaixe
-   deslocado.
-4. **Header macho `J3`** (2×28 vertical) — ele precisa ficar perfeitamente
-   perpendicular. Solde um pino de cada extremidade, confira o esquadro, e só
-   então solde o resto.
-5. **C1** (100 nF).
-
-> Os pinos **5 e 52** do header `J3` **não são barramento** — são terra
-> adicional entre as placas. Está serigrafado na placa.
 
 ### Placa principal
 
@@ -32,8 +28,23 @@ itens que, se estiverem errados, podem danificar o micro.
 3. **Capacitores** C1–C5 (100 nF) e C6 (10 µF, atenção à polaridade).
 4. **Headers de jumper** JP1–JP4.
 5. **LED D1** (opcional, atenção à polaridade).
-6. **Soquete fêmea angular `J1`** (2×28) — é o que segura a placa em pé.
+6. **Conector de borda `J1`** — por último, e atenção à orientação acima. Solde
+   dois terminais das pontas, confira o esquadro, e só então o resto.
+   A **guia**: encaixe um pedacinho de PCB de ~1,6 mm nas posições **5 e 52**
+   do conector, casando com o rasgo entre os dedos do TK.
 7. Só então **encaixe os CIs** nos soquetes.
+
+### Tira de expansão
+
+Ela não tem componente nenhum: de um lado ilhas de solda, do outro dedos de
+borda.
+
+1. Encoste a tira nos terminais do conector que atravessaram a placa principal,
+   deixando-a **perpendicular** à placa principal e no plano do cartão do TK.
+2. Solde os 56 terminais nas ilhas. Comece pelas duas pontas para travar o
+   alinhamento.
+3. Confira com multímetro alguns pontos contra os dedos da outra extremidade
+   antes de energizar.
 
 ---
 
@@ -66,8 +77,9 @@ máquina**, e só se quiser o terra extra.
 
 ## Primeiro teste
 
-1. TK **desligado**. Encaixe a expansora nos dedos do TK, atenção à chaveta.
-2. Encaixe a placa principal no header da expansora.
+1. TK **desligado**. Encaixe o conector da placa principal nos dedos do TK,
+   atenção à guia das posições 5 e 52.
+2. Confira que os componentes estão virados para o lado da tira de expansão.
 3. Ligue. O TK deve iniciar normalmente com a tela de sempre.
 4. Carregue um jogo de 128 KB. Se rodar, a paginação está funcionando.
 
@@ -121,14 +133,14 @@ Caixa **Patola PB 085/3** (32 × 73 × 85 mm fechada). A placa principal assenta
 | Altura | 69 mm | 66,04 mm |
 | Altura livre para componentes | ~25 mm | ~10 mm |
 
-A expansora tem **70 mm** de comprimento e atravessa a caixa pelo eixo de 32 mm,
-sobrando **19 mm de cada lado** — o suficiente para o soquete alcançar os dedos
-do TK de um lado e os dedos de passagem ficarem acessíveis do outro.
+A tira de expansão tem **45 mm** e atravessa a caixa pelo eixo de 32 mm, saindo
+pela traseira com os dedos de passagem. O conector do TK fica na frente, do lado
+oposto da placa principal.
 
 ### Adaptando a caixa
 
-1. Abra duas fendas na base: uma **maior** para o soquete de borda da expansora
-   passar, e uma **menor** para os dedos de passagem.
+1. Abra duas fendas: uma **na frente**, para o corpo do conector de borda sair
+   e receber os dedos do TK, e uma **atrás**, para a tira de expansão passar.
 2. Uma das torres de fixação (a de `y = 62,02 mm`, sob o conector `J1`) cai dentro
    da fenda maior e precisa ser desgastada com micro-retífica.
 3. Fixe as placas com **pedaços de EVA** colados no fundo e nas laterais — é como
@@ -138,5 +150,6 @@ do TK de um lado e os dedos de passagem ficarem acessíveis do outro.
 > em posições inutilizáveis. Veja o porquê em
 > [ANTES-DE-FABRICAR.md](ANTES-DE-FABRICAR.md#7-caixa-patola-pb-0853).
 
-O resultado fica com a placa em pé dentro da caixa e a expansora saindo pela
-base, exatamente como a TKMEM-128 original.
+O resultado fica com a placa em pé dentro da caixa, o conector saindo pela
+frente e a tira de expansão pela traseira — exatamente como a TKMEM-128
+original e os demais periféricos do TK.

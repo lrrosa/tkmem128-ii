@@ -62,21 +62,22 @@ def gen_socket():
 
     y negativo = borda frontal da placa (lado do TK).
     """
-    yf, yr = -2.54, 2.54
+    # TE/AMP 5645235 "Standard Edge II", 2,54 mm: terminais em duas fileiras
+    # a 4,85 mm [.191], furo recomendado 1,02 +-0,08 mm [.040].
+    yf, yr = -2.425, 2.425
     s = HDR % ("ZX_TK_Bus_Socket_56",
-               "Soquete de borda femea 56 vias (28x2) passo 2,54mm, "
-               "grade de terminais 2,54 x 5,08mm (0,100 x 0,200 pol). "
-               "Barramento TK90X/TK95 / ZX Spectrum. Coluna 5 = guia.",
+               "Soquete de borda femea 56 vias (28x2) passo 2,54mm, fileiras "
+               "de terminais a 4,85mm, furo 1,02mm. TE/AMP 5645235 Standard "
+               "Edge II. ATENCAO: e conector de entrada VERTICAL - a placa "
+               "que o recebe fica PERPENDICULAR ao cartao do TK.",
                "conector borda edge socket 56 ZX Spectrum TK90X TK95",
                -6.5, "ZX_TK_Bus_Socket_56", 6.5)
     for c in range(1, NCOL + 1):
-        if c == KEYCOL:
-            continue
         x = col_x(c)
         for y, num in ((yf, bottom_pin(c)), (yr, top_pin(c))):
             shape = "rect" if num == 1 else "circle"
             s += ('\t(pad "%d" thru_hole %s\n\t\t(at %s %s)\n'
-                  '\t\t(size 1.8 1.8)\n\t\t(drill 1.0)\n'
+                  '\t\t(size 1.75 1.75)\n\t\t(drill 1.02)\n'
                   '\t\t(layers "*.Cu" "*.Mask")\n\t)\n' % (num, shape, x, y))
     # contorno do corpo do conector
     x1, x2 = X0 - 2.2, col_x(NCOL) + 2.2
@@ -89,7 +90,7 @@ def gen_socket():
     # marcacao da guia e do pino 1
     xk = col_x(KEYCOL)
     s += line(xk, -5.0, xk, 5.0, "F.SilkS")
-    s += text("GUIA", xk + 3.5, 0, "F.SilkS", 0.9)
+    s += text("GUIA 5/52", xk + 5.0, 0, "F.SilkS", 0.8)
     s += text("1", col_x(1), -6.2, "F.SilkS", 1.0)
     s += text("28", col_x(NCOL), -6.2, "F.SilkS", 1.0)
     s += text("56", col_x(1), 6.2, "F.SilkS", 1.0)
@@ -166,12 +167,49 @@ def gen_header():
     return s + ')\n'
 
 
+# ------------------------------------------------- ilhas de solda da tira
+def gen_solderpads():
+    """Tira de expansao: ilhas que recebem os terminais do conector.
+
+    Os terminais do TE 5645235 atravessam a placa principal e sobram 3,18 mm
+    do outro lado. A tira encosta neles de chapa e e soldada. Mesma grade do
+    conector: 2,54 mm entre colunas, 4,85 mm entre fileiras.
+    """
+    s = HDR % ("ZX_TK_Bus_SolderPads_56",
+               "Ilhas de solda 2x28 (2,54 x 4,85mm) para a tira de expansao "
+               "soldar nos terminais do conector TE 5645235 que atravessam a "
+               "placa principal. Sem furos - so ilhas.",
+               "tira expansao ilhas solda TK90X TK95 barramento",
+               -6.0, "ZX_TK_Bus_SolderPads_56", 6.0)
+    for c in range(1, NCOL + 1):
+        x = col_x(c)
+        for y, num in ((2.425, bottom_pin(c)), (-2.425, top_pin(c))):
+            s += ('\t(pad "%d" smd roundrect\n\t\t(at %s %s)\n'
+                  '\t\t(size 1.6 2.2)\n'
+                  '\t\t(layers "F.Cu" "F.Mask" "F.Paste")\n'
+                  '\t\t(roundrect_rratio 0.2)\n\t)\n'
+                  % (num, x, y))
+    x1, x2 = X0 - 2.0, col_x(NCOL) + 2.0
+    for ly, w in (("F.SilkS", 0.15), ("F.CrtYd", 0.05)):
+        s += line(x1, -4.2, x2, -4.2, ly, w)
+        s += line(x2, -4.2, x2, 4.2, ly, w)
+        s += line(x2, 4.2, x1, 4.2, ly, w)
+        s += line(x1, 4.2, x1, -4.2, ly, w)
+    s += text("1", col_x(1), 5.2, "F.SilkS", 0.9)
+    s += text("28", col_x(NCOL), 5.2, "F.SilkS", 0.9)
+    s += text("56", col_x(1), -5.2, "F.SilkS", 0.9)
+    s += text("29", col_x(NCOL), -5.2, "F.SilkS", 0.9)
+    s += text("SOLDAR NOS TERMINAIS DO CONECTOR", 0, -5.2, "F.Fab", 1.0)
+    return s + ')\n'
+
+
 if not os.path.isdir(OUTDIR):
     os.makedirs(OUTDIR)
 
 for name, body in (("ZX_TK_Bus_Socket_56", gen_socket()),
                    ("ZX_TK_Bus_Fingers_56", gen_fingers()),
-                   ("ZX_TK_Bus_Header_2x28", gen_header())):
+                   ("ZX_TK_Bus_Header_2x28", gen_header()),
+                   ("ZX_TK_Bus_SolderPads_56", gen_solderpads())):
     path = os.path.join(OUTDIR, name + ".kicad_mod")
     with io.open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(body)

@@ -6,9 +6,11 @@ from busdef import BUS, HEADER_NETS
 
 # (ref, lib_id, valor, footprint, descricao)
 PARTS = [
-    ("J1", "tkmem128:ZX_TK_Bus_Header_56", "Para a expansora",
-     "tkmem128:ZX_TK_Bus_Header_2x28",
-     "Soquete femea 2x28 angular - liga a placa expansora"),
+    ("J1", "tkmem128:ZX_TK_Bus_Header_56", "Barramento TK",
+     "tkmem128:ZX_TK_Bus_Socket_56",
+     "Conector de borda TE 5645235 soldado nesta placa. O corpo fica do lado "
+     "OPOSTO aos componentes; os terminais atravessam e recebem a tira de "
+     "expansao pelo lado dos componentes."),
     ("U1", "tkmem128:GAL20V8B_TKMEM", "GAL20V8B",
      "Package_DIP:DIP-24_W7.62mm_Socket_LongPads",
      "Decodificador de enderecos (GAL20V8B ou ATF20V8B)"),

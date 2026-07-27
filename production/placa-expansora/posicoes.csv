@@ -1,5 +1,0 @@
-Ref,Val,Package,PosX,PosY,Rot,Side
-"C1","100n","C_Disc_D5.0mm_W2.5mm_P5.00mm",6.000000,-45.000000,0.000000,top
-"J1","Barramento TK","ZX_TK_Bus_Socket_56",39.370000,-6.000000,0.000000,top
-"J2","Passagem","ZX_TK_Bus_Fingers_56",39.370000,-66.190000,0.000000,top
-"J3","Para a placa principal","ZX_TK_Bus_Header_2x28",39.370000,-35.000000,0.000000,top

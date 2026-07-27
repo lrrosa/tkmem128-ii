@@ -1,9 +1,21 @@
 # -*- coding: utf-8 -*-
-"""Placa expansora da TKMEM-128: soquete de borda + header + dedos de passagem.
+"""Tira de expansao da TKMEM-128.
 
-Fica deitada, saindo pela base da caixa. Liga o TK90X/TK95 a placa principal
-(que fica em pe dentro da caixa) e ainda oferece passagem para outros
-perifericos. Tudo 1:1, sem logica.
+Arquitetura confirmada em fotos de perifericos reais do TK:
+
+  - o conector de borda (TE 5645235) e soldado DIRETAMENTE na placa principal,
+    que fica EM PE. Como o conector e de entrada vertical, a fenda dele cai no
+    plano horizontal e recebe o cartao do TK;
+  - os terminais do conector atravessam a placa principal e sobram ~3,18 mm do
+    outro lado;
+  - esta tira encosta nesses terminais e e soldada neles. Ela tem apenas
+    ilhas de solda de um lado e dedos de borda do outro. Nenhum conector.
+
+Resultado: a tira fica coplanar com o cartao do TK e com a fenda do conector —
+degrau zero na corrente de perifericos.
+
+O lado dos componentes da placa principal fica virado para ESTA tira, nunca
+para o lado do conector: senao a placa dentro da caixa esbarra no micro.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -12,63 +24,55 @@ from busdef import BUS, HEADER_NETS
 PROJ_NAME = "tkmem128-expansor"
 PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/"
             "expansor")
-BOARD_W, BOARD_H = 78.74, 70.0
+BOARD_W, BOARD_H = 78.74, 45.0
 KEYSLOT_COL = 5             # rasgo da guia nos dedos de J2
-SHEET = "A2"
-TITLE = "TKMEM-128 KiCad - placa expansora do barramento TK90X/TK95"
+SHEET = "A3"
+TITLE = "TKMEM-128 KiCad - tira de expansao do barramento TK90X/TK95"
 
 PARTS = [
-    ("J1", "tkmem128:ZX_TK_Bus_56", "Barramento TK",
-     "tkmem128:ZX_TK_Bus_Socket_56",
-     "Soquete de borda femea 56 vias - encaixa nos dedos do TK90X/TK95"),
+    ("J1", "tkmem128:ZX_TK_Bus_Header_56", "Terminais do conector",
+     "tkmem128:ZX_TK_Bus_SolderPads_56",
+     "Ilhas de solda nos terminais do conector de borda que atravessam a "
+     "placa principal"),
     ("J2", "tkmem128:ZX_TK_Bus_56", "Passagem",
      "tkmem128:ZX_TK_Bus_Fingers_56",
      "Dedos de borda 56 vias - passagem do barramento a outros perifericos"),
-    ("J3", "tkmem128:ZX_TK_Bus_Header_56", "Para a placa principal",
-     "tkmem128:ZX_TK_Bus_Header_2x28",
-     "Header macho 2x28 vertical - recebe a placa principal em pe"),
     ("C1", "Device:C", "100n", "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
-     "Desacoplamento na entrada de alimentacao"),
+     "Desacoplamento junto ao ponto de alimentacao"),
 ]
 
 CONN = {
-    "J1": {str(p): BUS[p][0] for p in BUS},
+    "J1": {str(p): HEADER_NETS[p] for p in HEADER_NETS},
     "J2": {str(p): BUS[p][0] for p in BUS},
-    "J3": {str(p): HEADER_NETS[p] for p in HEADER_NETS},
     "C1": {"1": "+5V", "2": "GND"},
 }
 
-PLACE_SCH = {"J1": (58, 200), "J2": (200, 200), "J3": (340, 200)}
-SCH_DISC_ORIGIN = (450, 60)
+PLACE_SCH = {"J1": (70, 190), "J2": (250, 190)}
+SCH_DISC_ORIGIN = (360, 60)
 
 PLACE_PCB = {
-    # eixo Y = eixo de 32 mm da caixa. Soquete e dedos precisam sobrar para
-    # fora da caixa; o header fica no meio, sob a placa principal.
-    "J1": (39.37, 6.0, 0),        # soquete de borda -> lado do TK
-    "J3": (39.37, 35.0, 0),       # header -> recebe a placa principal em pe
-    "J2": (39.37, 66.19, 0),      # dedos -> passagem a outros perifericos
-    "C1": (6.0, 45.0, 0),
+    "J1": (39.37, 6.5, 0),        # ilhas: encostam nos terminais do conector
+    "J2": (39.37, 41.19, 0),      # dedos: passagem a outros perifericos
+    "C1": (6.0, 20.0, 0),
 }
 
-# paredes da caixa Patola PB-085/3 (32 mm) centradas no header
+REF_OFFSET = {"C1": (2.5, 3.0)}
+
 LINES = [
-    (3.0, 19.0, 75.7, 19.0, "F"),
-    (3.0, 51.0, 75.7, 51.0, "F"),
+    # parede de tras da caixa Patola PB-085/3, com a placa principal rente
+    # a face interna da frente
+    (3.0, 30.0, 75.7, 30.0, "F"),
 ]
 
-REF_OFFSET = {"J3": (0.0, 5.0), "C1": (2.5, 3.0)}
-
 SILK = [
-    ("TKMEM-128  EXPANSOR DO BARRAMENTO", 39.37, 27.0, 1.1, "F"),
-    ("TK90X / TK95", 39.37, 29.5, 1.0, "F"),
-    ("<- TK", 8.0, 15.0, 1.2, "F"),
-    ("PLACA PRINCIPAL AQUI", 39.37, 31.8, 0.9, "F"),
-    ("J3: 5 e 52 = GND", 62.0, 39.0, 0.9, "F"),
-    ("PASSAGEM ->", 60.0, 55.0, 1.2, "F"),
-    ("parede da caixa", 20.0, 17.6, 0.85, "F"),
-    ("parede da caixa", 20.0, 52.8, 0.85, "F"),
-    ("CERN-OHL-S v2  |  github.com/lrrosa/tkmem128-kicad", 39.37, 44.0, 0.9, "B"),
-    ("Derivado de Velesoft 2009 e Luccas Eletronica 2012", 39.37, 47.0, 0.9, "B"),
+    ("TKMEM-128  TIRA DE EXPANSAO DO BARRAMENTO", 39.37, 15.0, 1.1, "F"),
+    ("TK90X / TK95", 39.37, 17.5, 1.0, "F"),
+    ("<- solda nos terminais do conector, pelo lado dos componentes",
+     39.37, 12.0, 0.85, "F"),
+    ("parede de tras da caixa", 20.0, 28.6, 0.85, "F"),
+    ("PASSAGEM ->", 60.0, 34.0, 1.2, "F"),
+    ("CERN-OHL-S v2  |  github.com/lrrosa/tkmem128-kicad", 39.37, 22.0, 0.9, "B"),
+    ("Derivado de Velesoft 2009 e Luccas Eletronica 2012", 39.37, 25.0, 0.9, "B"),
 ]
 
 

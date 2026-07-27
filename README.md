@@ -11,12 +11,9 @@ prontos.
 > leia [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — há itens que
 > dependem de medir peças físicas.
 >
-> **A placa expansora tem uma pendência bloqueante.** O soquete de borda do TK
-> (TE/AMP 5645235) é de **entrada vertical**: o cartão entra perpendicular à
-> placa em que ele está soldado. A expansora foi desenhada deitada, coplanar
-> com o cartão do TK, o que não fecha. Ver o item 1 de
-> [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md). **A placa principal
-> não é afetada.**
+> O conector de borda é o **TE/AMP 5645235**, de entrada vertical. As cotas do
+> footprint saíram do desenho de cliente e estão no
+> [datasheet arquivado](docs/), mas ninguém montou a peça ainda.
 
 ---
 
@@ -84,35 +81,48 @@ e o latch nunca mais é acionado.
 
 ## As duas placas
 
-O conjunto reproduz a arquitetura da TKMEM-128 original: a placa de componentes
-fica **em pé** dentro da caixa, e uma placa **deitada** sai pela base levando o
-conector de borda.
+A placa de componentes fica **em pé** dentro da caixa. O conector de borda é
+soldado **diretamente nela** — e como esse conector é de entrada vertical
+(o cartão entra perpendicular à placa que o segura), a fenda dele cai no plano
+horizontal e recebe o cartão do TK.
+
+Os terminais do conector atravessam a placa e sobram ~3,18 mm do outro lado.
+A **tira de expansão** encosta nesses terminais e é soldada neles: ela não tem
+conector nenhum, só ilhas de solda de um lado e dedos de borda do outro.
 
 ```
-        ┌───────────────────────────┐
-        │   placa principal (em pé) │   78,74 × 66,04 mm
-        │   GAL + latch + SRAM +    │   caixa Patola PB 085/3
-        │   EPROM + jumpers         │
-        └────────────┬──────────────┘
-                     │ header 2×28
-   ┌─────────────────┴───────────────────────┐
-   │        placa expansora (deitada)        │   78,74 × 70 mm
-   │  soquete de borda ─── header ─── dedos  │
-   └──────┬──────────────────────────┬───────┘
-          │                          │
-       TK90X/TK95              outros periféricos
+        vista de lado, com a caixa em corte
+
+              ┌─────────────────────────┐
+              │                         │
+              │   placa principal       │  em pé, 78,74 × 66,04 mm
+              │   (componentes deste    │
+              │    lado ─────────────►  │
+              │                         │
+        ┌─────┴─────┐                   │
+   TK ──┤  conector │███████████████████│  tira de expansão ──► periféricos
+        └─────┬─────┘   solda nos       │   78,74 × 45 mm
+              │         terminais       │
+              └─────────────────────────┘
+                 corpo do conector          tudo no mesmo plano:
+                 do lado OPOSTO aos         degrau zero na corrente
+                 componentes
 ```
+
+> ⚠️ **O lado dos componentes tem que ficar virado para a tira de expansão**,
+> nunca para o lado do conector. Ao contrário, a placa dentro da caixa esbarra
+> no micro e não encaixa direito.
 
 | Placa | Arquivo | Conteúdo |
 | --- | --- | --- |
-| Principal | [`hardware/tkmem128.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 4 jumpers, desacoplamento |
-| Expansora | [`hardware/expansor/`](hardware/expansor/) | Soquete de borda fêmea 56 vias, header 2×28, dedos de borda para passagem |
+| Principal | [`hardware/tkmem128.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 4 jumpers, desacoplamento e o conector de borda |
+| Tira de expansão | [`hardware/expansor/`](hardware/expansor/) | Só ilhas de solda de um lado e dedos de borda do outro — nenhum componente ativo |
 
 As duas são de **2 camadas**, com plano de terra nas duas faces.
 
 ![Placa principal](docs/img/placa-principal.png)
 
-![Placa expansora](docs/img/placa-expansora.png)
+![Tira de expansão](docs/img/placa-expansora.png)
 
 ---
 
@@ -126,7 +136,7 @@ As duas são de **2 camadas**, com plano de terra nas duas faces.
 | **Jumper JP2 com duas estratégias de ROMCS** | O `ROMCS` do barramento é **ativo em nível alto** para desligar a ROM interna, o oposto da saída `/ROMCS` do GAL. É a explicação mais provável para a ROM 128 do original "funcionar num TK e não em outro". JP2 permite escolher entre acionar pelo GAL ou fixar em nível alto (como fazem os cartuchos da Interface 2), com R5 em série |
 | **Jumper de auto-desativação sem posição perigosa** | Na placa original o jumper tinha uma posição "Spectrum" que, num TK, **danificava o micro**. Aqui JP4 é simplesmente aberto/fechado, sempre no pino 17, com R4 de 1 kΩ em série limitando corrente. Ver [a análise do porquê](docs/PREPARAR-O-TK.md#a-diferença-em-relação-à-placa-original) |
 | **GAL com `.jed` pronto e verificado** | O usuário não precisa montar nada: o `.jed` distribuído é gerado das equações deste projeto e conferido fusível a fusível contra o mapa de referência (checksum `C5752`, zero divergências) |
-| **Expansora dimensionada para a caixa** | 70 mm de comprimento, sobrando 19 mm de cada lado da caixa de 32 mm — o suficiente para o soquete alcançar o TK e os dedos ficarem acessíveis |
+| **Degrau zero na corrente de periféricos** | A tira de expansão solda nos terminais do próprio conector, ficando coplanar com o cartão do TK. O periférico seguinte entra no mesmo plano, sem escadinha |
 | **Bit N da porta 7FFD no flip-flop N** | O original embaralhava as entradas do latch; aqui a ordem é natural e o esquemático se lê sozinho |
 | **Endereços e dados da EPROM 1:1** | Obrigatório (o conteúdo da ROM é fixo) e documentado |
 | **Pontos de teste** (`VRAM`, `CLK7FFD`) | Para depurar sem grampear em perna de CI |
@@ -293,7 +303,7 @@ hardware/
   gal/                                        fonte e documentação do GAL
 production/
   placa-principal/                            gerbers, furação, BOM, posições, PDF
-  placa-expansora/                            idem
+  tira-expansao/                            idem
 docs/
   PREPARAR-O-TK.md   MONTAGEM.md   ANTES-DE-FABRICAR.md
   relatorios/                                 saídas de ERC e DRC
