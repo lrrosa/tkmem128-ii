@@ -27,10 +27,9 @@ O conector é o **TE / AMP 5645235, "Standard Edge II", passo 2,54 mm**
 | Largura do corpo | 9,35 mm [.368] |
 | Chanfro da entrada | 1,52 × 45° [.060] |
 
-O conector tem contato em **todas as 56 posições**. A guia das posições 5 e 52
-é um pedacinho de PCB que o montador encaixa — por isso o footprint tem 56
-furos, e os das posições 5 e 52 ficam sem uso (ligados a GND, sem contato do
-lado do TK, onde a placa do micro tem o rasgo).
+A **guia** ocupa a posição das vias 5 e 52 — é um pedacinho de PCB que o
+montador encaixa ali, casando com o rasgo entre os dedos do TK. Como não há
+terminal nessa posição, o footprint tem **54 furos**, não 56.
 
 **Verifique antes de fabricar:** confira com paquímetro as duas fileiras
 (4,85 mm) e o furo (1,02 mm) no conector que você comprou. Modelos de outros
@@ -51,8 +50,10 @@ o **outro**, onde a tira de expansão é soldada.
 > Se a placa for montada ao contrário, com os componentes do lado do conector,
 > ela esbarra no micro dentro da caixa e não encaixa direito.
 
-Consequência prática na montagem: solde o conector **pelo lado dos
-componentes**, com o corpo saindo pelo lado do cobre.
+Consequência prática: o conector é **o único componente do lado do cobre** da
+placa principal. Você o encaixa por baixo e solda por cima, pelo lado dos
+componentes. No projeto ele está atribuído à camada `B.Cu`, e é assim que
+aparece na serigrafia do verso.
 
 ---
 
@@ -68,6 +69,11 @@ O projeto assume:
 
 Trocar as duas inverte a placa inteira e **pode danificar o micro** (alimentação
 onde deveriam estar sinais).
+
+Repare que o conector é montado **pelo lado do cobre**: no projeto ele está na
+camada `B.Cu`, o que espelha o footprint — inserir a peça pelo outro lado
+inverte a ordem das colunas *e* troca as duas fileiras. É a consequência física
+de enfiar o conector por baixo, e é justamente por isso que este teste existe.
 
 **O que fazer:** antes de soldar qualquer CI, monte só o conector `J1` na placa
 principal e faça um teste de continuidade com o TK **desligado e desconectado**:
@@ -133,9 +139,13 @@ Se você não vai usar a EPROM — e ela é dispensável, ver o README — deixe
 
 **Onde:** tira de expansão, `J1`.
 
-A tira **não tem conector**: de um lado ela tem 56 ilhas de solda (`J1`, grade
-2,54 × 4,85 mm, sem furos) que encostam nos terminais do conector da placa
-principal e são soldadas ali; do outro lado tem os dedos de borda (`J2`) para o
+A tira **não tem conector**. Os terminais do conector são **retos** e ficam em
+duas fileiras a 4,85 mm; a tira entra **entre elas**, com uma fileira passando
+por cima e a outra por baixo.
+
+Por isso ela tem ilhas de solda nas **duas faces**, nas mesmas posições
+(`J1`, 54 vias, passo 2,54 mm, sem furos), e **a solda é feita dos dois lados**:
+por cima e por baixo. Do outro extremo ficam os dedos de borda (`J2`) para o
 próximo periférico.
 
 Isso é o que mantém tudo coplanar. Não substitua por um header: qualquer

@@ -73,6 +73,8 @@ def gen_socket():
                "conector borda edge socket 56 ZX Spectrum TK90X TK95",
                -6.5, "ZX_TK_Bus_Socket_56", 6.5)
     for c in range(1, NCOL + 1):
+        if c == KEYCOL:
+            continue          # a guia ocupa esta posicao: sem terminal, sem furo
         x = col_x(c)
         for y, num in ((yf, bottom_pin(c)), (yr, top_pin(c))):
             shape = "rect" if num == 1 else "circle"
@@ -171,35 +173,45 @@ def gen_header():
 def gen_solderpads():
     """Tira de expansao: ilhas que recebem os terminais do conector.
 
-    Os terminais do TE 5645235 atravessam a placa principal e sobram 3,18 mm
-    do outro lado. A tira encosta neles de chapa e e soldada. Mesma grade do
-    conector: 2,54 mm entre colunas, 4,85 mm entre fileiras.
+    Os terminais do TE 5645235 sao RETOS e ficam em duas fileiras a 4,85 mm.
+    A tira entra ENTRE elas: uma fileira passa por cima da tira e a outra por
+    baixo. Por isso ha ilhas nas DUAS faces, na mesma posicao, e a solda e
+    feita dos dois lados.
+
+    Mesma convencao de face dos dedos de J2: F.Cu leva 29..56 (a fileira de
+    cima do TK) e B.Cu leva 1..28.
     """
+    L = 4.5       # comprimento da ilha, para dar fillet farto no terminal
+    W = 1.7
     s = HDR % ("ZX_TK_Bus_SolderPads_56",
-               "Ilhas de solda 2x28 (2,54 x 4,85mm) para a tira de expansao "
-               "soldar nos terminais do conector TE 5645235 que atravessam a "
-               "placa principal. Sem furos - so ilhas.",
+               "Ilhas de solda nas duas faces (54 vias, passo 2,54mm) para a "
+               "tira de expansao ser soldada entre os terminais retos do "
+               "conector TE 5645235. F.Cu = 29..56, B.Cu = 1..28. Sem furos.",
                "tira expansao ilhas solda TK90X TK95 barramento",
-               -6.0, "ZX_TK_Bus_SolderPads_56", 6.0)
+               -5.5, "ZX_TK_Bus_SolderPads_56", 5.5)
     for c in range(1, NCOL + 1):
+        if c == KEYCOL:
+            continue          # a guia ocupa esta posicao
         x = col_x(c)
-        for y, num in ((2.425, bottom_pin(c)), (-2.425, top_pin(c))):
-            s += ('\t(pad "%d" smd roundrect\n\t\t(at %s %s)\n'
-                  '\t\t(size 1.6 2.2)\n'
-                  '\t\t(layers "F.Cu" "F.Mask" "F.Paste")\n'
-                  '\t\t(roundrect_rratio 0.2)\n\t)\n'
-                  % (num, x, y))
+        s += ('\t(pad "%d" smd rect\n\t\t(at %s 0)\n\t\t(size %s %s)\n'
+              '\t\t(layers "F.Cu" "F.Mask" "F.Paste")\n\t)\n'
+              % (top_pin(c), x, W, L))
+        s += ('\t(pad "%d" smd rect\n\t\t(at %s 0)\n\t\t(size %s %s)\n'
+              '\t\t(layers "B.Cu" "B.Mask" "B.Paste")\n\t)\n'
+              % (bottom_pin(c), x, W, L))
     x1, x2 = X0 - 2.0, col_x(NCOL) + 2.0
     for ly, w in (("F.SilkS", 0.15), ("F.CrtYd", 0.05)):
-        s += line(x1, -4.2, x2, -4.2, ly, w)
-        s += line(x2, -4.2, x2, 4.2, ly, w)
-        s += line(x2, 4.2, x1, 4.2, ly, w)
-        s += line(x1, 4.2, x1, -4.2, ly, w)
-    s += text("1", col_x(1), 5.2, "F.SilkS", 0.9)
-    s += text("28", col_x(NCOL), 5.2, "F.SilkS", 0.9)
-    s += text("56", col_x(1), -5.2, "F.SilkS", 0.9)
-    s += text("29", col_x(NCOL), -5.2, "F.SilkS", 0.9)
-    s += text("SOLDAR NOS TERMINAIS DO CONECTOR", 0, -5.2, "F.Fab", 1.0)
+        s += line(x1, -L / 2 - 0.3, x2, -L / 2 - 0.3, ly, w)
+        s += line(x2, -L / 2 - 0.3, x2, L / 2 + 0.3, ly, w)
+        s += line(x2, L / 2 + 0.3, x1, L / 2 + 0.3, ly, w)
+        s += line(x1, L / 2 + 0.3, x1, -L / 2 - 0.3, ly, w)
+    xk = col_x(KEYCOL)
+    s += line(xk, -L / 2 - 0.3, xk, L / 2 + 0.3, "F.SilkS")
+    s += text("56", col_x(1), -4.0, "F.SilkS", 0.9)
+    s += text("29", col_x(NCOL), -4.0, "F.SilkS", 0.9)
+    s += text("SOLDAR DOS DOIS LADOS", 0, -4.0, "F.SilkS", 0.9)
+    s += text("1", col_x(1), 4.0, "F.SilkS", 0.9)
+    s += text("28", col_x(NCOL), 4.0, "F.SilkS", 0.9)
     return s + ')\n'
 
 

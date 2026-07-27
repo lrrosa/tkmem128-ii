@@ -86,9 +86,11 @@ soldado **diretamente nela** — e como esse conector é de entrada vertical
 (o cartão entra perpendicular à placa que o segura), a fenda dele cai no plano
 horizontal e recebe o cartão do TK.
 
-Os terminais do conector atravessam a placa e sobram ~3,18 mm do outro lado.
-A **tira de expansão** encosta nesses terminais e é soldada neles: ela não tem
-conector nenhum, só ilhas de solda de um lado e dedos de borda do outro.
+Os terminais do conector são **retos** e atravessam a placa, sobrando ~3,18 mm
+do outro lado em duas fileiras a 4,85 mm. A **tira de expansão** entra **entre
+essas fileiras** — uma passa por cima dela, a outra por baixo — e é soldada
+**dos dois lados**. Ela não tem conector nenhum: ilhas de solda nas duas faces
+de um extremo, dedos de borda no outro.
 
 ```
         vista de lado, com a caixa em corte
@@ -99,24 +101,24 @@ conector nenhum, só ilhas de solda de um lado e dedos de borda do outro.
               │   (componentes deste    │
               │    lado ─────────────►  │
               │                         │
-        ┌─────┴─────┐                   │
-   TK ──┤  conector │███████████████████│  tira de expansão ──► periféricos
-        └─────┬─────┘   solda nos       │   78,74 × 45 mm
-              │         terminais       │
-              └─────────────────────────┘
-                 corpo do conector          tudo no mesmo plano:
-                 do lado OPOSTO aos         degrau zero na corrente
-                 componentes
+        ┌─────┴─────┐  ╤════════════════╡
+   TK ──┤  conector │══╪═ tira ═════════╪══► periféricos
+        └─────┬─────┘  ╧════════════════╡   78,74 × 45 mm
+              │      terminais retos,    │
+              └──────a tira entra entre──┘
+                     eles e solda dos       tudo no mesmo plano:
+                     dois lados             degrau zero na corrente
 ```
 
 > ⚠️ **O lado dos componentes tem que ficar virado para a tira de expansão**,
 > nunca para o lado do conector. Ao contrário, a placa dentro da caixa esbarra
-> no micro e não encaixa direito.
+> no micro e não encaixa direito. Na prática o conector de borda é **o único
+> componente do lado do cobre**: entra por baixo e é soldado por cima.
 
 | Placa | Arquivo | Conteúdo |
 | --- | --- | --- |
 | Principal | [`hardware/tkmem128.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 4 jumpers, desacoplamento e o conector de borda |
-| Tira de expansão | [`hardware/expansor/`](hardware/expansor/) | Só ilhas de solda de um lado e dedos de borda do outro — nenhum componente ativo |
+| Tira de expansão | [`hardware/expansor/`](hardware/expansor/) | Ilhas de solda nas duas faces de um lado, dedos de borda do outro — nenhum componente ativo |
 
 As duas são de **2 camadas**, com plano de terra nas duas faces.
 

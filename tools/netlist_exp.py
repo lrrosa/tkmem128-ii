@@ -19,7 +19,7 @@ para o lado do conector: senao a placa dentro da caixa esbarra no micro.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from busdef import BUS, HEADER_NETS
+from busdef import BUS
 
 PROJ_NAME = "tkmem128-expansor"
 PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/"
@@ -30,7 +30,7 @@ SHEET = "A3"
 TITLE = "TKMEM-128 KiCad - tira de expansao do barramento TK90X/TK95"
 
 PARTS = [
-    ("J1", "tkmem128:ZX_TK_Bus_Header_56", "Terminais do conector",
+    ("J1", "tkmem128:ZX_TK_Bus_56", "Terminais do conector",
      "tkmem128:ZX_TK_Bus_SolderPads_56",
      "Ilhas de solda nos terminais do conector de borda que atravessam a "
      "placa principal"),
@@ -42,7 +42,7 @@ PARTS = [
 ]
 
 CONN = {
-    "J1": {str(p): HEADER_NETS[p] for p in HEADER_NETS},
+    "J1": {str(p): BUS[p][0] for p in BUS},
     "J2": {str(p): BUS[p][0] for p in BUS},
     "C1": {"1": "+5V", "2": "GND"},
 }

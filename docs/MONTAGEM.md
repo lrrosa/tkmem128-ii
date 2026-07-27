@@ -11,9 +11,10 @@ A placa principal fica **em pé** e o conector de borda é soldado nela. O corpo
 do conector sai por **um** lado e os terminais atravessam para o **outro**, onde
 a tira de expansão é soldada.
 
-> ⚠️ **Os componentes vão do mesmo lado da tira de expansão** — ou seja, o
-> conector é soldado *pelo lado dos componentes*, com o corpo saindo pelo lado
-> do cobre. Montada ao contrário, a placa esbarra no micro dentro da caixa.
+> ⚠️ **Os componentes vão do mesmo lado da tira de expansão.** O conector de
+> borda é **o único componente do lado do cobre**: você o encaixa por baixo e
+> solda por cima, pelo lado dos componentes. Montada ao contrário, a placa
+> esbarra no micro dentro da caixa.
 
 ---
 
@@ -28,10 +29,12 @@ a tira de expansão é soldada.
 3. **Capacitores** C1–C5 (100 nF) e C6 (10 µF, atenção à polaridade).
 4. **Headers de jumper** JP1–JP4.
 5. **LED D1** (opcional, atenção à polaridade).
-6. **Conector de borda `J1`** — por último, e atenção à orientação acima. Solde
-   dois terminais das pontas, confira o esquadro, e só então o resto.
-   A **guia**: encaixe um pedacinho de PCB de ~1,6 mm nas posições **5 e 52**
-   do conector, casando com o rasgo entre os dedos do TK.
+6. **Conector de borda `J1`** — por último. Ele entra pelo **lado do cobre** e
+   é soldado pelo lado dos componentes. Solde dois terminais das pontas,
+   confira o esquadro, e só então o resto.
+   A **guia**: encaixe um pedacinho de PCB de ~1,6 mm na posição **5/52** do
+   conector (a placa não tem furos ali, justamente porque não há terminal),
+   casando com o rasgo entre os dedos do TK.
 7. Só então **encaixe os CIs** nos soquetes.
 
 ### Tira de expansão
@@ -39,10 +42,11 @@ a tira de expansão é soldada.
 Ela não tem componente nenhum: de um lado ilhas de solda, do outro dedos de
 borda.
 
-1. Encoste a tira nos terminais do conector que atravessaram a placa principal,
-   deixando-a **perpendicular** à placa principal e no plano do cartão do TK.
-2. Solde os 56 terminais nas ilhas. Comece pelas duas pontas para travar o
-   alinhamento.
+1. Enfie a tira **entre as duas fileiras** de terminais do conector, que são
+   retos: uma fileira fica por cima da tira e a outra por baixo. Ela sai
+   perpendicular à placa principal, no plano do cartão do TK.
+2. **Solde dos dois lados** — por cima e por baixo. Comece pelas duas pontas
+   de cada face para travar o alinhamento, depois preencha o resto.
 3. Confira com multímetro alguns pontos contra os dedos da outra extremidade
    antes de energizar.
 

@@ -1,12 +1,8 @@
 ** Drc report for tkmem128-expansor.kicad_pcb **
-** Created on 2026-07-27T01:29:28 **
+** Created on 2026-07-27T02:07:33 **
 ** Report includes: Errors, Warnings **
 
-** Found 1 DRC violations **
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: configuração da serigrafia da placa; warning
-    @(0.0000 mm, 0.0000 mm): Segment on Edge.Cuts
-    @(39.3700 mm, 0.5000 mm): Reference field of J1
+** Found 0 DRC violations **
 
 ** Found 0 unconnected pads **
 

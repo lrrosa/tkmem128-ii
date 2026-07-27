@@ -64,18 +64,6 @@
 		(drill 1.02)
 		(layers "*.Cu" "*.Mask")
 	)
-	(pad "5" thru_hole circle
-		(at -24.13 -2.425)
-		(size 1.75 1.75)
-		(drill 1.02)
-		(layers "*.Cu" "*.Mask")
-	)
-	(pad "52" thru_hole circle
-		(at -24.13 2.425)
-		(size 1.75 1.75)
-		(drill 1.02)
-		(layers "*.Cu" "*.Mask")
-	)
 	(pad "6" thru_hole circle
 		(at -21.59 -2.425)
 		(size 1.75 1.75)

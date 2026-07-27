@@ -57,6 +57,7 @@ elif FASE == "colocar":
     if rot:
         fp.SetOrientationDegrees(rot)
     b.Add(fp)
+    fp.SetLayerAndFlip(pcbnew.B_Cu)   # corpo do conector do lado do cobre
     nets = CONN["J1"]
     n = 0
     for pad in fp.Pads():
