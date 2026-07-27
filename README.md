@@ -110,6 +110,10 @@ de um extremo, dedos de borda no outro.
                      dois lados             degrau zero na corrente
 ```
 
+> No conector, **1..28 fica na fileira de baixo** (junto à aresta inferior da
+> placa), igual à fileira inferior do cartão do TK; 29..56 fica do lado de
+> dentro.
+>
 > ⚠️ **O lado dos componentes tem que ficar virado para a tira de expansão**,
 > nunca para o lado do conector. Ao contrário, a placa dentro da caixa esbarra
 > no micro e não encaixa direito. Na prática o conector de borda é **o único

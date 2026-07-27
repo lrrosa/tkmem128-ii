@@ -61,11 +61,15 @@ aparece na serigrafia do verso.
 
 **Onde:** placa principal, conector `J1`.
 
-O projeto assume:
+O projeto assume, com a placa **em pé** e o conector na borda de baixo:
 
-- fileira de terminais **mais próxima da borda frontal** → pinos **1..28**
-  (fileira de baixo do TK)
-- fileira **mais afastada** → pinos **29..56** (fileira de cima do TK)
+| Fileira de terminais | Pinos | Corresponde a |
+| --- | --- | --- |
+| a **de baixo**, junto à aresta inferior da placa | **1..28** | fileira de baixo do TK |
+| a **de cima**, do lado de dentro da placa | **29..56** | fileira de cima do TK |
+
+Ou seja: o pino 1 (`A14`) fica embaixo, junto da borda. É a mesma orientação
+física do cartão do TK, onde 1..28 é a fileira inferior.
 
 Trocar as duas inverte a placa inteira e **pode danificar o micro** (alimentação
 onde deveriam estar sinais).

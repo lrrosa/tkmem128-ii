@@ -54,9 +54,10 @@ elif FASE == "colocar":
     fp.SetReference("J1")
     fp.SetValue("Barramento TK")
     fp.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(x), pcbnew.FromMM(y)))
-    if rot:
-        fp.SetOrientationDegrees(rot)
     b.Add(fp)
+    # sempre rotacao 0 + flip: a rotacao gravada na placa ja carrega o efeito
+    # do flip anterior, e reaplicar as duas coisas espelharia de novo.
+    fp.SetOrientationDegrees(0)
     fp.SetLayerAndFlip(pcbnew.B_Cu)   # corpo do conector do lado do cobre
     nets = CONN["J1"]
     n = 0

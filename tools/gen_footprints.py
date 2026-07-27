@@ -58,13 +58,17 @@ def text(s, x, y, layer, size=1.0):
 
 # ---------------------------------------------------------------- J1 socket
 def gen_socket():
-    """Terminais THT: fileira frontal = pinos 1..28, traseira = 29..56.
+    """Terminais THT do conector de borda.
 
-    y negativo = borda frontal da placa (lado do TK).
+    A placa principal fica EM PE e o conector vai na borda de baixo. Os pinos
+    1..28 sao a fileira DE BAIXO do TK, entao ficam do lado da borda (y
+    positivo, mais perto da aresta inferior da placa); 29..56 sao a fileira de
+    cima e ficam do lado de dentro.
+
+    TE/AMP 5645235 "Standard Edge II", 2,54 mm: terminais em duas fileiras a
+    4,85 mm [.191], furo recomendado 1,02 +-0,08 mm [.040].
     """
-    # TE/AMP 5645235 "Standard Edge II", 2,54 mm: terminais em duas fileiras
-    # a 4,85 mm [.191], furo recomendado 1,02 +-0,08 mm [.040].
-    yf, yr = -2.425, 2.425
+    yf, yr = 2.425, -2.425
     s = HDR % ("ZX_TK_Bus_Socket_56",
                "Soquete de borda femea 56 vias (28x2) passo 2,54mm, fileiras "
                "de terminais a 4,85mm, furo 1,02mm. TE/AMP 5645235 Standard "
@@ -93,10 +97,10 @@ def gen_socket():
     xk = col_x(KEYCOL)
     s += line(xk, -5.0, xk, 5.0, "F.SilkS")
     s += text("GUIA 5/52", xk + 5.0, 0, "F.SilkS", 0.8)
-    s += text("1", col_x(1), -6.2, "F.SilkS", 1.0)
-    s += text("28", col_x(NCOL), -6.2, "F.SilkS", 1.0)
-    s += text("56", col_x(1), 6.2, "F.SilkS", 1.0)
-    s += text("29", col_x(NCOL), 6.2, "F.SilkS", 1.0)
+    s += text("1", col_x(1), 6.2, "F.SilkS", 1.0)
+    s += text("28", col_x(NCOL), 6.2, "F.SilkS", 1.0)
+    s += text("56", col_x(1), -6.2, "F.SilkS", 1.0)
+    s += text("29", col_x(NCOL), -6.2, "F.SilkS", 1.0)
     s += text("TK90X/TK95", 0, -6.2, "F.Fab", 1.0)
     return s + ')\n'
 
