@@ -9,60 +9,49 @@ verificar de dentro do KiCad. Confira antes de gastar dinheiro com PCB.
 
 ---
 
-## 1. O padrão de furação do soquete de borda (CRÍTICO)
+## 1. O soquete de borda é de entrada VERTICAL (CRÍTICO — bloqueante)
 
 **Onde:** placa expansora, conector `J1`.
 
-O footprint usa a grade industrial de conectores de borda de passo 0,1":
+O conector usado nas placas do TK é o **TE / AMP 5645235, "Standard Edge II",
+passo 2,54 mm** ([desenho de cliente ENG_CD_5645235](https://www.te.com/)).
+Dados confirmados no desenho:
 
-| Dimensão | Valor adotado |
+| Dimensão | Valor |
 | --- | --- |
-| Passo entre contatos | 2,54 mm (0,100") |
-| Distância entre as duas fileiras de terminais | **5,08 mm (0,200")** |
-| Furo | 1,0 mm (terminal típico é 0,635 mm quadrado) |
+| Passo entre contatos | 2,54 mm [.100] |
+| **Distância entre as duas fileiras de terminais** | **4,85 mm [.191]** |
+| **Furo recomendado na PCB** | **1,02 ± 0,08 mm [.040]** |
+| Aceita placa de | 1,37 – 1,78 mm [.054–.070] |
+| Altura do corpo acima da placa | 15,49 mm [.610] |
+| Comprimento do terminal abaixo da placa | 3,18 ± 0,51 mm [.125] |
+| Largura do corpo | 9,35 mm [.368] |
+| Chanfro da entrada | 1,52 × 45° [.060] |
+| Guia | *inter-contact keying slot*, entre contatos |
 
-Essa é a grade padrão da família (EDAC, Sullins e similares especificam
-"0.100 C-C × 0.200 grid, solder tail 0.025 square"), mas **modelos variam**.
+O footprint `ZX_TK_Bus_Socket_56` **já foi corrigido** para 4,85 mm e furo de
+1,02 mm (antes estava com a grade genérica de 5,08 mm / 1,0 mm).
 
-**O que fazer:** com o conector em mãos, meça a distância entre as duas fileiras
-de terminais. Se não for 5,08 mm, ajuste `hardware/lib/tkmem128.pretty/ZX_TK_Bus_Socket_56.kicad_mod`
-(a variável `yf`/`yr` no gerador, ou os pads diretamente) antes de gerar os
-gerbers.
+### O problema que o desenho revelou
 
----
+Pelo corte do datasheet, a fenda fica **em cima** e os terminais **embaixo**:
+o cartão entra **perpendicular** à placa em que o conector está soldado.
 
-## 1b. A fenda do soquete tem que ficar NO PLANO da placa (CRÍTICO)
+Isso é incompatível com o desenho atual da expansora, que é uma placa
+**deitada**, coplanar com o cartão do TK. Com este conector soldado nela, o
+cartão do TK teria que entrar **de pé** — o que não acontece.
 
-**Onde:** placa expansora, conector `J1`.
+A geometria correta, e que bate com as fotos das placas reais (fenda alinhada
+com o plano dos dedos de passagem), é:
 
-Nas placas reais — tanto na TKMEM-128 da Luccas quanto em outras expansões do
-TK — a fenda do soquete que recebe os dedos do TK fica **exatamente no plano da
-própria placa**, alinhada com os dedos de passagem. Tudo coplanar.
+- o soquete fica numa placa **perpendicular ao cartão do TK**, isto é, na placa
+  **em pé**;
+- a fenda dele então cai **no plano horizontal** do cartão do TK;
+- os dedos de passagem ficam nesse mesmo plano — **degrau zero** na corrente de
+  periféricos.
 
-O footprint atual (`ZX_TK_Bus_Socket_56`) é uma grade 2×28 de furos comuns, ou
-seja, o conector é **soldado por cima** e a fenda fica alguns milímetros acima
-do plano da placa. Isso tem duas consequências:
-
-1. A expansora fica pendurada abaixo do plano da placa-mãe do TK, pela altura do
-   ombro do conector (tipicamente 4 a 6 mm).
-2. Pior: os dedos de passagem ficam nesse mesmo plano rebaixado, então **o
-   próximo periférico da corrente desce outro tanto** — uma escadinha que só
-   piora a cada estágio. Nas placas originais o degrau é zero.
-
-**Como as placas reais resolvem** — duas construções possíveis, e não dá para
-distinguir pelas fotos:
-
-| Construção | Como monta |
-| --- | --- |
-| **Straddle / edge mount** | O corpo do conector abraça a borda da placa; os contatos soldam em ilhas nas **duas faces**, rente à borda. Exige um land pattern diferente do atual. |
-| **Corpo abaixo da placa** | Os terminais sobem pela placa e o corpo fica pendurado embaixo, deixando a fenda na altura da placa. Usa furos, mas com o conector montado **por baixo**. |
-
-**A medida que resolve:** com o conector em mãos, meça a **distância da linha de
-centro da fenda até o ombro onde ele assenta na placa**. Se der praticamente
-zero, é straddle. Se der 4–6 mm, é o tipo comum e ele precisa ser montado por
-baixo (ou trocado por um straddle).
-
-Enquanto isso não for medido, **a placa expansora não deve ser fabricada**.
+**Enquanto isso não for resolvido, a placa expansora não deve ser fabricada.**
+A placa principal não é afetada.
 
 ---
 

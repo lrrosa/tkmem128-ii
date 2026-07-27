@@ -11,9 +11,12 @@ prontos.
 > leia [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — há itens que
 > dependem de medir peças físicas.
 >
-> **A placa expansora tem uma pendência conhecida**: o soquete de borda precisa
-> ficar com a fenda no plano da placa, e o footprint atual monta o conector por
-> cima. Ver o item 1b do documento acima.
+> **A placa expansora tem uma pendência bloqueante.** O soquete de borda do TK
+> (TE/AMP 5645235) é de **entrada vertical**: o cartão entra perpendicular à
+> placa em que ele está soldado. A expansora foi desenhada deitada, coplanar
+> com o cartão do TK, o que não fecha. Ver o item 1 de
+> [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md). **A placa principal
+> não é afetada.**
 
 ---
 
@@ -202,7 +205,7 @@ dois pinos de terra a mais.
 
 | Ref | Valor | Observação |
 | --- | --- | --- |
-| J1 | soquete de borda fêmea 56 vias (2×28), passo 0,1" | Encaixa nos dedos do TK |
+| J1 | **TE/AMP 5645235** — soquete de borda 56 vias, passo 2,54 mm, fileiras a 4,85 mm | Encaixa nos dedos do TK. Entrada vertical: ver pendência |
 | J3 | header macho 2×28 vertical, passo 2,54 mm | Recebe a placa principal |
 | J2 | — | Dedos de borda na própria PCB |
 | C1 | 100 nF cerâmico | |
