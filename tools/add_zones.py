@@ -18,9 +18,9 @@ def mm(v):
 
 
 b = pcbnew.LoadBoard(REAL)
-
-for z in list(b.Zones()):
-    b.Remove(z)
+gnd = b.GetNetcodeFromNetname("GND")
+if len(list(b.Zones())):
+    raise SystemExit("a placa ja tem zonas: regenere com gen_pcb.py antes")
 
 # a area dos dedos de borda fica fora do plano
 if BOARD.KEYSLOT_COL is None:
@@ -29,7 +29,6 @@ else:
     y1, y2 = INSET, H - 9.0
 
 pts = [(INSET, y1), (W - INSET, y1), (W - INSET, y2), (INSET, y2)]
-gnd = b.GetNetcodeFromNetname("GND")
 
 for layer in (pcbnew.F_Cu, pcbnew.B_Cu):
     z = pcbnew.ZONE(b)

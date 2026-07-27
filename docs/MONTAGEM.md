@@ -46,11 +46,21 @@ Comece na configuração mais conservadora — só RAM, sem mexer em ROM:
 | JP1 (SELECIONA ROM) | **2-3** (EPROM desligada) |
 | JP2 (ROMCS BARRAM.) | **aberto** |
 | JP3 (ZX128/ZX512) | **aberto** (128 KB) |
-| JP4 (AUTO-DESATIVA) | **fechado**, se você fez a modificação do pino 17 |
+| JP4 (AUTO-DESATIVA) | **fechado** em TK90X/TK95, se você fez a modificação do pino 17. **Sempre aberto em ZX Spectrum** |
 | SJ1 | **aberto** |
-| SJ2 | **fechado** se for TK90X/TK95, aberto se for ZX Spectrum |
+| SJ2 | **aberto** |
 
 Nessa configuração U4 (a EPROM) nem precisa estar montada.
+
+> ⚠️ **JP4 em ZX Spectrum: nunca feche.** No Spectrum os pinos 16, 17 e 18 são
+> **Y, V e U do vídeo componente**, não pinos livres como no TK. Lá a RAM tem que
+> ser desativada por outro método.
+
+**SJ1 e SJ2 são opcionais e podem ficar abertos em qualquer máquina** — é assim
+que a placa foi validada. O terra já chega pelos pinos 6 e 14, que são GND nas
+duas máquinas; os solder jumpers só acrescentam retorno usando pinos que são GND
+em apenas uma delas (7 no Spectrum, 15 no TK). Feche **no máximo o da sua
+máquina**, e só se quiser o terra extra.
 
 ---
 
@@ -102,15 +112,31 @@ EPROM e a ROM interna disputando o barramento de dados.
 
 ## A caixa
 
-Caixa **Patola PB 085/3**. A placa principal tem a medida exata (78,74 × 66,04 mm),
-mas a montagem exige adaptar a caixa:
+Caixa **Patola PB 085/3** (32 × 73 × 85 mm fechada). A placa principal assenta na
+**tampa**, cuja área interna é 81 × 69 mm — daí os 78,74 × 66,04 mm da placa.
+
+| | Disponível | Usado |
+| --- | --- | --- |
+| Largura | 81 mm | 78,74 mm |
+| Altura | 69 mm | 66,04 mm |
+| Altura livre para componentes | ~25 mm | ~10 mm |
+
+A expansora tem **70 mm** de comprimento e atravessa a caixa pelo eixo de 32 mm,
+sobrando **19 mm de cada lado** — o suficiente para o soquete alcançar os dedos
+do TK de um lado e os dedos de passagem ficarem acessíveis do outro.
+
+### Adaptando a caixa
 
 1. Abra duas fendas na base: uma **maior** para o soquete de borda da expansora
    passar, e uma **menor** para os dedos de passagem.
-2. Uma das torres de fixação cai dentro da fenda maior e precisa ser desgastada
-   (micro-retífica).
+2. Uma das torres de fixação (a de `y = 62,02 mm`, sob o conector `J1`) cai dentro
+   da fenda maior e precisa ser desgastada com micro-retífica.
 3. Fixe as placas com **pedaços de EVA** colados no fundo e nas laterais — é como
    a montagem original resolve, e funciona bem porque a caixa fecha com trava.
+
+> A placa **não tem furos de fixação** de propósito: as duas torres da caixa caem
+> em posições inutilizáveis. Veja o porquê em
+> [ANTES-DE-FABRICAR.md](ANTES-DE-FABRICAR.md#7-caixa-patola-pb-0853).
 
 O resultado fica com a placa em pé dentro da caixa e a expansora saindo pela
 base, exatamente como a TKMEM-128 original.

@@ -101,6 +101,16 @@ def main():
             t.SetTextAngleDegrees(90)
         board.Add(t)
 
+    # linhas de serigrafia opcionais: (x1, y1, x2, y2, camada)
+    for x1, y1, x2, y2, where in getattr(BOARD, "LINES", []):
+        ln = pcbnew.PCB_SHAPE(board)
+        ln.SetShape(pcbnew.SHAPE_T_SEGMENT)
+        ln.SetStart(pt(x1, y1))
+        ln.SetEnd(pt(x2, y2))
+        ln.SetLayer(pcbnew.B_SilkS if where == "B" else pcbnew.F_SilkS)
+        ln.SetWidth(mm(0.2))
+        board.Add(ln)
+
     pcbnew.SaveBoard(OUT, board)
     print("escrito:", OUT)
     print("footprints:", len(BOARD.PARTS), " nets:", len(netmap),

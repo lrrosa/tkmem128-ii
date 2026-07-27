@@ -6,3 +6,6 @@ fp-info-cache
 *-backups/
 *.kicad_sch-bak
 *.kicad_pcb-bak
+
+# historico local de editor
+.history/

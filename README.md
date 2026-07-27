@@ -20,7 +20,7 @@ Ele não inventa o circuito: junta e redesenha dois trabalhos anteriores.
 | Origem | Autor | O que veio de lá |
 | --- | --- | --- |
 | **external 128kb upgrade** (`zx48_to_128-EASY_3`), 2009 | **Velesoft** (Pavel Cimbal, República Tcheca) | O circuito base: as equações do GAL20V8, o latch da porta `0x7FFD` e o esquema de paginação da SRAM, incluindo a extensão de 512K |
-| **TKMEM-128**, 2012 | **Luccas Eletrônica** (Edu Luccas, Brasil) | A adaptação ao TK90X/TK95: soquete de EPROM com a ROM do Spectrum 128, jumpers de seleção de ROM, a auto-desativação da RAM interna de 32K pelo pino 17 do barramento, e a divisão em placa principal + expansor |
+| **TKMEM-128**, 2012 | **Luccas Eletrônica** (Eduardo Luccas, Brasil) | A adaptação ao TK90X/TK95: soquete de EPROM com a ROM do Spectrum 128, jumpers de seleção de ROM, a auto-desativação da RAM interna de 32K pelo pino 17 do barramento, e a divisão em placa principal + expansor |
 
 Créditos também a **Flávio Matsumoto**, que sugeriu o circuito do Velesoft para
 os TKs e identificou a caixa Patola PB 085/3, e a **Daniel Jose Viana
@@ -89,7 +89,7 @@ conector de borda.
         └────────────┬──────────────┘
                      │ header 2×28
    ┌─────────────────┴───────────────────────┐
-   │        placa expansora (deitada)        │   78,74 × 45 mm
+   │        placa expansora (deitada)        │   78,74 × 70 mm
    │  soquete de borda ─── header ─── dedos  │
    └──────┬──────────────────────────┬───────┘
           │                          │
@@ -117,12 +117,14 @@ As duas são de **2 camadas**, com plano de terra nas duas faces.
 | **Desacoplamento por CI** (100 nF em cada um) + 10 µF de reservatório | O original tinha desacoplamento mínimo |
 | **Plano de terra nas duas faces** | Retorno de corrente e imunidade a ruído |
 | **Jumper JP2 com duas estratégias de ROMCS** | O `ROMCS` do barramento é **ativo em nível alto** para desligar a ROM interna, o oposto da saída `/ROMCS` do GAL. É a explicação mais provável para a ROM 128 do original "funcionar num TK e não em outro". JP2 permite escolher entre acionar pelo GAL ou fixar em nível alto (como fazem os cartuchos da Interface 2), com R5 em série |
-| **Jumper de auto-desativação sem posição perigosa** | Na placa original o jumper tinha uma posição "Spectrum" que, num TK, **danificava o micro**. Aqui JP4 é simplesmente aberto/fechado, com R4 de 1 kΩ em série limitando corrente |
+| **Jumper de auto-desativação sem posição perigosa** | Na placa original o jumper tinha uma posição "Spectrum" que, num TK, **danificava o micro**. Aqui JP4 é simplesmente aberto/fechado, sempre no pino 17, com R4 de 1 kΩ em série limitando corrente. Ver [a análise do porquê](docs/PREPARAR-O-TK.md#a-diferença-em-relação-à-placa-original) |
+| **GAL com `.jed` pronto e verificado** | O usuário não precisa montar nada: o `.jed` distribuído é gerado das equações deste projeto e conferido fusível a fusível contra o mapa de referência (checksum `C5752`, zero divergências) |
+| **Expansora dimensionada para a caixa** | 70 mm de comprimento, sobrando 19 mm de cada lado da caixa de 32 mm — o suficiente para o soquete alcançar o TK e os dedos ficarem acessíveis |
 | **Bit N da porta 7FFD no flip-flop N** | O original embaralhava as entradas do latch; aqui a ordem é natural e o esquemático se lê sozinho |
 | **Endereços e dados da EPROM 1:1** | Obrigatório (o conteúdo da ROM é fixo) e documentado |
 | **Pontos de teste** (`VRAM`, `CLK7FFD`) | Para depurar sem grampear em perna de CI |
 | **LED de energia** (opcional) | Diagnóstico imediato |
-| **Solder jumpers SJ1/SJ2** | Terra extra nos pinos 7 (ZX Spectrum) ou 15 (TK), que diferem entre as máquinas |
+| **Solder jumpers SJ1/SJ2** | Terra extra opcional nos pinos 7 (ZX Spectrum) ou 15 (TK), que diferem entre as máquinas |
 | **Peças em produção na BOM** | AS6C1008 e ATF20V8B no lugar de peças só encontráveis como estoque antigo |
 
 ---
@@ -139,12 +141,35 @@ As duas são de **2 camadas**, com plano de terra nas duas faces.
 | **JP3** ZX128/ZX512 | aberto | 128K — SRAM `AS6C1008` (padrão) |
 | | fechado | 512K — SRAM `AS6C4008` |
 | **JP4** AUTO-DESATIVA 32K | fechado | Injeta nível 1 no pino 17 e desliga a RAM interna do TK |
-| | aberto | Não mexe no TK (use se desativou a RAM de outro jeito) |
-| **SJ1** | fechado | **Só em ZX Spectrum**: pino 7 é GND lá |
-| **SJ2** | fechado | **Só em TK90X/TK95**: pino 15 é GND lá |
+| | aberto | Não mexe no barramento (padrão) |
+| **SJ1** | aberto | Padrão — funciona em qualquer máquina |
+| | fechado | Terra extra pelo pino 7. **Só em ZX Spectrum** |
+| **SJ2** | aberto | Padrão — funciona em qualquer máquina |
+| | fechado | Terra extra pelo pino 15. **Só em TK90X/TK95** |
 
 > ⚠️ **JP1 em 1-2 sem JP2** não faz nada útil: sem desligar a ROM interna, os dois
 > chips disputam o barramento de dados. Use os dois juntos ou nenhum.
+
+> ⚠️ **JP4 em ZX Spectrum: deixe aberto.** No Spectrum os pinos 16, 17 e 18 são
+> **Y, V e U do vídeo componente** — não são livres como no TK. Fechar JP4 lá joga
+> 5 V em cima da saída V do codificador de vídeo.
+
+### Os solder jumpers SJ1 e SJ2 são opcionais
+
+**Nenhum dos dois é obrigatório.** Podem ficar abertos em qualquer máquina, que é
+como a placa sai de fábrica e como ela foi validada.
+
+O terra já chega pelos **pinos 6 e 14**, que são GND tanto no TK90X/TK95 quanto no
+ZX Spectrum. SJ1 e SJ2 apenas **acrescentam** caminho de retorno usando pinos que
+são GND em só uma das máquinas:
+
+| | Pino | TK90X/TK95 | ZX Spectrum |
+| --- | --- | --- | --- |
+| **SJ1** | 7 | N.C. — **não feche** | GND — pode fechar |
+| **SJ2** | 15 | GND — pode fechar | sinal — **não feche** |
+
+Na dúvida, deixe os dois abertos. Nada deixa de funcionar; você só não ganha os
+dois pinos de terra a mais.
 
 ---
 
@@ -154,7 +179,7 @@ As duas são de **2 camadas**, com plano de terra nas duas faces.
 
 | Ref | Valor | Encapsulamento | Observação |
 | --- | --- | --- | --- |
-| U1 | GAL20V8B ou **ATF20V8B-15PC** | DIP-24 300 mil | Gravado com [`hardware/gal/`](hardware/gal/) |
+| U1 | GAL20V8B ou **ATF20V8B-15PC** | DIP-24 300 mil | Grave [`hardware/gal/tkmem128.jed`](hardware/gal/tkmem128.jed) |
 | U2 | 74HCT273 | DIP-20 300 mil | Latch da porta 7FFD |
 | U3 | **AS6C1008-55PCN** (128K×8) | DIP-32 600 mil | Ou `AS6C4008-55PCN` (512K×8) no modo ZX512 |
 | U4 | 27C256 | DIP-28 600 mil | **Opcional** — ver seção da ROM |
@@ -205,8 +230,9 @@ Dois pontos que costumam pegar quem monta:
 Arquivos prontos em [`production/`](production/): Gerber X2, furação Excellon,
 BOM e mapa de posições, para as duas placas.
 
-Especificação: **2 camadas**, 1,6 mm, trilha mínima 0,25 mm, isolação 0,2 mm,
-furo mínimo 0,3 mm — faixa mais barata de qualquer fábrica.
+Especificação: **2 camadas**, 1,6 mm, trilha 0,25 mm, isolação 0,14 mm, furo
+mínimo 0,3 mm. Está dentro da capacidade padrão de qualquer fábrica barata
+(JLCPCB e PCBWay fazem 0,127 mm em 2 camadas), na faixa de preço mais baixa.
 
 **A placa expansora precisa de acabamento em ouro (ENIG) e chanfro de 45° na
 borda dos dedos.** Os dedos de borda entram e saem do conector do TK muitos
@@ -217,10 +243,15 @@ pedido.
 
 ## Gravando o GAL
 
-Fonte em [`hardware/gal/tkmem128.pld`](hardware/gal/tkmem128.pld) (sintaxe
-GALasm) e instruções em [`hardware/gal/README.md`](hardware/gal/README.md),
-incluindo a pinagem completa e como conferir o resultado contra o mapa de
-fusíveis de referência do Velesoft.
+**Já vai pronto**: grave [`hardware/gal/tkmem128.jed`](hardware/gal/tkmem128.jed)
+direto no programador. Checksum de fusíveis **`C5752`** — confira no software do
+gravador ao abrir o arquivo.
+
+Esse `.jed` não foi copiado de lugar nenhum: é gerado por
+[`tools/galgen.py`](tools/galgen.py) a partir das equações deste projeto, e
+conferido **fusível a fusível** contra o mapa de referência do projeto do
+Velesoft — *zero divergências em 2706 fusíveis*. O fonte em sintaxe GALasm está
+em [`tkmem128.pld`](hardware/gal/tkmem128.pld) para quem quiser modificar.
 
 Programadores XGecu (T48/T56) gravam tanto GAL20V8B quanto ATF20V8B.
 

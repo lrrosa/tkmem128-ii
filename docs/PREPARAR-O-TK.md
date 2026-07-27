@@ -46,10 +46,9 @@ Com JP4 fechado, a placa injeta nível 1 no pino 17 através de R4 (1 kΩ),
 desabilitando a RAM interna. Ao remover a interface o pino fica flutuando e o TK
 volta a operar como 48 KB. Transparente.
 
-### Por que o pino 17
+### Por que o pino 17 — e por que só no TK
 
-O pino 17 é **não-conectado** tanto no TK90X/TK95 quanto no ZX Spectrum, o que o
-torna seguro para esse uso. Confira na pinagem do expansor do TK:
+No **TK90X/TK95** o pino 17 é não-conectado, o que o torna livre para esse uso:
 
 ```
     fileira de cima (vista da interface, esquerda -> direita)
@@ -57,8 +56,20 @@ torna seguro para esse uso. Confira na pinagem do expansor do TK:
     fileira de baixo
      1  2  3  4 [ 5=guia]  6  7  8  9 10 11 12 13 14 15 16 [17] 18 19 20 ...
                                                             ^^^^
-                                                            N.C.
+                                                       N.C. no TK
 ```
+
+> ⚠️ **No ZX Spectrum original o pino 17 NÃO é livre.** Os pinos 16, 17 e 18 do
+> barramento do Spectrum carregam **Y, V e U do vídeo componente**. Injetar
+> nível 1 no pino 17 de um Spectrum significa jogar 5 V em cima da saída V do
+> codificador de vídeo.
+>
+> **Em ZX Spectrum, deixe JP4 aberto** e desative a RAM por outro método. O
+> resistor R4 de 1 kΩ em série limita a corrente e provavelmente evita um dano
+> imediato, mas o vídeo não vai funcionar direito e não há motivo para arriscar.
+
+Essa é a origem da diferença entre as máquinas: o mesmo pino que está livre no
+TK é um sinal analógico de vídeo no Spectrum.
 
 ### A diferença em relação à placa original
 
@@ -66,9 +77,26 @@ Na TKMEM-128 original esse jumper tinha **duas posições**, `TK` e `Spectrum`, 
 documentação avisava em letras garrafais que usar a posição errada num TK
 **danificava o computador**.
 
-Aqui esse risco não existe: JP4 é simplesmente aberto ou fechado, e o resistor
-R4 de 1 kΩ em série limita a corrente caso o pino 17 não esteja livre no seu
-micro.
+Sem o esquemático da placa original não dá para afirmar o que cada posição fazia.
+Mas a explicação mais provável é justamente essa: como o pino usado no TK não
+serve no Spectrum (é vídeo), o jumper escolhia **entre dois pinos diferentes** do
+barramento. E os dois barramentos divergem em pinos que carregam alimentação:
+
+| Pino | TK90X/TK95 | ZX Spectrum |
+| --- | --- | --- |
+| 16, 17, 18 | N.C. | Y, V, U do vídeo componente |
+| 34, 35 | 12 V | +12 V / −12 V |
+| 37 | **+5 V** | **−5 V** |
+| 7 | N.C. | GND |
+| 15 | GND | sinal |
+
+Escolher a posição "Spectrum" num TK mandaria o sinal de desativação — que é
+nível 1 injetado sem resistor de série na placa original — para um pino que no TK
+é trilho de alimentação. Curto entre fontes explica bem um aviso em letras
+garrafais.
+
+**Aqui esse risco não existe**: JP4 só liga ou desliga, sempre no pino 17, e
+sempre através de R4 de 1 kΩ.
 
 ---
 
@@ -90,5 +118,5 @@ o teste real é carregar um jogo de 128 KB.
 ## Fontes
 
 O procedimento vem do artigo **"Preparando o TK90X/TK95 para a TKMEM-128"**, de
-Edu Luccas (Luccas Eletrônica), que documentou os três métodos com fotos da
+Eduardo Luccas (Luccas Eletrônica), que documentou os três métodos com fotos da
 placa do TK indicando o IC27 e o ponto do barramento.

@@ -118,15 +118,15 @@ DISCRETE = [
     ("JP4", "Connector_Generic:Conn_01x02", "AUTO-DESATIVA 32K",
      "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
      {"1": "RAMDIS_DRV", "2": "RAMDIS"},
-     "Fechado = injeta nivel 1 no pino 17 e desliga a RAM interna do TK"),
+     "Fechado = injeta nivel 1 no pino 17 e desliga a RAM interna do TK. NAO fechar em ZX Spectrum: la o pino 17 e o V do video componente"),
     ("SJ1", "Jumper:SolderJumper_2_Open", "GND pino 7",
      "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm",
      {"1": "BUS_P07", "2": "GND"},
-     "SO em ZX Spectrum: pino 7 e GND. NAO fechar em TK90X/TK95"),
+     "Terra extra opcional. Pino 7 e GND so no ZX Spectrum. Pode ficar aberto"),
     ("SJ2", "Jumper:SolderJumper_2_Open", "GND pino 15",
      "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm",
      {"1": "BUS_P15", "2": "GND"},
-     "SO em TK90X/TK95: pino 15 e GND. NAO fechar em ZX Spectrum"),
+     "Terra extra opcional. Pino 15 e GND so no TK90X/TK95. Pode ficar aberto"),
     ("TP1", "Connector_Generic:Conn_01x01", "VRAM",
      "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm",
      {"1": "VRAM"}, "Bit 3 do 7FFD (shadow screen), sem uso nesta arquitetura"),
@@ -134,6 +134,8 @@ DISCRETE = [
      "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm",
      {"1": "CLK7FFD"}, "Clock do latch - trava em 1 quando DIS128 e setado"),
 ]
+
+
 
 for ref, lib, val, fp, conns, descr in DISCRETE:
     PARTS.append((ref, lib, val, fp, descr))
@@ -192,11 +194,13 @@ SILK = [
     ("JP2  aberto = ROM do TK  |  1-2 = pelo GAL  |  2-3 = +5V", 39.37, 11.0, 1.0, "B"),
     ("JP3  fechado = 512K (AS6C4008)", 39.37, 14.0, 1.0, "B"),
     ("JP4  fechado = auto-desativa a RAM de 32K do TK", 39.37, 17.0, 1.0, "B"),
-    ("SJ1  fechar SO em ZX Spectrum (pino 7 = GND la)", 39.37, 20.0, 1.0, "B"),
-    ("SJ2  fechar SO em TK90X/TK95 (pino 15 = GND la)", 39.37, 23.0, 1.0, "B"),
-    ("CERN-OHL-S v2", 39.37, 28.0, 1.3, "B"),
-    ("github.com/lrrosa/tkmem128-kicad", 39.37, 31.0, 1.0, "B"),
-    ("Derivado de Velesoft 2009 e Luccas Eletronica 2012", 39.37, 34.0, 0.9, "B"),
+    ("     NAO feche JP4 em ZX Spectrum: o pino 17 la e o V do video", 39.37, 19.5, 0.85, "B"),
+    ("SJ1 e SJ2 sao terra extra, opcionais - podem ficar abertos", 39.37, 22.5, 0.9, "B"),
+    ("SJ1  fechar SO em ZX Spectrum (pino 7 = GND la)", 39.37, 25.0, 0.9, "B"),
+    ("SJ2  fechar SO em TK90X/TK95 (pino 15 = GND la)", 39.37, 27.5, 0.9, "B"),
+    ("CERN-OHL-S v2", 39.37, 32.0, 1.3, "B"),
+    ("github.com/lrrosa/tkmem128-kicad", 39.37, 35.0, 1.0, "B"),
+    ("Derivado de Velesoft 2009 e Luccas Eletronica 2012", 39.37, 38.0, 0.9, "B"),
 ]
 
 

@@ -118,14 +118,84 @@ Na expansora, `J3` é um **header macho 2×28 vertical** comum.
 
 ## 7. Caixa Patola PB 085/3
 
-A placa principal tem **78,74 × 66,04 mm**, a medida certa para a caixa, mas
-**não tem furos de fixação**: as duas torres da caixa ficam bem no meio das
-bordas onde passam os conectores.
+Conferido contra os desenhos técnicos da Patola (`PB 085/3_CX` e `PB 085/3_TP`).
 
-Na adaptação documentada por Edu Luccas, uma das torres é desgastada com
-micro-retífica ao abrir a fenda do conector, e a placa é fixada com **pedaços de
-EVA** colados no fundo e nas laterais. Duas fendas são abertas na caixa: uma
-maior para o soquete de borda e uma menor para a passagem.
+| Medida | Valor |
+| --- | --- |
+| Caixa fechada (externo) | 32 × 73 × 85 mm |
+| Tampa: área interna onde a placa assenta | **81 × 69 mm** |
+| Tampa: profundidade interna | 6 mm |
+| Caixa (metade funda): interna | 83 × 71 × 25 mm |
+| Torres de fixação | Ø5 externo, furo Ø2,5, **58 mm entre centros**, centradas |
+
+### A placa principal cabe
+
+| | Disponível | Usado | Folga |
+| --- | --- | --- | --- |
+| Largura | 81 mm | 78,74 mm | 1,13 mm por lado |
+| Altura | 69 mm | 66,04 mm | 1,48 mm por lado |
+| Altura de componentes | ~25 mm | ~10 mm (soquete torneado + DIP) | ~15 mm |
+
+### Por que a placa não tem furos de fixação
+
+As torres ficam em **x = 39,37 mm** (centro) e **y = 4,02 e 62,02 mm** nas
+coordenadas da placa. Nenhuma das duas dá para usar:
+
+- A de **y = 62,02** cai exatamente sobre o conector `J1` — é a que se desgasta
+  com micro-retífica ao abrir a fenda.
+- A de **y = 4,02** cai numa área livre de componentes, mas bem no meio do leque
+  de trilhas que sai do header para os CIs. Um furo Ø2,7 ali foi testado e custa
+  duas ligações que o roteador não consegue fechar. A placa 100% roteada vale
+  mais que um parafuso.
+
+A fixação é por **EVA**, como na montagem original. Se você quiser mesmo o furo,
+as coordenadas estão aí e os geradores estão em [`tools/`](../tools/) — é só
+acrescentar e reproduzir o roteamento.
+
+### O conjunto montado também cabe — mas só com a fenda aberta
+
+O `J1` angular e a placa expansora ficam **abaixo** da linha da tampa, dentro da
+fenda cortada na base. Isso é inerente ao formato e é o que a montagem original
+faz.
+
+### A expansora precisa ser mais comprida que a caixa
+
+O comprimento da expansora corre ao longo do eixo de **32 mm** da caixa. Para o
+soquete de borda alcançar o TK e os dedos de passagem ficarem acessíveis, ela tem
+que sobrar dos dois lados:
+
+| Comprimento | Sobra total | Por lado |
+| --- | --- | --- |
+| 45 mm (primeira versão) | 13 mm | 6,5 mm — **insuficiente** |
+| **70 mm (adotado)** | 38 mm | **19 mm** — folgado |
+
+Precisa de ≥12 mm do lado do TK (corpo do soquete ~10 mm) e ≥11 mm do lado da
+passagem (dedos de 7,62 mm).
+
+### Adaptação da caixa
+
+Conforme documentado por Eduardo Luccas: abra duas fendas na base — uma maior
+para o soquete de borda e uma menor para a passagem —, desgaste com
+micro-retífica a torre que cair dentro da fenda, e fixe com **pedaços de EVA**
+colados no fundo e nas laterais. A caixa fecha com trava, então o EVA segura bem.
+
+---
+
+## 8. Regras de fabricação
+
+| Parâmetro | Valor |
+| --- | --- |
+| Camadas | 2 |
+| Espessura | 1,6 mm |
+| Trilha | 0,25 mm (0,6 mm em `+5V` e `GND`) |
+| Isolação | **0,14 mm** |
+| Furo mínimo | 0,3 mm |
+| Via | 0,7 mm com furo de 0,35 mm |
+
+A isolação de 0,14 mm é o que permitiu fechar as duas placas em 2 camadas. Está
+dentro da capacidade **padrão** de fábrica barata (JLCPCB e PCBWay especificam
+0,127 mm em 2 camadas), mas é apertado demais para corrosão caseira — se você for
+fazer em casa, vai precisar redesenhar com folga maior.
 
 ---
 
@@ -140,3 +210,4 @@ maior para o soquete de borda e uma menor para a passagem.
 | 5. ROMCS | ROM 128 instável (só afeta quem usa a EPROM) |
 | 6. Conector angular | Placa não fica em pé |
 | 7. Caixa | Não fecha |
+| 8. Regras de fabricação | Curto ou trilha aberta se a fábrica não atender 0,14 mm |

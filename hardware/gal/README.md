@@ -59,16 +59,62 @@ Três detalhes que não são óbvios:
 
 ## Gravando
 
-O arquivo [`tkmem128.pld`](tkmem128.pld) está em sintaxe **GALasm**
-(compatível com `galasm`, derivado do GALer):
+**Já vai pronto: [`tkmem128.jed`](tkmem128.jed).** Abra no programador, escolha o
+dispositivo e grave. Não precisa montar nada.
+
+| | |
+| --- | --- |
+| Arquivo | `tkmem128.jed` |
+| Dispositivo | `GAL20V8B` (Lattice) ou `ATF20V8B` (Microchip) |
+| Fusíveis | 2706 |
+| **Checksum de fusíveis** | **`C5752`** |
+| Programador | XGecu T48/T56 (Xgpro) ou equivalente |
+
+Confira o checksum que o software do programador mostra ao abrir o arquivo: tem
+que dar `C5752`. Se der outro valor, o arquivo foi corrompido no download.
+
+### De onde vem esse arquivo
+
+O `.jed` **não foi copiado de lugar nenhum** — é gerado por
+[`tools/galgen.py`](../../tools/galgen.py) a partir das equações deste projeto:
+
+1. O script monta o mapa de fusíveis do GAL20V8 diretamente das equações
+   (matriz AND, polaridade das saídas, habilitação dos termos e bits de modo).
+2. O mapa de colunas da matriz AND é **deduzido das próprias equações**, não
+   chutado — e depois conferido por consistência entre as oito saídas.
+3. O resultado é comparado, fusível a fusível, com o mapa de referência do
+   projeto do Velesoft.
+
+O resultado dessa comparação:
+
+```
+fusiveis divergentes: 0 de 2706
+checksum de referencia: 5752
+checksum reconstruido : 5752
+```
+
+Ou seja: está provado que o arquivo distribuído implementa **exatamente** as
+equações documentadas aqui, e que essas equações são as mesmas do projeto
+original. Para reproduzir a verificação você só precisa de um `.jed` de
+referência e do Python:
+
+```bash
+python tools/galgen.py caminho/para/referencia.jed
+```
+
+### Montando a partir do fonte, se preferir
+
+O [`tkmem128.pld`](tkmem128.pld) está em sintaxe **GALasm** (compatível com
+`galasm`, derivado do GALer):
 
 ```bash
 galasm tkmem128.pld
 ```
 
-Isso gera `tkmem128.jed`, que você grava com um programador **XGecu T48/T56**
-(software Xgpro) ou equivalente. Selecione o dispositivo `GAL20V8B` (Lattice) ou
-`ATF20V8B` (Microchip), conforme o CI que comprou.
+Vale lembrar que montadores diferentes podem escolher modos diferentes do GAL
+(*simple* × *complex*) e produzir mapas distintos, ainda que funcionalmente
+equivalentes. O `.jed` distribuído usa o modo **complex** (SYN=1, AC0=1), que é
+o do projeto original.
 
 ### Peças que servem
 
@@ -79,29 +125,23 @@ Isso gera `tkmem128.jed`, que você grava com um programador **XGecu T48/T56**
 
 Ambas são DIP-24 de 300 mil e gravam com o mesmo mapa de fusíveis.
 
-## Conferindo o resultado
+## Mapa de colunas da matriz AND
 
-> O `tkmem128.pld` é uma **reescrita em sintaxe moderna** das equações do
-> Velesoft. Ele não foi conferido contra hardware.
+Deduzido do mapa de fusíveis e confirmado pelas oito equações:
 
-Antes de confiar nele, vale comparar com o mapa de fusíveis de referência —
-o `.jed` original do Velesoft, distribuído no pacote
-`zx48_to_128-easy_3-gal.zip` da página do projeto dele
-(<https://velesoft.speccy.cz/>).
+| Coluna | Sinal | | Coluna | Sinal |
+| --- | --- | --- | --- | --- |
+| 1 | `/ZX512` | | 24 | `BANK0` |
+| 3 | `/MREQ` | | 28 | `BANK4` |
+| 5 | `/A1` | | 32 | `BANK3` |
+| 7 | `/WR` | | 34 / 35 | `A14` / `/A14` |
+| 9 | `A5` | | 36 | `BANK1` |
+| 12 | `DIS128` | | 38 / 39 | `A15` / `/A15` |
+| 16 | `BANK2` | | 20 | `/IORQ` |
 
-```bash
-galasm tkmem128.pld
-# compare o bloco de fusíveis do tkmem128.jed gerado com o .jed de referência
-```
-
-O `.jed` de referência tem **checksum de fusíveis `C5752`**. Se o seu arquivo
-gerado fechar nesse valor, a reescrita está fiel bit a bit.
-
-Se der diferença, quase certamente é o **modo do GAL**: o original foi montado
-em modo *complex* (saídas tristate com OE fixo em VCC); dependendo de como o
-montador decide o modo, o mapa muda mesmo sendo funcionalmente equivalente.
-Nesse caso, prefira gravar o `.jed` de referência do Velesoft — ele é o que
-está comprovadamente funcionando em campo desde 2009.
+Quatro literais (`/IORQ`, `/WR`, `A5`, `/A1`) só aparecem juntos num mesmo termo
+produto, então a atribuição entre eles é intercambiável — como AND é comutativo,
+qualquer permutação dentro desse grupo dá o mesmo mapa de fusíveis.
 
 ## Modificando
 
