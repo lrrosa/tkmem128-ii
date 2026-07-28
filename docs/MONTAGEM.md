@@ -47,7 +47,15 @@ referência rápida.
 ### Tira de expansão
 
 Ela não tem componente nenhum: de um lado ilhas de solda, do outro dedos de
-borda.
+borda. As 54 ligações são retas verticais de **1,5 mm**, 27 em cada face, sem
+uma via sequer — J1 e J2 estão nas mesmas colunas, então nada precisa cruzar.
+
+Só há uma coisa a soldar além das ilhas: **o fio de terra `W1`**. Os pinos 6 e
+14 do barramento são os dois GND. Cada um atravessa a tira reto, mas ligá-los
+entre si exigiria cruzar 7 colunas, e as duas faces estão ocupadas pelas
+verticais. Use um pedaço de **fio isolado** entre as duas ilhas marcadas
+`GND - FIO ISOLADO`, no verso. Ele passa por cima das outras trilhas — por isso
+o fio tem que ser isolado.
 
 1. Enfie a tira **entre as duas fileiras** de terminais do conector, que são
    retos: uma fileira fica por cima da tira e a outra por baixo. Ela sai

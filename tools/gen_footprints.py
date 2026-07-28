@@ -257,13 +257,53 @@ def gen_solderpads():
     return s + ')\n'
 
 
+# ------------------------------------------------- link de fio para o GND
+def gen_wirelink():
+    """Duas ilhas em B.Cu para um fio isolado, amarrando os dois GND da tira.
+
+    Os pinos 6 e 14 do barramento sao ambos GND. Cada um atravessa a tira reto,
+    mas liga-los entre si exigiria cruzar 7 colunas — e as duas faces estao
+    inteiras ocupadas pelas verticais. Um fio isolado por cima resolve, e e o
+    retorno de terra de tudo que for ligado em cascata.
+
+    Ilha SMD, nao passante: neste tipo de placa cada coluna carrega redes
+    diferentes nas duas faces, entao furo passante seria curto.
+
+    `board_only`: o fio e uma ligacao de cobre, nao um componente — nao tem
+    simbolo no esquematico nem entra na lista de material.
+    """
+    P, W, L = 20.32 / 2.0, 1.5, 2.5
+    s = HDR % ("WireLink_GND_P20.32mm",
+               "Duas ilhas SMD em B.Cu para um fio isolado ligando os dois GND "
+               "do barramento (pinos 6 e 14) na tira de expansao. Passo "
+               "20,32mm. Sem furo: numa placa de passagem, ilha passante "
+               "curto-circuita as duas faces.",
+               "link fio jumper GND tira expansao TK90X TK95",
+               -4.0, "WireLink_GND_P20.32mm", 4.0)
+    s = s.replace('(attr through_hole)',
+                  '(attr smd board_only exclude_from_pos_files '
+                  'exclude_from_bom)')
+    # As duas ilhas levam o MESMO numero de proposito. Ilhas de mesmo numero
+    # sao um unico no eletrico para o KiCad — que e exatamente o que elas viram
+    # depois que o fio e soldado. Sem isso a placa acusaria GND desconectado
+    # para sempre, porque o fio nao existe como objeto de CAD.
+    for x in (-P, P):
+        s += ('\t(pad "1" smd rect\n\t\t(at %s 0)\n\t\t(size %s %s)\n'
+              '\t\t(layers "B.Cu" "B.Mask" "B.Paste")\n\t)\n' % (x, W, L))
+    s += line(-P - 1.2, -L / 2 - 0.4, P + 1.2, -L / 2 - 0.4, "B.SilkS")
+    s += line(-P - 1.2, L / 2 + 0.4, P + 1.2, L / 2 + 0.4, "B.SilkS")
+    s += text("GND - FIO ISOLADO", 0, -L / 2 - 1.4, "B.SilkS", 0.9)
+    return s + ')\n'
+
+
 if not os.path.isdir(OUTDIR):
     os.makedirs(OUTDIR)
 
 for name, body in (("ZX_TK_Bus_Socket_56", gen_socket()),
                    ("ZX_TK_Bus_Fingers_56", gen_fingers()),
                    ("ZX_TK_Bus_Header_2x28", gen_header()),
-                   ("ZX_TK_Bus_SolderPads_56", gen_solderpads())):
+                   ("ZX_TK_Bus_SolderPads_56", gen_solderpads()),
+                   ("WireLink_GND_P20.32mm", gen_wirelink())):
     path = os.path.join(OUTDIR, name + ".kicad_mod")
     with io.open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(body)

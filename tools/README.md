@@ -41,6 +41,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `silk_conector_principal.py` | Leva a numeração de `J1` para o lado dos componentes e apara o contorno que passava da aresta |
 | `ajusta_guia.py` | Refaz o rasgo da guia da tira com a profundidade de `KEYSLOT_DEPTH` e repreenche as zonas |
 | `silk_negrito.py` | Poe toda a serigrafia em negrito (espessura = 0,2 x tamanho, como o KiCad faz) |
+| `rota_tira.py` | Roteia a tira a mao: 54 retas verticais de 1,5 mm, zero via, zero plano |
+| `tira_sem_c1.py` | Removeu C1 do esquematico da tira (ilha passante e curto numa placa de passagem) |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)

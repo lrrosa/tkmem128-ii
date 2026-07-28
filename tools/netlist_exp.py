@@ -42,14 +42,11 @@ PARTS = [
     ("J2", "tkmem128:ZX_TK_Bus_56", "Passagem",
      "tkmem128:ZX_TK_Bus_Fingers_56",
      "Dedos de borda 56 vias - passagem do barramento a outros perifericos"),
-    ("C1", "Device:C", "100n", "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
-     "Desacoplamento junto ao ponto de alimentacao"),
 ]
 
 CONN = {
     "J1": {str(p): BUS[p][0] for p in BUS},
     "J2": {str(p): BUS[p][0] for p in BUS},
-    "C1": {"1": "+5V", "2": "GND"},
 }
 
 PLACE_SCH = {"J1": (70, 190), "J2": (250, 190)}
@@ -61,10 +58,14 @@ PLACE_PCB = {
 # ilhas estao em y local = 0, girar 180 espelha so o X, sem trocar faces.
     "J1": (39.37, 2.5, 180),      # ilhas comecam na borda (y=0) e entram 5 mm
     "J2": (39.37, 41.19, 180),    # dedos: passagem a outros perifericos
-    "C1": (6.0, 20.0, 0),
 }
 
-REF_OFFSET = {"C1": (2.5, 3.0)}
+REF_OFFSET = {}
+
+# Ligacao de GND por fio isolado, so na placa (board_only, sem simbolo).
+# Pinos 6 e 14 sao os dois GND do barramento; ligar um ao outro exigiria cruzar
+# 7 colunas com as duas faces ocupadas pelas verticais.
+WIRELINK = ("tkmem128:WireLink_GND_P20.32mm", "GND", 50.80, 33.0)
 
 LINES = [
     # parede de tras da caixa Patola PB-085/3, com a placa principal rente

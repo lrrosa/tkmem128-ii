@@ -1,19 +1,18 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,10.0.4*%
-%TF.CreationDate,2026-07-28T00:15:57-03:00*%
+%TF.CreationDate,2026-07-28T20:20:51-03:00*%
 %TF.ProjectId,tkmem128-expansor,746b6d65-6d31-4323-982d-657870616e73,rev?*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Soldermask,Top*%
 %TF.FilePolarity,Negative*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 10.0.4) date 2026-07-28 00:15:57*
+G04 Created by KiCad (PCBNEW 10.0.4) date 2026-07-28 20:20:51*
 %MOMM*%
 %LPD*%
 G01*
 G04 APERTURE LIST*
 %ADD10R,1.524000X7.620000*%
 %ADD11R,1.700000X5.000000*%
-%ADD12C,1.600000*%
 G04 APERTURE END LIST*
 D10*
 %TO.C,J2*%
@@ -74,10 +73,5 @@ X66040000Y-2500000D03*
 X68580000Y-2500000D03*
 X71120000Y-2500000D03*
 X73660000Y-2500000D03*
-%TD*%
-D12*
-%TO.C,C1*%
-X6000000Y-20000000D03*
-X11000000Y-20000000D03*
 %TD*%
 M02*
