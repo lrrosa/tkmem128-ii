@@ -1,4 +1,4 @@
-"Ref","Valor","Encapsulamento","Descricao","Qtd"
-"C1","100n","Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm","Desacoplamento junto ao ponto de alimentacao","1"
-"J1","Terminais do conector","tkmem128:ZX_TK_Bus_SolderPads_56","Ilhas de solda nos terminais do conector de borda que atravessam a placa principal","1"
-"J2","Passagem","tkmem128:ZX_TK_Bus_Fingers_56","Dedos de borda 56 vias - passagem do barramento a outros perifericos","1"
+"Reference","Value","Footprint","Description"
+"C1","100n","Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm","Desacoplamento junto ao ponto de alimentacao"
+"J1","Terminais do conector","tkmem128:ZX_TK_Bus_SolderPads_56","Ilhas de solda nos terminais do conector de borda que atravessam a placa principal"
+"J2","Passagem","tkmem128:ZX_TK_Bus_Fingers_56","Dedos de borda 56 vias - passagem do barramento a outros perifericos"

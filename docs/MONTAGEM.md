@@ -52,6 +52,22 @@ borda.
 3. Confira com multímetro alguns pontos contra os dedos da outra extremidade
    antes de energizar.
 
+Como as ilhas são SMD — uma face para cada pino — **a serigrafia de cada face
+numera só os pinos daquela face**, nas duas extremidades da tira:
+
+| Face | Pinos | O que está escrito nas pontas |
+| --- | --- | --- |
+| Frente (F.Cu) | 29..56 | `29` à esquerda, `56` à direita |
+| Verso (B.Cu) | 1..28 | `1` à esquerda, `28` à direita |
+
+Os números aparecem trocados de lado entre as faces porque você está olhando a
+mesma placa por trás — o pino 1 e o pino 56 ocupam a **mesma coluna**, um em
+cada face. O traço vertical mais próximo dessa ponta marca a coluna da guia
+(onde ficariam os pinos 5 e 52), e serve de conferência rápida: ele tem que
+cair no mesmo lugar na tira e no conector da placa principal.
+
+![Tira de expansão, verso](img/placa-expansora-verso.png)
+
 ---
 
 ## Configuração inicial dos jumpers

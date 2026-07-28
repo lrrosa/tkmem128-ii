@@ -94,7 +94,7 @@
 		(descr "Dedos de borda 56 vias (28x2) passo 2,54mm para passagem do barramento TK90X/TK95. Requer chanfro 45 graus e ouro ENIG. Coluna 5 = guia (rasgo no contorno da placa).")
 		(tags "conector borda edge fingers 56 ZX Spectrum TK90X TK95 passthrough")
 		(property "Reference" "J2"
-			(at 0 -6.5 180)
+			(at 0 5.19 180)
 			(layer "F.SilkS")
 			(uuid "b82daba8-ed81-4527-9f53-e58c52784dd4")
 			(effects
@@ -180,7 +180,7 @@
 			(uuid "8eb8b1eb-f043-4712-ad95-45cc1376e8e8")
 		)
 		(fp_text user "29"
-			(at 34.29 -5.4 180)
+			(at 36.87 3.19 180)
 			(layer "F.SilkS")
 			(uuid "d5cacb94-ab4c-46c6-9e03-ba8bdd4617eb")
 			(effects
@@ -191,7 +191,7 @@
 			)
 		)
 		(fp_text user "56"
-			(at -34.29 -5.4 180)
+			(at -37.13 3.19 180)
 			(layer "F.SilkS")
 			(uuid "b3de7a15-3784-4f0a-abd6-cdedd94e2610")
 			(effects
@@ -199,6 +199,30 @@
 					(size 1 1)
 					(thickness 0.15)
 				)
+			)
+		)
+		(fp_text user "28"
+			(at 36.87 3.19 0)
+			(layer "B.SilkS")
+			(uuid "a1bb23b9-1a60-460f-91d3-8079dc79ab95")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(fp_text user "1"
+			(at -37.13 3.19 0)
+			(layer "B.SilkS")
+			(uuid "4520caa7-986d-4209-8af0-81540d0b7945")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
 			)
 		)
 		(fp_text user "PASSAGEM DO BARRAMENTO"
@@ -599,7 +623,7 @@
 		(descr "Ilhas de solda nas duas faces (54 vias, passo 2,54mm) para a tira de expansao ser soldada entre os terminais retos do conector TE 5645235. As ilhas chegam ate a borda da tira, para acomodar conectores com terminal mais curto. F.Cu = 29..56, B.Cu = 1..28. Sem furos.")
 		(tags "tira expansao ilhas solda TK90X TK95 barramento")
 		(property "Reference" "J1"
-			(at 0 -5.5 180)
+			(at 0 -4 180)
 			(layer "F.SilkS")
 			(uuid "42719f0f-fabe-416e-affe-773cba99d093")
 			(effects
@@ -645,54 +669,84 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
-			(start 36.29 2.9)
-			(end -36.29 2.9)
+			(start 36.29 -2.8)
+			(end 36.29 2.2)
 			(stroke
 				(width 0.15)
-				(type solid)
+				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "253877cb-a7b3-43c4-a4c9-5160fb5172f4")
+			(uuid "bda5b0c0-ff74-43f5-936a-a3b812fcd965")
 		)
 		(fp_line
-			(start 36.29 -2.5)
-			(end 36.29 2.9)
+			(start 36.29 -2.8)
+			(end -36.29 -2.8)
 			(stroke
 				(width 0.15)
-				(type solid)
+				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "80a9ca22-5d94-4cd2-a5d0-99f19d791572")
+			(uuid "bba9a706-29b2-4dda-aaa6-120966bcb20b")
 		)
 		(fp_line
-			(start -24.13 -2.5)
-			(end -24.13 2.9)
+			(start -24.13 -2.8)
+			(end -24.13 2.2)
 			(stroke
 				(width 0.15)
-				(type solid)
+				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "247b1ef7-3dec-4582-9126-d535e91d12a1")
+			(uuid "7a972ba8-80cd-4234-ba3b-8e5bd3894ae0")
 		)
 		(fp_line
-			(start -36.29 2.9)
-			(end -36.29 -2.5)
+			(start -36.29 -2.8)
+			(end -36.29 2.2)
 			(stroke
 				(width 0.15)
-				(type solid)
+				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "0e6dd741-ee4d-48f5-ab34-21b05b13c209")
+			(uuid "02040093-017b-4cb6-a9d7-f5a0091c96db")
 		)
 		(fp_line
-			(start -36.29 -2.5)
-			(end 36.29 -2.5)
+			(start 36.29 -2.8)
+			(end 36.29 2.2)
 			(stroke
 				(width 0.15)
-				(type solid)
+				(type default)
 			)
-			(layer "F.SilkS")
-			(uuid "4c8bad3c-6ddc-4ec9-a352-1c083cd488b3")
+			(layer "B.SilkS")
+			(uuid "55cd0464-cd40-44ed-a96e-d3cf349f7690")
+		)
+		(fp_line
+			(start 36.29 -2.8)
+			(end -36.29 -2.8)
+			(stroke
+				(width 0.15)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b5db46b1-bb81-482d-8b36-771a36a9cead")
+		)
+		(fp_line
+			(start -24.13 -2.8)
+			(end -24.13 2.2)
+			(stroke
+				(width 0.15)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "69c8002a-f531-4197-9554-df6be6dc06fb")
+		)
+		(fp_line
+			(start -36.29 -2.8)
+			(end -36.29 2.2)
+			(stroke
+				(width 0.15)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4127a672-2cce-4754-bfe4-df3a020b0be4")
 		)
 		(fp_line
 			(start 36.29 2.9)
@@ -734,8 +788,8 @@
 			(layer "F.CrtYd")
 			(uuid "cbc29ffd-6aed-4be5-9b9a-7f8aa145296f")
 		)
-		(fp_text user "28"
-			(at 34.29 3.9 180)
+		(fp_text user "29"
+			(at 37.87 -2 180)
 			(layer "F.SilkS")
 			(uuid "8387f89e-8b0d-4ea5-8afc-01922e8dc229")
 			(effects
@@ -746,7 +800,7 @@
 			)
 		)
 		(fp_text user "SOLDAR DOS DOIS LADOS"
-			(at 0 3.9 180)
+			(at -0.63 -6.5 180)
 			(layer "F.SilkS")
 			(uuid "14deb3e4-e049-43e0-b555-bf1959060345")
 			(effects
@@ -756,8 +810,8 @@
 				)
 			)
 		)
-		(fp_text user "1"
-			(at -34.29 3.9 180)
+		(fp_text user "56"
+			(at -37.63 -2 180)
 			(layer "F.SilkS")
 			(uuid "cfe636d5-e12b-452d-8fe5-a3b51ef10bdd")
 			(effects
@@ -765,6 +819,42 @@
 					(size 0.9 0.9)
 					(thickness 0.15)
 				)
+			)
+		)
+		(fp_text user "28"
+			(at 37.87 -2 0)
+			(layer "B.SilkS")
+			(uuid "8c604835-681f-452b-aadb-a0dddee516da")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(fp_text user "SOLDAR DOS DOIS LADOS"
+			(at -0.63 -6.5 0)
+			(layer "B.SilkS")
+			(uuid "22588587-210d-45e9-9c7f-6686d86333cd")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(fp_text user "1"
+			(at -37.63 -2 0)
+			(layer "B.SilkS")
+			(uuid "3b21b348-c1d8-4058-a822-e6d8ce397402")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.15)
+				)
+				(justify mirror)
 			)
 		)
 		(pad "1" smd rect
@@ -1425,17 +1515,6 @@
 		(layer "Edge.Cuts")
 		(uuid "fd6b07f9-7bce-434b-b62a-ab7c60a0c339")
 	)
-	(gr_text "ilhas ate a borda: servem para terminal curto ou longo"
-		(at 39.37 10 0)
-		(layer "F.SilkS")
-		(uuid "20552177-b9c0-4dc2-b932-15b72e767ab8")
-		(effects
-			(font
-				(size 0.8 0.8)
-				(thickness 0.15)
-			)
-		)
-	)
 	(gr_text "parede de tras da caixa"
 		(at 20 28.6 0)
 		(layer "F.SilkS")
@@ -1458,7 +1537,7 @@
 			)
 		)
 	)
-	(gr_text "TKMEM-128  TIRA DE EXPANSAO DO BARRAMENTO"
+	(gr_text "TKMEM-128  TIRA DE EXPANSÃO DO BARRAMENTO"
 		(at 39.37 15 0)
 		(layer "F.SilkS")
 		(uuid "9a663a12-3cb3-46c5-8a47-95df44e76894")
@@ -1469,8 +1548,8 @@
 			)
 		)
 	)
-	(gr_text "PASSAGEM ->"
-		(at 60 34 0)
+	(gr_text "PARA OUTROS PERIFERICOS"
+		(at 39.37 34 0)
 		(layer "F.SilkS")
 		(uuid "ff802dd2-d42f-4c22-9860-eb2004149dbe")
 		(effects
@@ -1492,7 +1571,7 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "Derivado de Velesoft 2009 e Luccas Eletronica 2012"
+	(gr_text "Derivado de Velesoft 2009 e Luccas Eletrônica 2012"
 		(at 39.37 25 0)
 		(layer "B.SilkS")
 		(uuid "4cd054a5-1837-4dec-9a68-5b833b593472")

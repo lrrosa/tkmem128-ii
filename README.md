@@ -130,6 +130,11 @@ As duas são de **2 camadas**, com plano de terra nas duas faces.
 
 ![Tira de expansão](docs/img/placa-expansora.png)
 
+A tira é soldada dos dois lados, então cada face traz a numeração dos **seus**
+pinos: 29..56 na frente, 1..28 no verso.
+
+![Tira de expansão, verso](docs/img/placa-expansora-verso.png)
+
 ---
 
 ## O que mudou em relação ao original

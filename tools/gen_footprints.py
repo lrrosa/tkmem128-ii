@@ -51,9 +51,12 @@ def line(x1, y1, x2, y2, layer, w=0.15):
 
 
 def text(s, x, y, layer, size=1.0):
+    # texto em camada de tras precisa de (justify mirror), senao sai espelhado
+    # e ilegivel para quem olha a placa por tras
+    esp = " (justify mirror)" if layer.startswith("B.") else ""
     return ('\t(fp_text user "%s"\n\t\t(at %s %s 0)\n\t\t(layer "%s")\n'
-            '\t\t(effects (font (size %s %s) (thickness 0.15)))\n\t)\n'
-            % (s, x, y, layer, size, size))
+            '\t\t(effects (font (size %s %s) (thickness 0.15))%s)\n\t)\n'
+            % (s, x, y, layer, size, size, esp))
 
 
 # ---------------------------------------------------------------- J1 socket
@@ -134,8 +137,11 @@ def gen_fingers():
         s += line(x2, -L / 2, x2, L / 2, ly, 0.05)
         s += line(x2, L / 2, x1, L / 2, ly, 0.05)
         s += line(x1, L / 2, x1, -L / 2, ly, 0.05)
+    # cada face leva a numeracao dos SEUS dedos: F.Cu = 29..56, B.Cu = 1..28
     s += text("56", col_x(1), -5.4, "F.SilkS", 1.0)
     s += text("29", col_x(NCOL), -5.4, "F.SilkS", 1.0)
+    s += text("1", col_x(1), -5.4, "B.SilkS", 1.0)
+    s += text("28", col_x(NCOL), -5.4, "B.SilkS", 1.0)
     s += text("PASSAGEM DO BARRAMENTO", 0, -5.4, "F.Fab", 1.0)
     return s + ')\n'
 
@@ -184,6 +190,11 @@ def gen_solderpads():
 
     Mesma convencao de face dos dedos de J2: F.Cu leva 29..56 (a fileira de
     cima do TK) e B.Cu leva 1..28.
+
+    Convencao de orientacao (igual a de ZX_TK_Bus_Fingers_56): a aresta livre
+    da placa fica no +y local e o corpo da placa no -y. Toda a serigrafia mora
+    no -y. Na tira desta interface os dois conectores entram girados 180 graus,
+    entao a serigrafia foi reposicionada a mao no .kicad_pcb.
     """
     # A ilha comeca NA BORDA da tira e entra 5 mm. Os terminais do conector
     # so avancam 3,18 mm (+-0,51), e ha modelos com terminal mais curto — com
@@ -209,16 +220,30 @@ def gen_solderpads():
               '\t\t(layers "B.Cu" "B.Mask" "B.Paste")\n\t)\n'
               % (bottom_pin(c), x, W, L))
     x1, x2 = X0 - 2.0, col_x(NCOL) + 2.0
-    for ly, w in (("F.SilkS", 0.15), ("F.CrtYd", 0.05)):
-        s += line(x1, -L / 2, x2, -L / 2, ly, w)
-        s += line(x2, -L / 2, x2, L / 2 + 0.4, ly, w)
-        s += line(x2, L / 2 + 0.4, x1, L / 2 + 0.4, ly, w)
-        s += line(x1, L / 2 + 0.4, x1, -L / 2, ly, w)
+    # contorno em U aberto, nao retangulo: do lado das ilhas fica a ARESTA da
+    # placa, e fechar o retangulo poria serigrafia fora da placa (e um traco
+    # atravessado sobre todas as ilhas). Os tracos param 0,3 mm antes da borda.
+    yb, yf_ = -L / 2 - 0.3, L / 2 - 0.3
+    s += line(x1, yb, x2, yb, "F.CrtYd", 0.05)
+    s += line(x2, yb, x2, L / 2 + 0.4, "F.CrtYd", 0.05)
+    s += line(x2, L / 2 + 0.4, x1, L / 2 + 0.4, "F.CrtYd", 0.05)
+    s += line(x1, L / 2 + 0.4, x1, yb, "F.CrtYd", 0.05)
     xk = col_x(KEYCOL)
-    s += line(xk, -L / 2, xk, L / 2 + 0.4, "F.SilkS")
-    s += text("1", col_x(1), L / 2 + 1.4, "F.SilkS", 0.9)
-    s += text("28", col_x(NCOL), L / 2 + 1.4, "F.SilkS", 0.9)
-    s += text("SOLDAR DOS DOIS LADOS", 0, L / 2 + 1.4, "F.SilkS", 0.9)
+    for ly in ("F.SilkS", "B.SilkS"):
+        s += line(x1, yb, x2, yb, ly)
+        s += line(x1, yb, x1, yf_, ly)
+        s += line(x2, yb, x2, yf_, ly)
+        s += line(xk, yb, xk, yf_, ly)      # coluna da guia
+    # a serigrafia de cada face nomeia os pads DAQUELA face: as ilhas sao SMD,
+    # entao a coluna de x=col_x(1) e o pino 56 em F.Cu e o pino 1 em B.Cu.
+    # Rotular a frente com "1" seria nomear o pad de tras.
+    yt = -L / 2 - 1.4          # do lado do corpo da placa, nunca o da aresta
+    s += text("56", col_x(1), yt, "F.SilkS", 0.9)
+    s += text("29", col_x(NCOL), yt, "F.SilkS", 0.9)
+    s += text("1", col_x(1), yt, "B.SilkS", 0.9)
+    s += text("28", col_x(NCOL), yt, "B.SilkS", 0.9)
+    s += text("SOLDAR DOS DOIS LADOS", 0, yt, "F.SilkS", 0.9)
+    s += text("SOLDAR DOS DOIS LADOS", 0, yt, "B.SilkS", 0.9)
     return s + ')\n'
 
 

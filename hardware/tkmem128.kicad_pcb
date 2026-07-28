@@ -6781,7 +6781,7 @@
 		(descr "Soquete de borda femea 56 vias (28x2) passo 2,54mm, fileiras de terminais a 4,85mm, furo 1,02mm. TE/AMP 5645235 Standard Edge II. ATENCAO: e conector de entrada VERTICAL - a placa que o recebe fica PERPENDICULAR ao cartao do TK.")
 		(tags "conector borda edge socket 56 ZX Spectrum TK90X TK95")
 		(property "Reference" "J1"
-			(at 0 6.5 0)
+			(at 0 6.23 0)
 			(layer "B.SilkS")
 			(uuid "622f8bf4-723a-4131-8d0a-ea8195df0dac")
 			(effects
@@ -6921,7 +6921,7 @@
 			(uuid "4436ca6b-3fa9-40ae-83b7-e25aa18c42f4")
 		)
 		(fp_text user "29"
-			(at 34.29 6.2 0)
+			(at 37.87 2.73 0)
 			(layer "B.SilkS")
 			(uuid "964af9c5-122a-4495-9c9a-fe364298d14b")
 			(effects
@@ -6933,7 +6933,7 @@
 			)
 		)
 		(fp_text user "28"
-			(at 34.29 -6.2 0)
+			(at 37.87 -2.27 0)
 			(layer "B.SilkS")
 			(uuid "0760c50b-3738-4b2d-afa8-3bcefae49f55")
 			(effects
@@ -6945,7 +6945,7 @@
 			)
 		)
 		(fp_text user "GUIA 5/52"
-			(at -19.13 0 0)
+			(at -24.13 5.73 0)
 			(layer "B.SilkS")
 			(uuid "7621745f-31b3-4fe4-8fdb-7e1302fc7465")
 			(effects
@@ -6956,10 +6956,10 @@
 				(justify mirror)
 			)
 		)
-		(fp_text user "56"
-			(at -34.29 6.2 0)
+		(fp_text user "1"
+			(at -37.13 -2.27 0)
 			(layer "B.SilkS")
-			(uuid "07cd2322-304a-49d1-acc0-6dde6e869aaf")
+			(uuid "30e53dd4-ea81-45b2-a07c-1f12ea88313d")
 			(effects
 				(font
 					(size 1 1)
@@ -6968,10 +6968,10 @@
 				(justify mirror)
 			)
 		)
-		(fp_text user "1"
-			(at -34.29 -6.2 0)
+		(fp_text user "56"
+			(at -37.63 2.73 0)
 			(layer "B.SilkS")
-			(uuid "30e53dd4-ea81-45b2-a07c-1f12ea88313d")
+			(uuid "07cd2322-304a-49d1-acc0-6dde6e869aaf")
 			(effects
 				(font
 					(size 1 1)
@@ -7520,17 +7520,6 @@
 		(layer "Edge.Cuts")
 		(uuid "6907d4e0-3a51-43b6-bd26-257fd2a0650d")
 	)
-	(gr_text "5 e 52 = GND"
-		(at 20 58 0)
-		(layer "F.SilkS")
-		(uuid "65ad5f5c-a929-421d-b70c-0dd27a3d6d25")
-		(effects
-			(font
-				(size 0.9 0.9)
-				(thickness 0.15)
-			)
-		)
-	)
 	(gr_text "27C256"
 		(at 34.5 43.5 0)
 		(layer "F.SilkS")
@@ -7646,7 +7635,7 @@
 		)
 	)
 	(gr_text "Derivado de Velesoft 2009 e Luccas Eletrônica 2012"
-		(at 39.5 58 0)
+		(at 39.5 54 0)
 		(layer "B.SilkS")
 		(uuid "c16994a3-3f04-4e76-9eb4-38f6a934dfd1")
 		(effects
@@ -7706,7 +7695,7 @@
 		)
 	)
 	(gr_text "github.com/lrrosa/tkmem128-kicad"
-		(at 39.5 55 0)
+		(at 39.5 51.5 0)
 		(layer "B.SilkS")
 		(uuid "b27711a8-2469-42f6-9bd0-2986dfe2b8d1")
 		(effects
@@ -7718,7 +7707,7 @@
 		)
 	)
 	(gr_text "CERN-OHL-S v2"
-		(at 39.5 52 0)
+		(at 39.5 49 0)
 		(layer "B.SilkS")
 		(uuid "18917b32-377a-4f25-931a-f68d83ca2caf")
 		(effects

@@ -37,7 +37,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `maze.py` | Roteador de labirinto A* de duas camadas com via, para fechar a última ligação quando o autorouter desiste |
 | `galgen.py` | Monta o mapa de fusíveis do GAL20V8 das equações e confere contra um `.jed` de referência |
 | `troca_j1.py` | Troca o footprint de `J1` na placa principal preservando esquemático e serigrafia |
-| `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia e as faces batem entre a placa principal e a tira |
+| `corrige_silk_tira.py` | Acerta a serigrafia da tira (numeração por face, contorno em U, texto da passagem) sem regerar a placa |
+| `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)
 
@@ -110,6 +111,12 @@ uma à outra. Cada uma passa em ERC e DRC isoladamente mesmo se a tira estiver
 espelhada; o erro só apareceria na bancada, com o barramento invertido ponta a
 ponta. Esse script fecha essa lacuna: confere que a coluna de cada pino, a
 guia, as faces das fileiras e a fileira junto à aresta batem entre as duas.
+
+Ele também confere a **numeração serigrafada**. As ilhas e os dedos são SMD —
+cada pino existe em uma face só —, então a serigrafia de uma face não pode
+nomear o pad da outra: na coluna x=73,66 o cobre de `F.Cu` é o pino 56 e o de
+`B.Cu` é o pino 1. O script acha, para cada rótulo numérico, o pad mais próximo
+*naquela face* e exige que o número bata.
 
 ## Por que gerado
 

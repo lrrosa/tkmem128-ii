@@ -85,6 +85,46 @@ if not y1 > y56:
                  "aresta inferior (y maior): pino 1 em y=%.2f, pino 56 em "
                  "y=%.2f" % (y1, y56))
 
+
+# 5) a serigrafia de cada face so pode nomear pads DAQUELA face
+#
+# Nas ilhas e nos dedos cada pino existe em uma face so: na coluna x=73,66 o
+# cobre de F.Cu e o pino 56 e o de B.Cu e o pino 1. Escrever "1" na frente
+# nomeia o pad de tras — foi exatamente o erro que J1 da tira tinha.
+def confere_rotulos(modulo, refs):
+    caminho = "%s/%s.kicad_pcb" % (modulo.PROJ_DIR, modulo.PROJ_NAME)
+    b = pcbnew.LoadBoard(caminho)
+    mm = pcbnew.ToMM
+    for fp in b.GetFootprints():
+        if fp.GetReference() not in refs:
+            continue
+        pads = [(int(p.GetNumber()), mm(p.GetPosition().x),
+                 mm(p.GetPosition().y), p.IsOnLayer(pcbnew.F_Cu),
+                 p.IsOnLayer(pcbnew.B_Cu)) for p in fp.Pads()]
+        for it in fp.GraphicalItems():
+            if it.GetClass() != "PCB_TEXT":
+                continue
+            camada = it.GetLayer()
+            if camada not in (pcbnew.F_SilkS, pcbnew.B_SilkS):
+                continue
+            s = it.GetText()
+            if not s.isdigit():
+                continue
+            frente = camada == pcbnew.F_SilkS
+            p = it.GetPosition()
+            tx, ty = mm(p.x), mm(p.y)
+            perto = min((q for q in pads if (q[3] if frente else q[4])),
+                        key=lambda q: (q[1] - tx) ** 2 + (q[2] - ty) ** 2)
+            if perto[0] != int(s):
+                erros.append('%s %s: rotulo "%s" em %s (x=%.2f y=%.2f) esta '
+                             'sobre o pino %d daquela face'
+                             % (modulo.PROJ_NAME, fp.GetReference(), s,
+                                b.GetLayerName(camada), tx, ty, perto[0]))
+
+
+confere_rotulos(TIRA, ("J1", "J2"))
+confere_rotulos(PRINC, ("J1",))
+
 print("conector (principal): pino 1 em x=%.2f, pino 28 em x=%.2f, guia em %s"
       % (conector[1][0], conector[28][0], g_con))
 print("ilhas    (tira)     : pino 1 em x=%.2f, pino 28 em x=%.2f, guia em %s"
