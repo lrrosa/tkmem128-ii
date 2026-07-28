@@ -36,6 +36,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `limpa_cotocos.py` | Remove fragmentos de trilha de décimos de mm deixados pela importação do SES |
 | `maze.py` | Roteador de labirinto A* de duas camadas com via, para fechar a última ligação quando o autorouter desiste |
 | `galgen.py` | Monta o mapa de fusíveis do GAL20V8 das equações e confere contra um `.jed` de referência |
+| `troca_j1.py` | Troca o footprint de `J1` na placa principal preservando esquemático e serigrafia |
+| `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia e as faces batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)
 
@@ -96,6 +98,18 @@ checksum reconstruido : 5752
 É essa comparação que autoriza distribuir `hardware/gal/tkmem128.jed` pronto: o
 arquivo é gerado das equações deste projeto, e bate fusível a fusível com o mapa
 do projeto original.
+
+## A verificação que vale rodar sempre
+
+```bash
+"$KIPY" confere_alinhamento.py
+```
+
+As duas placas se encaixam por solda, não por conector — nada no KiCad amarra
+uma à outra. Cada uma passa em ERC e DRC isoladamente mesmo se a tira estiver
+espelhada; o erro só apareceria na bancada, com o barramento invertido ponta a
+ponta. Esse script fecha essa lacuna: confere que a coluna de cada pino, a
+guia, as faces das fileiras e a fileira junto à aresta batem entre as duas.
 
 ## Por que gerado
 

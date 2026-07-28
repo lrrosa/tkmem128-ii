@@ -142,6 +142,30 @@ Se você não vai usar a EPROM — e ela é dispensável, ver o README — deixe
 
 ---
 
+## 5b. Alinhamento entre as duas placas (CRÍTICO)
+
+Os dois layouts correm no **mesmo sentido de X**: a principal fica em pé com os
+componentes virados para trás, a tira fica deitada com o cobre de cima virado
+para cima e sai para trás. Logo, vistos nos respectivos layouts do KiCad:
+
+| | Coluna do pino 1 | Guia (coluna sem contato) |
+| --- | --- | --- |
+| Conector `J1` da principal | x = 73,66 mm | x = 63,50 mm |
+| Ilhas `J1` da tira | x = 73,66 mm | x = 63,50 mm |
+| Dedos `J2` da tira | x = 73,66 mm | x = 63,50 mm |
+
+Se a tira for desenhada espelhada, tudo continua com ERC e DRC zerados — os
+dois projetos são válidos isoladamente — e a placa só falha na bancada, com o
+barramento invertido ponta a ponta.
+
+**Verificação automática:** rode
+[`tools/confere_alinhamento.py`](../tools/confere_alinhamento.py) depois de
+qualquer mexida em footprint, rotação ou posicionamento de conector. Ele
+confere as colunas, a guia, as faces das fileiras e qual fileira fica junto à
+aresta, e falha alto se algum invariante quebrar.
+
+---
+
 ## 6. A tira de expansão é soldada, não encaixada
 
 **Onde:** tira de expansão, `J1`.
@@ -251,6 +275,7 @@ fazer em casa, vai precisar redesenhar com folga maior.
 | 3. Chaveta | **Pode danificar o TK** |
 | 4. Acabamento dos dedos | Contato ruim, desgaste rápido |
 | 5. ROMCS | ROM 128 instável (só afeta quem usa a EPROM) |
+| 5b. Alinhamento das placas | **Barramento invertido ponta a ponta** — ERC/DRC não pegam |
 | 6. Tira soldada | Empilhar conector reintroduz o degrau |
 | 7. Caixa | Não fecha |
 | 8. Regras de fabricação | Curto ou trilha aberta se a fábrica não atender 0,14 mm |

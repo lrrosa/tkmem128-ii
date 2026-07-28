@@ -52,8 +52,11 @@ PLACE_SCH = {"J1": (70, 190), "J2": (250, 190)}
 SCH_DISC_ORIGIN = (360, 60)
 
 PLACE_PCB = {
-    "J1": (39.37, 2.5, 0),        # ilhas comecam na borda (y=0) e entram 5 mm
-    "J2": (39.37, 41.19, 0),      # dedos: passagem a outros perifericos
+    # J1 e J2 giram 180: as colunas da tira tem que casar com as da placa
+# principal, e o layout dela corre no sentido oposto. Como todas as
+# ilhas estao em y local = 0, girar 180 espelha so o X, sem trocar faces.
+    "J1": (39.37, 2.5, 180),      # ilhas comecam na borda (y=0) e entram 5 mm
+    "J2": (39.37, 41.19, 180),    # dedos: passagem a outros perifericos
     "C1": (6.0, 20.0, 0),
 }
 
