@@ -7,6 +7,13 @@ testada num TK real.
 Os itens abaixo dependem de medir peças físicas ou de decisões que não dá para
 verificar de dentro do KiCad. Confira antes de gastar dinheiro com PCB.
 
+> **Conferência em papel — julho de 2026.** As duas placas foram impressas em
+> escala 1:1 e comparadas com as peças reais. **Todas as medidas e alinhamentos
+> bateram**, com uma correção: o rasgo da guia da tira passou de 5,0 para
+> **7,0 mm** de profundidade (item 3). Isso confirma as cotas do conector, o
+> tamanho das placas e o encaixe na caixa — mas *não* substitui o teste de
+> continuidade com a placa fabricada, antes de plugar no micro.
+
 ---
 
 ## 1. O conector de borda (cotas do datasheet)
@@ -31,9 +38,10 @@ A **guia** ocupa a posição das vias 5 e 52 — é um pedacinho de PCB que o
 montador encaixa ali, casando com o rasgo entre os dedos do TK. Como não há
 terminal nessa posição, o footprint tem **54 furos**, não 56.
 
-**Verifique antes de fabricar:** confira com paquímetro as duas fileiras
-(4,85 mm) e o furo (1,02 mm) no conector que você comprou. Modelos de outros
-fabricantes variam.
+**Conferido em papel (jul/2026)** contra o conector real: as duas fileiras
+(4,85 mm) e o furo (1,02 mm) batem. Ainda assim, **confira com paquímetro o
+conector que você comprou** — modelos de outros fabricantes variam, e é aqui que
+uma divergência de décimos custa a placa inteira.
 
 ---
 
@@ -100,6 +108,20 @@ sirva de guia, casando com o rasgo entre os dedos da placa do TK.
 
 Sem isso, é fácil plugar deslocado por uma posição — e aí sinais e alimentação
 vão para os lugares errados.
+
+Do outro lado da corrente, a **tira** tem o rasgo correspondente entre os dedos
+de `J2`: 1,8 mm de largura por **7,0 mm de profundidade**, centrado em
+x = 63,50. A profundidade foi conferida contra a placa real em julho de 2026
+(impressão em papel 1:1) — os 5,0 mm iniciais não chegavam ao fundo da guia.
+
+Se algum dia precisar de mais profundidade, saiba que **restam só 0,62 mm**: os
+dedos começam em y = 37,38 e o rasgo já vai até y = 38,00. Passar disso obriga a
+encurtar os dedos também. A folga lateral para o cobre mais próximo (pinos 4, 6,
+51 e 53) é de 0,88 mm.
+
+O valor mora em `KEYSLOT_DEPTH`, em `tools/netlist_exp.py`; para aplicar numa
+placa já roteada use `tools/ajusta_guia.py`, que refaz o contorno e repreenche
+as zonas.
 
 ---
 

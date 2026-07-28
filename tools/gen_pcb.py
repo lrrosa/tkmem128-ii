@@ -86,7 +86,8 @@ def main():
                      if fp.GetReference() == "J2" for pad in fp.Pads()})
         faltando = [round(xs[0] + 2.54 * k, 2) for k in range(28)]
         kx = [x for x in faltando if x not in xs][0]
-        kw, kd = 0.9, 5.0
+        kw = 0.9
+        kd = getattr(BOARD, "KEYSLOT_DEPTH", 5.0)
         edge(0, H, kx - kw, H)
         edge(kx - kw, H, kx - kw, H - kd)
         edge(kx - kw, H - kd, kx + kw, H - kd)

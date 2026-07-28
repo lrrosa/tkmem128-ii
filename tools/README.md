@@ -39,6 +39,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `troca_j1.py` | Troca o footprint de `J1` na placa principal preservando esquemático e serigrafia |
 | `corrige_silk_tira.py` | Acerta a serigrafia da tira (numeração por face, contorno em U, texto da passagem) sem regerar a placa |
 | `silk_conector_principal.py` | Leva a numeração de `J1` para o lado dos componentes e apara o contorno que passava da aresta |
+| `ajusta_guia.py` | Refaz o rasgo da guia da tira com a profundidade de `KEYSLOT_DEPTH` e repreenche as zonas |
+| `silk_negrito.py` | Poe toda a serigrafia em negrito (espessura = 0,2 x tamanho, como o KiCad faz) |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)

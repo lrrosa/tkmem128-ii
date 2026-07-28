@@ -26,6 +26,10 @@ PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/"
             "expansor")
 BOARD_W, BOARD_H = 78.74, 45.0
 KEYSLOT_COL = 5             # rasgo da guia nos dedos de J2
+# Profundidade conferida contra a placa real (impressao em papel, jul/2026):
+# 5 mm nao chegava ao fundo da guia do conector. Os dedos comecam em y=37,38,
+# entao 7 mm ainda deixa 0,62 mm de material antes do topo deles.
+KEYSLOT_DEPTH = 7.0
 EDGE_PADS_TOP = True        # as ilhas de J1 chegam ate a aresta y=0
 SHEET = "A3"
 TITLE = "TKMEM-128 KiCad - tira de expansao do barramento TK90X/TK95"

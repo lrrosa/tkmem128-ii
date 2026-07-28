@@ -9,3 +9,6 @@ fp-info-cache
 
 # historico local de editor
 .history/
+
+# arquivos de trava de sessao do KiCad
+*.lck
