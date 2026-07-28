@@ -128,6 +128,12 @@ As duas são de **2 camadas**, com plano de terra nas duas faces.
 
 ![Placa principal](docs/img/placa-principal.png)
 
+O conector é passante e é usado pelos dois lados — por baixo entra o conector,
+por cima solda a tira —, então a numeração dele está serigrafada nas duas
+faces.
+
+![Placa principal, verso](docs/img/placa-principal-verso.png)
+
 ![Tira de expansão](docs/img/placa-expansora.png)
 
 A tira é soldada dos dois lados, então cada face traz a numeração dos **seus**

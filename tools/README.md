@@ -38,6 +38,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `galgen.py` | Monta o mapa de fusíveis do GAL20V8 das equações e confere contra um `.jed` de referência |
 | `troca_j1.py` | Troca o footprint de `J1` na placa principal preservando esquemático e serigrafia |
 | `corrige_silk_tira.py` | Acerta a serigrafia da tira (numeração por face, contorno em U, texto da passagem) sem regerar a placa |
+| `silk_conector_principal.py` | Leva a numeração de `J1` para o lado dos componentes e apara o contorno que passava da aresta |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)

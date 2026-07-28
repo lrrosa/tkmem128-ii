@@ -37,6 +37,13 @@ a tira de expansão é soldada.
    casando com o rasgo entre os dedos do TK.
 7. Só então **encaixe os CIs** nos soquetes.
 
+A numeração do conector está serigrafada **nas duas faces**, nas mesmas
+posições: os terminais são passantes, então cada pino existe dos dois lados na
+mesma coluna. Você vê `28`/`29` de um lado e `1`/`56` do outro — o pino 1 é o
+da **ilha quadrada**. Qual deles aparece à esquerda depende de qual face você
+está olhando; o traço vertical curto marca a coluna da guia (5/52) e serve de
+referência rápida.
+
 ### Tira de expansão
 
 Ela não tem componente nenhum: de um lado ilhas de solda, do outro dedos de

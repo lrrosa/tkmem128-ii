@@ -70,6 +70,11 @@ def gen_socket():
 
     TE/AMP 5645235 "Standard Edge II", 2,54 mm: terminais em duas fileiras a
     4,85 mm [.191], furo recomendado 1,02 +-0,08 mm [.040].
+
+    O contorno desenha o corpo do conector, que de fato avanca alem da aresta
+    da placa — e um conector DE BORDA. Serigrafia fora da placa nao imprime, e
+    o fabricante recorta; na placa principal quem apara e
+    `silk_conector_principal.py`, que deixa um U aberto para a aresta.
     """
     yf, yr = 2.425, -2.425
     s = HDR % ("ZX_TK_Bus_Socket_56",
@@ -98,12 +103,17 @@ def gen_socket():
         s += line(x1, 5.0, x1, -5.0, ly, w)
     # marcacao da guia e do pino 1
     xk = col_x(KEYCOL)
-    s += line(xk, -5.0, xk, 5.0, "F.SilkS")
-    s += text("GUIA 5/52", xk + 5.0, 0, "F.SilkS", 0.8)
-    s += text("1", col_x(1), 6.2, "F.SilkS", 1.0)
-    s += text("28", col_x(NCOL), 6.2, "F.SilkS", 1.0)
-    s += text("56", col_x(1), -6.2, "F.SilkS", 1.0)
-    s += text("29", col_x(NCOL), -6.2, "F.SilkS", 1.0)
+    # Terminais THT: cada pino existe nas DUAS faces, na mesma coluna. A
+    # numeracao vai nas duas porque as duas sao usadas — de um lado solda-se o
+    # conector, do outro solda-se a tira de expansao nos terminais que
+    # atravessam a placa.
+    for ly in ("F.SilkS", "B.SilkS"):
+        s += line(xk, -5.0, xk, 5.0, ly)
+        s += text("GUIA 5/52", xk + 5.0, 0, ly, 0.8)
+        s += text("1", col_x(1), 6.2, ly, 1.0)
+        s += text("28", col_x(NCOL), 6.2, ly, 1.0)
+        s += text("56", col_x(1), -6.2, ly, 1.0)
+        s += text("29", col_x(NCOL), -6.2, ly, 1.0)
     s += text("TK90X/TK95", 0, -6.2, "F.Fab", 1.0)
     return s + ')\n'
 

@@ -1515,7 +1515,7 @@
 		(layer "Edge.Cuts")
 		(uuid "fd6b07f9-7bce-434b-b62a-ab7c60a0c339")
 	)
-	(gr_text "parede de tras da caixa"
+	(gr_text "parede de trás da caixa"
 		(at 20 28.6 0)
 		(layer "F.SilkS")
 		(uuid "ba05672b-8b2f-41f4-84f1-91c2d9da11a9")
@@ -1548,7 +1548,7 @@
 			)
 		)
 	)
-	(gr_text "PARA OUTROS PERIFERICOS"
+	(gr_text "PARA OUTROS PERIFÉRICOS"
 		(at 39.37 34 0)
 		(layer "F.SilkS")
 		(uuid "ff802dd2-d42f-4c22-9860-eb2004149dbe")
