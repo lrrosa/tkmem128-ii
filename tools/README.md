@@ -47,7 +47,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `silk_principal.py` | Reposiciona a serigrafia de nível de placa depois do rearranjo |
 | `tira_sj.py` | Removeu SJ1/SJ2 do esquemático — histórico, já aplicado |
 | `planos_4camadas.py` | Cria os planos internos de GND e +5V da placa principal |
-| `producao.sh` | Regenera gerbers, furação, BOM, posições e os `.zip` das duas placas |
+| `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip` e os renders de `docs/img/` |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)
@@ -120,6 +120,25 @@ checksum reconstruido : 5752
 É essa comparação que autoriza distribuir `hardware/gal/tkmem128.jed` pronto: o
 arquivo é gerado das equações deste projeto, e bate fusível a fusível com o mapa
 do projeto original.
+
+## Como saber se as saídas estão atualizadas
+
+**Não olhe a data dos arquivos.** O `kicad-cli` reescreve a `.kicad_pcb` byte a
+byte idêntica ao rodar `export` e `render`, então a placa fica sempre "mais nova"
+que os derivados dela e a comparação de timestamp acusa defasagem que não existe.
+
+O teste que vale é de conteúdo:
+
+```bash
+bash tools/producao.sh
+git status --short
+```
+
+Os **renders são determinísticos** — duas rodadas dão os mesmos bytes —, então se
+o git não acusar mudança em `docs/img/`, eles estão em dia. Os **gerbers, o `.drl`,
+o `.gbrjob` e o PDF carregam a data de geração embutida** e sempre aparecem como
+modificados; para saber se mudaram de verdade, compare ignorando a data (nos
+gerbers, as linhas `CreationDate`) ou o texto extraído do PDF.
 
 ## A verificação que vale rodar sempre
 

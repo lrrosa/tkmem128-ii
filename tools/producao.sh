@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Regenera tudo que vai para a fabrica, nas duas placas, e fecha os .zip.
+# Regenera tudo que e DERIVADO das placas: gerbers, furacao, BOM, posicoes,
+# esquematico em PDF, os .zip da fabrica e os renders da documentacao.
 #
 # Rodar SEMPRE que a placa mudar — ate ajuste de serigrafia. Os .zip sao o que
 # a fabrica pede no formulario de pedido; os arquivos soltos ficam ao lado para
@@ -13,7 +14,7 @@ KC="${KICAD_CLI:-C:/Program Files/KiCad/10.0/bin/kicad-cli.exe}"
 # placa principal: 4 camadas (F.Cu / In1.Cu=GND / In2.Cu=+5V / B.Cu)
 # tira de expansao: 2 camadas
 gera() {
-  local pcb="$1" sch="$2" dir="$3" camadas="$4"
+  local pcb="$1" sch="$2" dir="$3" camadas="$4" img="$5"
   echo "== $dir"
   rm -rf "$dir/gerbers"
   "$KC" pcb export gerbers --no-protel-ext --layers "$camadas" \
@@ -37,11 +38,11 @@ print('   %d arquivos -> %s (%.0f kB)' % (len(f), os.path.basename(z), os.path.g
 
 gera hardware/tkmem128.kicad_pcb hardware/tkmem128.kicad_sch \
      production/placa-principal \
-     "F.Cu,In1.Cu,In2.Cu,B.Cu,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts"
+     "F.Cu,In1.Cu,In2.Cu,B.Cu,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts"      placa-principal
 
 gera hardware/expansor/tkmem128-expansor.kicad_pcb \
      hardware/expansor/tkmem128-expansor.kicad_sch \
      production/tira-expansao \
-     "F.Cu,B.Cu,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts"
+     "F.Cu,B.Cu,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts"      placa-expansora
 
 echo "pronto."
