@@ -50,6 +50,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `move_ramdis.py` | Moveu a auto-desativação do pino 17 para o 29 e removeu JP4 — histórico, já aplicado |
 | `fecha_a14.py` | Fecha `A14` à mão pela margem direita: o Freerouting deixa essa uma em aberto |
 | `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip` e os renders de `docs/img/` |
+| `confere_compatibilidade.py` | **Verificação de regressão**: confere que a placa não liga nenhum contato que difere entre TK e ZX Spectrum 48K |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)
@@ -141,6 +142,20 @@ o git não acusar mudança em `docs/img/`, eles estão em dia. Os **gerbers, o `
 o `.gbrjob` e o PDF carregam a data de geração embutida** e sempre aparecem como
 modificados; para saber se mudaram de verdade, compare ignorando a data (nos
 gerbers, as linhas `CreationDate`) ou o texto extraído do PDF.
+
+## A outra verificação de regressão
+
+```bash
+python tools/confere_compatibilidade.py
+```
+
+A placa serve em TK90X/TK95 **e** em ZX Spectrum 48K, e isso se resume a uma
+regra: dos 54 contatos do barramento, **nove não carregam a mesma coisa nas duas
+máquinas** (4, 7, 15, 16, 17, 18, 34, 35, 37), e a placa não pode tocar nenhum.
+O script cruza as ressalvas de `busdef.py` com os contatos que a netlist usa e
+falha se algum aparecer. Rodar depois de qualquer mexida em `busdef.py` ou
+`netlist.py` — e antes de repetir a afirmação de compatibilidade em qualquer
+lugar.
 
 ## A verificação que vale rodar sempre
 

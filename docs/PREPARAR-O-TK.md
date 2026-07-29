@@ -105,6 +105,28 @@ posição errada, e o sinal vai para o pino 29, que é N.C. nas duas máquinas.
 
 ---
 
+## E num ZX Spectrum 48K?
+
+A placa serve — o barramento é compatível contato a contato, ver
+[Compatibilidade](../README.md#compatibilidade) — mas **esta página não serve**.
+Ela descreve o interior do TK.
+
+O que vale igual: os 32 KB superiores de RAM interna também têm que sair de
+`0x8000-0xFFFF`, senão colidem com a SRAM da placa. O que muda: **o ponto interno
+onde se faz isso**. No TK é o pino 10 do IC27 (74LS32); num Spectrum é outro
+circuito, e **nós não verificamos qual** — não temos a máquina aqui.
+
+A auto-desativação pelo contato 29 é **inerte num Spectrum**: lá esse contato é
+N.C., então o pull-up de `R4` não chega a lugar nenhum. Isso é de propósito — é o
+que torna a placa segura nas duas máquinas —, mas significa que num Spectrum a
+desativação tem de ser feita por dentro, do jeito que aquele micro pedir.
+
+Se você fizer isso num Spectrum e funcionar, uma
+[issue](https://github.com/lrrosa/tkmem128-kicad/issues) com o ponto exato é
+bem-vinda: entra aqui com o crédito.
+
+---
+
 ## Conferindo
 
 Com a interface conectada, ligue o TK. Ele deve iniciar

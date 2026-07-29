@@ -1,13 +1,17 @@
 # TKMEM-128 KiCad
 
 Expansão externa de **128 KB (ou 512 KB) de RAM paginada no padrão ZX Spectrum 128**
-para os micros brasileiros **TK90X e TK95** (clones do ZX Spectrum 48K, da
-Microdigital). Redesenho completo em **KiCad 10**, com arquivos de fabricação
-prontos.
+para **TK90X, TK95 e ZX Spectrum 48K**. Redesenho completo em **KiCad 10**, com
+arquivos de fabricação prontos.
+
+> O nome vem da placa brasileira que originou este redesenho, mas o circuito é do
+> **Velesoft e nasceu para o ZX Spectrum 48K**. A adaptação de 2012 ao TK usava um
+> contato que no Spectrum carrega vídeo; aqui isso foi corrigido, e a placa voltou
+> a servir nas duas famílias. Ver [Compatibilidade](#compatibilidade).
 
 > **Estado: projeto validado em software, ainda não montado em hardware.**
 > ERC e DRC estão zerados e a netlist foi conferida contra a intenção de projeto,
-> mas nenhuma placa foi fabricada nem testada num TK. Antes de mandar fabricar,
+> mas nenhuma placa foi fabricada nem testada num micro real. Antes de mandar fabricar,
 > leia [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — há itens que
 > dependem de medir peças físicas.
 >
@@ -51,13 +55,14 @@ títulos que dependem do shadow video.
 
 | Faixa | Quem responde |
 | --- | --- |
-| `0x0000-0x3FFF` | ROM — interna do TK, ou a 27C256 da placa (jumper) |
-| `0x4000-0x7FFF` | RAM baixa **interna do TK** (memória de vídeo da ULA). Não é decodificada aqui |
+| `0x0000-0x3FFF` | ROM — a interna do micro, ou a 27C256 da placa (jumper) |
+| `0x4000-0x7FFF` | RAM baixa **interna do micro** (memória de vídeo da ULA). Não é decodificada aqui |
 | `0x8000-0xBFFF` | SRAM externa, **banco 2 fixo** |
 | `0xC000-0xFFFF` | SRAM externa, banco selecionado pela porta `0x7FFD` |
 
-Como a SRAM externa cobre `0x8000-0xFFFF`, **a RAM interna de 32K do TK precisa
-ser desativada** — é a única alteração necessária dentro do micro. Veja
+Como a SRAM externa cobre `0x8000-0xFFFF`, **os 32 KB superiores de RAM interna
+precisam ser desativados** — é a única alteração necessária dentro do micro, e a
+única coisa que difere entre TK e ZX Spectrum. Veja
 [`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md).
 
 ### Porta 0x7FFD
@@ -79,12 +84,54 @@ e o latch nunca mais é acionado.
 
 ---
 
+## Compatibilidade
+
+**TK90X, TK95 e ZX Spectrum 48K.** Não é uma promessa vaga: reduz-se a uma regra
+que dá para verificar.
+
+O barramento de expansão é o mesmo conector de 2×28 nas duas famílias, mas
+**nove contatos não carregam a mesma coisa** em cada uma. Enquanto a placa não
+tocar nenhum deles, ela serve nas duas:
+
+| Contato | No TK90X/TK95 | No ZX Spectrum 48K |
+| --- | --- | --- |
+| 4 | +9 V | USS |
+| 7 | N.C. | GND |
+| 15 | GND | sinal |
+| 16, 17, 18 | livres | **Y, V e U do vídeo componente** |
+| 34, 35 | 12 V | difere |
+| 37 | **+5 V** | **−5 V** |
+
+Esta placa liga **34 dos 54 contatos, e nenhum é dessa lista.** Alimentação sai
+dos contatos 3 (+5 V), 6 e 14 (GND), que são iguais nas duas máquinas.
+
+A verificação é automática, para a afirmação não envelhecer:
+
+```bash
+python tools/confere_compatibilidade.py
+```
+
+Ele cruza a lista de divergências de `busdef.py` com os contatos que a netlist
+realmente usa, e falha se algum aparecer.
+
+> ⚠️ **O que ainda é específico de cada máquina: desativar a RAM interna de 32 KB.**
+> Isso não é opcional — sem desativar, a memória do micro colide com a SRAM
+> externa em `0x8000-0xFFFF`. O método documentado aqui é o do TK (fio do contato
+> 29 ao pino 10 do IC27). **Num ZX Spectrum o ponto interno é outro e não foi
+> verificado por nós**; a auto-desativação pelo contato 29 é inerte lá, porque
+> naquele micro o contato é N.C.
+>
+> Também não montamos a placa num Spectrum: a compatibilidade acima é do
+> barramento, conferida contato a contato, não bancada.
+
+---
+
 ## As duas placas
 
 A placa de componentes fica **em pé** dentro da caixa. O conector de borda é
 soldado **diretamente nela** — e como esse conector é de entrada vertical
 (o cartão entra perpendicular à placa que o segura), a fenda dele cai no plano
-horizontal e recebe o cartão do TK.
+horizontal e recebe o cartão do micro.
 
 Os terminais do conector são **retos** e atravessam a placa, sobrando ~3,18 mm
 do outro lado em duas fileiras a 4,85 mm. A **tira de expansão** entra **entre
@@ -102,7 +149,7 @@ de um extremo, dedos de borda no outro.
               │    lado ─────────────►  │
               │                         │
         ┌─────┴─────┐  ╤════════════════╡
-   TK ──┤  conector │══╪═ tira ═════════╪══► periféricos
+  micro ─┤ conector │══╪═ tira ═════════╪══► periféricos
         └─────┬─────┘  ╧════════════════╡   78,74 × 45 mm
               │      terminais retos,    │
               └──────a tira entra entre──┘
@@ -111,8 +158,9 @@ de um extremo, dedos de borda no outro.
 ```
 
 > No conector, **1..28 fica na fileira de baixo** (junto à aresta inferior da
-> placa), igual à fileira inferior do cartão do TK; 29..56 fica do lado de
-> dentro.
+> placa), igual à fileira inferior do cartão do micro; 29..56 fica do lado de
+> dentro. É a mesma convenção no TK e no ZX Spectrum, onde essas fileiras são
+> chamadas de B e A.
 >
 > ⚠️ **O lado dos componentes tem que ficar virado para a tira de expansão**,
 > nunca para o lado do conector. Ao contrário, a placa dentro da caixa esbarra
@@ -166,7 +214,7 @@ pinos: 29..56 na frente, 1..28 no verso.
 | **Jumper JP2 com duas estratégias de ROMCS** | O `ROMCS` do barramento é **ativo em nível alto** para desligar a ROM interna, o oposto da saída `/ROMCS` do GAL. É a explicação mais provável para a ROM 128 do original "funcionar num TK e não em outro". JP2 permite escolher entre acionar pelo GAL ou fixar em nível alto (como fazem os cartuchos da Interface 2), com R5 em série |
 | **Auto-desativação sem jumper nenhum** | A original usava o **pino 17**, livre no TK mas **V do vídeo componente no ZX Spectrum** — daí o jumper e o aviso de que a posição errada danifica o micro. Aqui o sinal vai pelo **pino 29**, que é N.C. nas duas máquinas, então o pull-up é permanente e **JP4 deixou de existir**. Ver [a análise](docs/PREPARAR-O-TK.md#por-que-o-pino-29) |
 | **GAL com `.jed` pronto e verificado** | O usuário não precisa montar nada: o `.jed` distribuído é gerado das equações deste projeto e conferido fusível a fusível contra o mapa de referência (checksum `C5752`, zero divergências) |
-| **Degrau zero na corrente de periféricos** | A tira de expansão solda nos terminais do próprio conector, ficando coplanar com o cartão do TK. O periférico seguinte entra no mesmo plano, sem escadinha |
+| **Degrau zero na corrente de periféricos** | A tira de expansão solda nos terminais do próprio conector, ficando coplanar com o cartão do micro. O periférico seguinte entra no mesmo plano, sem escadinha |
 | **Bit N da porta 7FFD no flip-flop N** | O original embaralhava as entradas do latch; aqui a ordem é natural e o esquemático se lê sozinho |
 | **Endereços e dados da EPROM 1:1** | Obrigatório (o conteúdo da ROM é fixo) e documentado |
 | **Pontos de teste** (`VRAM`, `CLK7FFD`) | Para depurar sem grampear em perna de CI |
@@ -181,7 +229,7 @@ pinos: 29..56 na frente, 1..28 no verso.
 | --- | --- | --- |
 | **JP1** SELECIONA ROM | 1-2 | ROM 128: a EPROM da placa responde em `0x0000-0x3FFF` |
 | | 2-3 | ROM TK: EPROM desligada (padrão) |
-| **JP2** ROMCS BARRAMENTO | aberto | Usa a ROM interna do TK (padrão) |
+| **JP2** ROMCS BARRAMENTO | aberto | Usa a ROM interna do micro (padrão) |
 | | 1-2 | Aciona `ROMCS` pelo GAL (comportamento da placa original) |
 | | 2-3 | Fixa `ROMCS` em nível alto (estilo Interface 2) |
 | **JP3** ZX128/ZX512 | aberto | 128K — SRAM `AS6C1008` (padrão) |
@@ -232,7 +280,7 @@ sinal em curto com o terra.
 | D1 | LED 3 mm | | Opcional |
 | JP1, JP2 | header 1×3 | passo 2,54 mm | |
 | JP3 | header 1×2 | passo 2,54 mm | |
-| J1 | **TE/AMP 5645235** — conector de borda 56 vias, entrada vertical | passo 2,54 mm, fileiras a 4,85 mm | Único componente do lado do cobre; recebe os dedos do TK |
+| J1 | **TE/AMP 5645235** — conector de borda 56 vias, entrada vertical | passo 2,54 mm, fileiras a 4,85 mm | Único componente do lado do cobre; recebe os dedos do micro |
 | — | soquetes torneados DIP-20/24/28/32 | | Recomendado |
 
 ### Tira de expansão

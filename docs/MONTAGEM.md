@@ -34,7 +34,7 @@ a tira de expansão é soldada.
    confira o esquadro, e só então o resto.
    A **guia**: encaixe um pedacinho de PCB de ~1,6 mm na posição **5/52** do
    conector (a placa não tem furos ali, justamente porque não há terminal),
-   casando com o rasgo entre os dedos do TK.
+   casando com o rasgo entre os dedos do micro.
 7. Só então **encaixe os CIs** nos soquetes.
 
 A numeração do conector está serigrafada **nas duas faces**, nas mesmas
@@ -59,7 +59,7 @@ o fio tem que ser isolado.
 
 1. Enfie a tira **entre as duas fileiras** de terminais do conector, que são
    retos: uma fileira fica por cima da tira e a outra por baixo. Ela sai
-   perpendicular à placa principal, no plano do cartão do TK.
+   perpendicular à placa principal, no plano do cartão do micro.
 2. **Solde dos dois lados** — por cima e por baixo. Comece pelas duas pontas
    de cada face para travar o alinhamento, depois preencha o resto.
    As ilhas chegam até a aresta da tira, então não importa se o seu conector
@@ -113,16 +113,16 @@ do pino do conector direto ao plano de terra, que cobre as duas faces.
 
 ## Primeiro teste
 
-1. TK **desligado**. Encaixe o conector da placa principal nos dedos do TK,
+1. Micro **desligado**. Encaixe o conector da placa principal nos dedos dele,
    atenção à guia das posições 5 e 52.
 2. Confira que os componentes estão virados para o lado da tira de expansão.
-3. Ligue. O TK deve iniciar normalmente com a tela de sempre.
+3. Ligue. O micro deve iniciar normalmente com a tela de sempre.
 4. Carregue um jogo de 128 KB. Se rodar, a paginação está funcionando.
 
 Se o micro não iniciar, desligue imediatamente e confira:
 
 - a modificação do pino 29 (continuidade até o pino 10 do IC27)
-- se a RAM interna de 32 KB foi mesmo desativada
+- se os 32 KB superiores de RAM interna foram mesmo desativados
 - orientação dos CIs nos soquetes
 - o teste de continuidade do soquete de borda
 
@@ -170,13 +170,13 @@ Caixa **Patola PB 085/3** (32 × 73 × 85 mm fechada). A placa principal assenta
 | Altura livre para componentes | ~25 mm | ~10 mm |
 
 A tira de expansão tem **45 mm** e atravessa a caixa pelo eixo de 32 mm, saindo
-pela traseira com os dedos de passagem. O conector do TK fica na frente, do lado
+pela traseira com os dedos de passagem. O conector do micro fica na frente, do lado
 oposto da placa principal.
 
 ### Adaptando a caixa
 
 1. Abra duas fendas: uma **na frente**, para o corpo do conector de borda sair
-   e receber os dedos do TK, e uma **atrás**, para a tira de expansão passar.
+   e receber os dedos do micro, e uma **atrás**, para a tira de expansão passar.
 2. Uma das torres de fixação (a de `y = 62,02 mm`, sob o conector `J1`) cai dentro
    da fenda maior e precisa ser desgastada com micro-retífica.
 3. Fixe as placas com **pedaços de EVA** colados no fundo e nas laterais — é como
@@ -188,4 +188,4 @@ oposto da placa principal.
 
 O resultado fica com a placa em pé dentro da caixa, o conector saindo pela
 frente e a tira de expansão pela traseira — exatamente como a TKMEM-128
-original e os demais periféricos do TK.
+original e os demais periféricos do micro.

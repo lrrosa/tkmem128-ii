@@ -2,7 +2,7 @@
 
 Este projeto foi validado em software: **ERC e DRC zerados, netlist conferida
 item a item contra a intenção de projeto**. Mas nenhuma placa foi fabricada nem
-testada num TK real.
+testada num micro real.
 
 Os itens abaixo dependem de medir peças físicas ou de decisões que não dá para
 verificar de dentro do KiCad. Confira antes de gastar dinheiro com PCB.
@@ -35,7 +35,7 @@ O conector é o **TE / AMP 5645235, "Standard Edge II", passo 2,54 mm**
 | Chanfro da entrada | 1,52 × 45° [.060] |
 
 A **guia** ocupa a posição das vias 5 e 52 — é um pedacinho de PCB que o
-montador encaixa ali, casando com o rasgo entre os dedos do TK. Como não há
+montador encaixa ali, casando com o rasgo entre os dedos do micro. Como não há
 terminal nessa posição, o footprint tem **54 furos**, não 56.
 
 **Conferido em papel (jul/2026)** contra o conector real: as duas fileiras
@@ -49,7 +49,7 @@ uma divergência de décimos custa a placa inteira.
 
 O conector é de **entrada vertical** — o cartão entra perpendicular à placa em
 que ele está soldado. Por isso ele vai na placa **em pé**, e a fenda cai no
-plano horizontal para receber o cartão do TK.
+plano horizontal para receber o cartão do micro.
 
 O corpo do conector fica de **um** lado da placa e os terminais atravessam para
 o **outro**, onde a tira de expansão é soldada.
@@ -73,11 +73,11 @@ O projeto assume, com a placa **em pé** e o conector na borda de baixo:
 
 | Fileira de terminais | Pinos | Corresponde a |
 | --- | --- | --- |
-| a **de baixo**, junto à aresta inferior da placa | **1..28** | fileira de baixo do TK |
-| a **de cima**, do lado de dentro da placa | **29..56** | fileira de cima do TK |
+| a **de baixo**, junto à aresta inferior da placa | **1..28** | fileira de baixo do micro (fileira B no ZX Spectrum) |
+| a **de cima**, do lado de dentro da placa | **29..56** | fileira de cima do micro (fileira A no ZX Spectrum) |
 
 Ou seja: o pino 1 (`A14`) fica embaixo, junto da borda. É a mesma orientação
-física do cartão do TK, onde 1..28 é a fileira inferior.
+física do cartão do micro, onde 1..28 é a fileira inferior.
 
 Trocar as duas inverte a placa inteira e **pode danificar o micro** (alimentação
 onde deveriam estar sinais).
@@ -88,12 +88,12 @@ inverte a ordem das colunas *e* troca as duas fileiras. É a consequência físi
 de enfiar o conector por baixo, e é justamente por isso que este teste existe.
 
 **O que fazer:** antes de soldar qualquer CI, monte só o conector `J1` na placa
-principal e faça um teste de continuidade com o TK **desligado e desconectado**:
+principal e faça um teste de continuidade com o micro **desligado e desconectado**:
 
-1. Encaixe a placa nos dedos do TK.
-2. Meça continuidade entre o contato **3** do soquete (que deve ser +5 V) e o
-   ponto de +5 V do TK.
-3. Meça o contato **6** (GND) contra o terra do TK.
+1. Encaixe a placa nos dedos do micro.
+2. Meça continuidade entre o contato **3** do soquete (+5 V nas duas máquinas) e
+   o ponto de +5 V do micro.
+3. Meça o contato **6** (GND) contra o terra do micro.
 
 Se +5 V e GND aparecerem trocados ou em contatos inesperados, a fileira está
 invertida: gire o footprint 180° no eixo Y (troque as fileiras) e regenere.
@@ -104,7 +104,7 @@ invertida: gire o footprint 180° no eixo Y (troque as fileiras) e regenere.
 
 O conector de 56 vias vem **sem guia**. Onde ficariam os contatos **5 e 52**
 você precisa encaixar um pedacinho de PCB (ou material equivalente, ~1,6 mm) que
-sirva de guia, casando com o rasgo entre os dedos da placa do TK.
+sirva de guia, casando com o rasgo entre os dedos da placa do micro.
 
 Sem isso, é fácil plugar deslocado por uma posição — e aí sinais e alimentação
 vão para os lugares errados.
@@ -160,7 +160,7 @@ Peça explicitamente à fábrica:
 O ENIG vale para a tira inteira: as ilhas de solda do outro extremo (`J1`)
 também chegam à borda e ficam melhor sem HASL.
 
-Sem chanfro, a placa entra forçando e arranha os contatos do conector do TK.
+Sem chanfro, a placa entra forçando e arranha os contatos do conector do micro.
 
 ---
 
@@ -170,11 +170,11 @@ Sem chanfro, a placa entra forçando e arranha os contatos do conector do TK.
 
 O sinal `ROMCS` do barramento (pino 25) é **ativo em nível alto** para desligar a
 ROM interna, enquanto a saída do GAL (`/ROMCS`) é ativa em nível baixo. JP2
-oferece as duas estratégias, mas **qual funciona no seu TK só o teste dirá**:
+oferece as duas estratégias, mas **qual funciona no seu micro só o teste dirá**:
 
 | JP2 | Comportamento |
 | --- | --- |
-| aberto | ROM do TK (comece por aqui) |
+| aberto | ROM interna do micro (comece por aqui) |
 | 1-2 | Aciona `ROMCS` pela saída do GAL — comportamento da placa original |
 | 2-3 | Fixa `ROMCS` em nível alto, estilo cartucho da Interface 2 |
 
@@ -279,7 +279,7 @@ montagem original faz.
 
 A tira sai da placa principal e atravessa a caixa pelo eixo de **32 mm**, indo
 até fora para os dedos de passagem. Com **45 mm** ela cobre a travessia e ainda
-sobra o suficiente do lado de fora. O conector do TK fica na frente, do lado
+sobra o suficiente do lado de fora. O conector do micro fica na frente, do lado
 oposto — a tira não precisa alcançá-lo.
 
 ### Adaptação da caixa
@@ -323,8 +323,8 @@ o vão abaixo de 0,90 mm**.
 | --- | --- |
 | 1. Cotas do conector | Conector não entra na placa |
 | 1b. Orientação invertida | A placa esbarra no micro e não encaixa |
-| 2. Fileira invertida | **Pode danificar o TK** |
-| 3. Chaveta | **Pode danificar o TK** |
+| 2. Fileira invertida | **Pode danificar o micro** |
+| 3. Chaveta | **Pode danificar o micro** |
 | 3b. Pedir 2 camadas em vez de 4 | **Placa sem alimentação** — não aparece na inspeção visual |
 | 4. Acabamento dos dedos | Contato ruim, desgaste rápido |
 | 5. ROMCS | ROM 128 instável (só afeta quem usa a EPROM) |
