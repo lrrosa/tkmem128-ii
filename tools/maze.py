@@ -18,7 +18,7 @@ REAL = "%s/%s.kicad_pcb" % (BOARD.PROJ_DIR, BOARD.PROJ_NAME)
 
 STEP = 0.05
 MARGEM = 0.12          # compensa a discretizacao da grade
-W, CLEAR = 0.30, 0.20
+W, CLEAR = 0.50, 0.20
 VIA_D, VIA_CLEAR = 0.8, 0.20
 EDGE = 0.3
 BW, BH = BOARD.BOARD_W, BOARD.BOARD_H

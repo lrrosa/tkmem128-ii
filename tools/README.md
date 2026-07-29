@@ -47,6 +47,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `silk_principal.py` | Reposiciona a serigrafia de nível de placa depois do rearranjo |
 | `tira_sj.py` | Removeu SJ1/SJ2 do esquemático — histórico, já aplicado |
 | `planos_4camadas.py` | Cria os planos internos de GND e +5V da placa principal |
+| `move_ramdis.py` | Moveu a auto-desativação do pino 17 para o 29 e removeu JP4 — histórico, já aplicado |
+| `fecha_a14.py` | Fecha `A14` à mão pela margem direita: o Freerouting deixa essa uma em aberto |
 | `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip` e os renders de `docs/img/` |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 

@@ -27,7 +27,7 @@ a tira de expansão é soldada.
    U4 (DIP-28). Use soquetes: a SRAM e o GAL são peças caras e o GAL você vai
    querer regravar.
 3. **Capacitores** C1–C5 (100 nF) e C6 (10 µF, atenção à polaridade).
-4. **Headers de jumper** JP1–JP4.
+4. **Headers de jumper** JP1–JP3.
 5. **LED D1** (opcional, atenção à polaridade).
 6. **Conector de borda `J1`** — por último. Ele entra pelo **lado do cobre** e
    é soldado pelo lado dos componentes. Solde dois terminais das pontas,
@@ -94,13 +94,13 @@ Comece na configuração mais conservadora — só RAM, sem mexer em ROM:
 | JP1 (SELECIONA ROM) | **2-3** (EPROM desligada) |
 | JP2 (ROMCS BARRAM.) | **aberto** |
 | JP3 (ZX128/ZX512) | **aberto** (128 KB) |
-| JP4 (AUTO-DESATIVA) | **fechado** em TK90X/TK95, se você fez a modificação do pino 17. **Sempre aberto em ZX Spectrum** |
 
 Nessa configuração U4 (a EPROM) nem precisa estar montada.
 
-> ⚠️ **JP4 em ZX Spectrum: nunca feche.** No Spectrum os pinos 16, 17 e 18 são
-> **Y, V e U do vídeo componente**, não pinos livres como no TK. Lá a RAM tem que
-> ser desativada por outro método.
+**Não há jumper de auto-desativação.** O sinal sai permanentemente por `R4` no
+**pino 29**, que é não-conectado tanto no TK quanto no ZX Spectrum — logo não há
+nada para configurar nem posição errada para escolher. Num Spectrum a placa
+simplesmente não faz nada nesse contato.
 
 **SJ1 e SJ2 não existem mais.** Eram terra extra opcional em pinos que só são
 GND numa das máquinas (7 no ZX Spectrum, 15 no TK90X/TK95), a orientação já era
@@ -121,7 +121,7 @@ do pino do conector direto ao plano de terra, que cobre as duas faces.
 
 Se o micro não iniciar, desligue imediatamente e confira:
 
-- a modificação do pino 17 (continuidade até o pino 10 do IC27)
+- a modificação do pino 29 (continuidade até o pino 10 do IC27)
 - se a RAM interna de 32 KB foi mesmo desativada
 - orientação dos CIs nos soquetes
 - o teste de continuidade do soquete de borda

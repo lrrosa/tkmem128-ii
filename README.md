@@ -24,7 +24,7 @@ Ele não inventa o circuito: junta e redesenha dois trabalhos anteriores.
 | Origem | Autor | O que veio de lá |
 | --- | --- | --- |
 | **external 128kb upgrade** (`zx48_to_128-EASY_3`), 2009 | **Velesoft** (Pavel Cimbal, República Tcheca) | O circuito base: as equações do GAL20V8, o latch da porta `0x7FFD` e o esquema de paginação da SRAM, incluindo a extensão de 512K |
-| **TKMEM-128**, 2012 | **Luccas Eletrônica** (Eduardo Luccas, Brasil) | A adaptação ao TK90X/TK95: soquete de EPROM com a ROM do Spectrum 128, jumpers de seleção de ROM, a auto-desativação da RAM interna de 32K pelo pino 17 do barramento, e a divisão em placa principal + expansor |
+| **TKMEM-128**, 2012 | **Luccas Eletrônica** (Eduardo Luccas, Brasil) | A adaptação ao TK90X/TK95: soquete de EPROM com a ROM do Spectrum 128, jumpers de seleção de ROM, a auto-desativação da RAM interna de 32K por um pino livre do barramento, e a divisão em placa principal + expansor |
 
 Créditos também a **Flávio Matsumoto**, que sugeriu o circuito do Velesoft para
 os TKs e identificou a caixa Patola PB 085/3, e a **Daniel Jose Viana
@@ -121,7 +121,7 @@ de um extremo, dedos de borda no outro.
 
 | Placa | Arquivo | Conteúdo |
 | --- | --- | --- |
-| Principal | [`hardware/tkmem128.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 4 jumpers, desacoplamento e o conector de borda |
+| Principal | [`hardware/tkmem128.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 3 jumpers, desacoplamento e o conector de borda |
 | Tira de expansão | [`hardware/expansor/`](hardware/expansor/) | Ilhas de solda nas duas faces de um lado, dedos de borda do outro — nenhum componente ativo |
 
 A **placa principal é de 4 camadas**; a tira de expansão, de 2.
@@ -164,7 +164,7 @@ pinos: 29..56 na frente, 1..28 no verso.
 | **4 camadas com planos de GND e +5V inteiros** | Alimentação sem uma única trilha nas faces de sinal, retorno de corrente curto e imunidade a ruído. O original era de 2 camadas |
 | **Trilha de sinal de 0,5 mm** | O dobro da primeira tentativa deste redesenho, e no mesmo patamar da placa original. Menos sujeito a erro de fabricação, curto e defeito difícil de achar |
 | **Jumper JP2 com duas estratégias de ROMCS** | O `ROMCS` do barramento é **ativo em nível alto** para desligar a ROM interna, o oposto da saída `/ROMCS` do GAL. É a explicação mais provável para a ROM 128 do original "funcionar num TK e não em outro". JP2 permite escolher entre acionar pelo GAL ou fixar em nível alto (como fazem os cartuchos da Interface 2), com R5 em série |
-| **Jumper de auto-desativação sem posição perigosa** | Na placa original o jumper tinha uma posição "Spectrum" que, num TK, **danificava o micro**. Aqui JP4 é simplesmente aberto/fechado, sempre no pino 17, com R4 de 1 kΩ em série limitando corrente. Ver [a análise do porquê](docs/PREPARAR-O-TK.md#a-diferença-em-relação-à-placa-original) |
+| **Auto-desativação sem jumper nenhum** | A original usava o **pino 17**, livre no TK mas **V do vídeo componente no ZX Spectrum** — daí o jumper e o aviso de que a posição errada danifica o micro. Aqui o sinal vai pelo **pino 29**, que é N.C. nas duas máquinas, então o pull-up é permanente e **JP4 deixou de existir**. Ver [a análise](docs/PREPARAR-O-TK.md#por-que-o-pino-29) |
 | **GAL com `.jed` pronto e verificado** | O usuário não precisa montar nada: o `.jed` distribuído é gerado das equações deste projeto e conferido fusível a fusível contra o mapa de referência (checksum `C5752`, zero divergências) |
 | **Degrau zero na corrente de periféricos** | A tira de expansão solda nos terminais do próprio conector, ficando coplanar com o cartão do TK. O periférico seguinte entra no mesmo plano, sem escadinha |
 | **Bit N da porta 7FFD no flip-flop N** | O original embaralhava as entradas do latch; aqui a ordem é natural e o esquemático se lê sozinho |
@@ -186,15 +186,14 @@ pinos: 29..56 na frente, 1..28 no verso.
 | | 2-3 | Fixa `ROMCS` em nível alto (estilo Interface 2) |
 | **JP3** ZX128/ZX512 | aberto | 128K — SRAM `AS6C1008` (padrão) |
 | | fechado | 512K — SRAM `AS6C4008` |
-| **JP4** AUTO-DESATIVA 32K | fechado | Injeta nível 1 no pino 17 e desliga a RAM interna do TK |
-| | aberto | Não mexe no barramento (padrão) |
 
 > ⚠️ **JP1 em 1-2 sem JP2** não faz nada útil: sem desligar a ROM interna, os dois
 > chips disputam o barramento de dados. Use os dois juntos ou nenhum.
 
-> ⚠️ **JP4 em ZX Spectrum: deixe aberto.** No Spectrum os pinos 16, 17 e 18 são
-> **Y, V e U do vídeo componente** — não são livres como no TK. Fechar JP4 lá joga
-> 5 V em cima da saída V do codificador de vídeo.
+> **A auto-desativação da RAM não tem jumper.** `R4` mantém o **pino 29** em
+> nível 1 permanentemente, e esse pino é N.C. tanto no TK quanto no ZX Spectrum.
+> Num Spectrum a placa não faz nada ali; num TK, com o fio interno do pino 29 ao
+> pino 10 do IC27, ela desliga os 32 KB. Nada a configurar.
 
 ### Por que não há solder jumpers de terra
 
@@ -232,7 +231,7 @@ sinal em curto com o terra.
 | C6 | 10 µF eletrolítico | radial 5 mm, passo 2 mm | |
 | D1 | LED 3 mm | | Opcional |
 | JP1, JP2 | header 1×3 | passo 2,54 mm | |
-| JP3, JP4 | header 1×2 | passo 2,54 mm | |
+| JP3 | header 1×2 | passo 2,54 mm | |
 | J1 | **TE/AMP 5645235** — conector de borda 56 vias, entrada vertical | passo 2,54 mm, fileiras a 4,85 mm | Único componente do lado do cobre; recebe os dedos do TK |
 | — | soquetes torneados DIP-20/24/28/32 | | Recomendado |
 

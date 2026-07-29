@@ -44,7 +44,10 @@ fps = {f.GetReference(): f for f in b.GetFootprints()}
 # numa das maquinas (7 no ZX Spectrum, 15 no TK), a documentacao ja mandava
 # deixar os dois abertos, e cada um puxava uma rede do conector ate o outro lado
 # da placa. Quem quiser o terra extra solda um fio do pino do conector ao plano.
-REMOVER = ("SJ1", "SJ2")
+# JP4 tambem sai: a auto-desativacao passou do pino 17 (V do video componente no
+# ZX Spectrum) para o pino 29, que e N.C. nas duas maquinas. Sem risco, o
+# pull-up pode ser permanente e nao ha mais o que fechar errado.
+REMOVER = ("SJ1", "SJ2", "JP4")
 
 # ref -> (rotacao, canto superior esquerdo das ILHAS)
 ANCORA = {
@@ -77,8 +80,12 @@ SOLTOS = {
 # conector: a distancia caiu, mas eles viraram obstaculo no meio do corredor de
 # leque e o roteador passou de 4 para 8 nets em aberto. Ficam no alto; as duas
 # ligacoes longas se fecham a mao.
+# R4 vai para o canto baixo ESQUERDO: o pino 29 fica na coluna x=5,08 (fileira
+# de cima do conector, y=59,80). Deixar R4 no alto a direita fazia a rede RAMDIS
+# atravessar a placa na diagonal inteira — com o pino 17 ela andava menos da
+# metade disso.
 SOLTOS.update({
-    "JP4": (0, 70.00, 4.00),  "R4":  (0, 52.00, 14.50),
+    "R4":  (0, 4.00, 52.50),
 })
 
 # Desacoplamento colado no pino de +5V do CI. U4 (pino 1) e U3 (pino 32) tem o

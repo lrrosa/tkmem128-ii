@@ -87,7 +87,7 @@ DISCRETE = [
     ("R3", "Device:R", "2k2", "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
      {"1": "+5V", "2": "LED_A"}, "Limitador do LED de energia (opcional)"),
     ("R4", "Device:R", "1k", "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
-     {"1": "+5V", "2": "RAMDIS_DRV"}, "Serie da auto-desativacao da RAM interna"),
+     {"1": "+5V", "2": "RAMDIS"}, "Pull-up de auto-desativacao da RAM interna do TK, no pino 29"),
     ("R5", "Device:R", "0R", "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
      {"1": "ROMCS_DRV", "2": "ROMCS_BUS"}, "Serie do ROMCS (0R; 100-470R se houver disputa)"),
     ("C1", "Device:C", "100n", "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
@@ -117,10 +117,6 @@ DISCRETE = [
      "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
      {"1": "ZX512", "2": "GND"},
      "Aberto = 128K (AS6C1008) | Fechado = 512K (AS6C4008)"),
-    ("JP4", "Connector_Generic:Conn_01x02", "AUTO-DESATIVA 32K",
-     "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
-     {"1": "RAMDIS_DRV", "2": "RAMDIS"},
-     "Fechado = injeta nivel 1 no pino 17 e desliga a RAM interna do TK. NAO fechar em ZX Spectrum: la o pino 17 e o V do video componente"),
     ("TP1", "Connector_Generic:Conn_01x01", "VRAM",
      "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm",
      {"1": "VRAM"}, "Bit 3 do 7FFD (shadow screen), sem uso nesta arquitetura"),
@@ -178,7 +174,6 @@ PLACE_PCB = {
     "JP1": (71.5, 8.0, 0),
     "JP2": (71.5, 17.0, 0),
     "JP3": (71.5, 26.0, 0),
-    "JP4": (71.5, 33.5, 0),
 }
 
 REF_OFFSET = {}

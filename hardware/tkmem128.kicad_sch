@@ -6517,16 +6517,6 @@
 	)
 	(wire
 		(pts
-			(xy 496.57 279.4) (xy 492.76 279.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "becf58fd-5ffd-492f-b8fe-a00c2369a056")
-	)
-	(wire
-		(pts
 			(xy 307.34 116.84) (xy 303.53 116.84)
 		)
 		(stroke
@@ -6994,16 +6984,6 @@
 			(type default)
 		)
 		(uuid "fb73decc-f026-428b-90d1-3067e0aae785")
-	)
-	(wire
-		(pts
-			(xy 496.57 276.86) (xy 492.76 276.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fbcaaf50-1703-4c1e-be3a-5ddb24299c7a")
 	)
 	(global_label "GND"
 		(shape bidirectional)
@@ -7649,7 +7629,7 @@
 			)
 		)
 	)
-	(global_label "RAMDIS"
+	(global_label "BUS_P17"
 		(shape bidirectional)
 		(at 46.99 196.85 180)
 		(fields_autoplaced yes)
@@ -7856,29 +7836,6 @@
 			)
 		)
 	)
-	(global_label "RAMDIS"
-		(shape bidirectional)
-		(at 492.76 279.4 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "3257d3b9-5e2c-43c7-bb71-949cfa437583")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 492.76 279.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
 	(global_label "D4"
 		(shape bidirectional)
 		(at 347.98 254 0)
@@ -7902,7 +7859,7 @@
 			)
 		)
 	)
-	(global_label "BUS_P29"
+	(global_label "RAMDIS"
 		(shape bidirectional)
 		(at 105.41 224.79 0)
 		(fields_autoplaced yes)
@@ -8431,7 +8388,7 @@
 			)
 		)
 	)
-	(global_label "RAMDIS_DRV"
+	(global_label "RAMDIS"
 		(shape bidirectional)
 		(at 521.97 96.52 90)
 		(fields_autoplaced yes)
@@ -11122,29 +11079,6 @@
 			)
 		)
 	)
-	(global_label "RAMDIS_DRV"
-		(shape bidirectional)
-		(at 492.76 276.86 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "e1c61676-ee68-4a4b-863c-2c8f24655e24")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 492.76 276.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
 	(global_label "A7"
 		(shape bidirectional)
 		(at 299.72 261.62 180)
@@ -13254,87 +13188,6 @@
 			(project "tkmem128"
 				(path "/214ef319-1120-feeb-674c-ee15bc976f0e"
 					(reference "#FLG02")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x02")
-		(at 501.65 276.86 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a54218a3-6ca8-4649-b785-a98d5e2490b3")
-		(property "Reference" "JP4"
-			(at 501.65 271.78 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "AUTO-DESATIVA 32K"
-			(at 501.65 274.32 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 501.65 276.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 501.65 276.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Fechado = injeta nivel 1 no pino 17 e desliga a RAM interna do TK. NAO fechar em ZX Spectrum: la o pino 17 e o V do video componente"
-			(at 501.65 276.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "0ec6e5c6-77bc-423a-b403-abe10c93ea64")
-		)
-		(pin "2"
-			(uuid "3f809eab-e019-4872-a476-ebe6413f4ca2")
-		)
-		(instances
-			(project "tkmem128"
-				(path "/214ef319-1120-feeb-674c-ee15bc976f0e"
-					(reference "JP4")
 					(unit 1)
 				)
 			)

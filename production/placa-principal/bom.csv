@@ -6,7 +6,6 @@
 "JP1","SELECIONA ROM","Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical","1-2 = ROM 128 (EPROM ativa) | 2-3 = ROM TK (EPROM desligada)"
 "JP2","ROMCS BARRAMENTO","Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical","Aberto = ROM do TK | 1-2 = aciona ROMCS pelo GAL | 2-3 = ROMCS fixo em 1"
 "JP3","ZX128/ZX512","Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","Aberto = 128K (AS6C1008) | Fechado = 512K (AS6C4008)"
-"JP4","AUTO-DESATIVA 32K","Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","Fechado = injeta nivel 1 no pino 17 e desliga a RAM interna do TK. NAO fechar em ZX Spectrum: la o pino 17 e o V do video componente"
 "R2,R4","1k","Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical","Pull-up do modo ZX128/ZX512,Serie da auto-desativacao da RAM interna"
 "R3","2k2","Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical","Limitador do LED de energia (opcional)"
 "R5","0R","Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical","Serie do ROMCS (0R; 100-470R se houver disputa)"
