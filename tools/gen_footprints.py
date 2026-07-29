@@ -296,6 +296,39 @@ def gen_wirelink():
     return s + ')\n'
 
 
+# --------------------------------------------------- ilha para fio de ligacao
+def gen_wirepad():
+    """Ilha SMD isolada, para soldar a ponta de um fio de ligacao.
+
+    Tres ligacoes da placa principal nao cabem em duas camadas. Em vez de soldar
+    o fio em cima da perna de outro componente — que parece conserto —, cada
+    ponta tem ilha propria, com serigrafia dizendo a qual rede pertence.
+
+    SMD e nao passante de proposito: junto do conector nao ha um milimetro livre
+    nas duas faces ao mesmo tempo (54 ilhas passantes a 2,54 mm); numa face so,
+    sobra. A face de cada ilha e escolhida pelo `ilhas_jumper.py`.
+
+    `board_only`: fio e ligacao de cobre, nao componente — nao tem simbolo no
+    esquematico nem entra na lista de material.
+    """
+    D = 1.6
+    s = HDR % ("WirePad_1.6mm",
+               "Ilha SMD de 1,6 mm para a ponta de um fio de ligacao. Usada aos "
+               "pares: o fio vai de uma a outra. Sem furo.",
+               "ilha fio jumper ligacao",
+               -1.8, "WirePad_1.6mm", 1.8)
+    s = s.replace('(attr through_hole)',
+                  '(attr smd board_only exclude_from_pos_files '
+                  'exclude_from_bom)')
+    s += ('\t(pad "1" smd circle\n\t\t(at 0 0)\n\t\t(size %s %s)\n'
+          '\t\t(layers "F.Cu" "F.Mask" "F.Paste")\n\t)\n' % (D, D))
+    for ly in ("F.CrtYd",):
+        for x1, y1, x2, y2 in ((-1.1, -1.1, 1.1, -1.1), (1.1, -1.1, 1.1, 1.1),
+                               (1.1, 1.1, -1.1, 1.1), (-1.1, 1.1, -1.1, -1.1)):
+            s += line(x1, y1, x2, y2, ly, 0.05)
+    return s + ')\n'
+
+
 if not os.path.isdir(OUTDIR):
     os.makedirs(OUTDIR)
 
@@ -303,7 +336,8 @@ for name, body in (("ZX_TK_Bus_Socket_56", gen_socket()),
                    ("ZX_TK_Bus_Fingers_56", gen_fingers()),
                    ("ZX_TK_Bus_Header_2x28", gen_header()),
                    ("ZX_TK_Bus_SolderPads_56", gen_solderpads()),
-                   ("WireLink_GND_P20.32mm", gen_wirelink())):
+                   ("WireLink_GND_P20.32mm", gen_wirelink()),
+                   ("WirePad_1.6mm", gen_wirepad())):
     path = os.path.join(OUTDIR, name + ".kicad_mod")
     with io.open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(body)

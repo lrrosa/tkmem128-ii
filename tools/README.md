@@ -46,6 +46,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `repoe_principal.py` | Reposicionamento da principal para roteamento: CIs horizontais, desacoplamento junto aos CIs, corredor livre, regras 0,5/0,20 |
 | `silk_principal.py` | Reposiciona a serigrafia de nível de placa depois do rearranjo |
 | `tira_sj.py` | Removeu SJ1/SJ2 do esquemático (terra extra opcional que atravessava a placa) |
+| `busca_ilhas.py` | Acha, para cada ponta de fio de ligação, o ponto livre mais próximo onde cabe ilha + coto |
+| `poe_ilhas_fio.py` | Coloca as ilhas dedicadas dos fios (W1..W6), os cotos e os rótulos de rede |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)

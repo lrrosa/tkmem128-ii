@@ -45,15 +45,23 @@ cabem: entre duas ilhas de DIP vizinhas passa **uma** trilha de 0,5 mm, nunca
 duas, e nesses três casos não sobrou canal. Solde fio isolado fino direto de
 ilha a ilha, antes de encaixar os CIs:
 
-| Sinal | De | Para |
-| --- | --- | --- |
-| `A4` | `J1` pino 24 | `U3` pino 8 |
-| `A2` | `J1` pino 11 | `U3` pino 10 |
-| `RESET_N` | `J1` pino 20 | `U2` pino 1 |
+Cada uma tem **ilhas próprias**, marcadas na serigrafia com o nome da rede —
+não se solda em cima da perna de outro componente:
 
-Passe os fios pelo lado dos componentes, rentes à placa. São ligações de
-endereço e reset — não são críticas em tempo, mas confira as três com
-multímetro antes de energizar.
+| Sinal | Ilhas | Face | Comprimento |
+| --- | --- | --- | --- |
+| `A4` | par marcado `A4` | cobre | ~23 mm |
+| `A2` | par marcado `A2` | componentes | ~26 mm |
+| `RESET` | par marcado `RESET` | cobre | ~28 mm |
+
+As duas ilhas de cada par ficam sempre na **mesma face**, para o fio não ter que
+contornar a placa. Use fio isolado fino, rente à placa. São ligações de endereço
+e de reset — não são críticas em tempo —, mas confira as três com multímetro
+antes de energizar.
+
+> As ilhas são SMD de propósito. Junto do conector não há um milímetro livre nas
+> duas faces ao mesmo tempo (são 54 ilhas passantes a 2,54 mm); numa face só,
+> sobra espaço.
 
 A numeração do conector está serigrafada **nas duas faces**, nas mesmas
 posições: os terminais são passantes, então cada pino existe dos dois lados na

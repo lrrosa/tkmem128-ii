@@ -1,0 +1,48 @@
+(footprint "WirePad_1.6mm"
+	(version 20260206)
+	(generator "tkmem128-gen")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Ilha SMD de 1,6 mm para a ponta de um fio de ligacao. Usada aos pares: o fio vai de uma a outra. Sem furo.")
+	(tags "ilha fio jumper ligacao")
+	(property "Reference" "J**"
+		(at 0 -1.8 0)
+		(layer "F.SilkS")
+		(effects (font (size 1 1) (thickness 0.15)))
+	)
+	(property "Value" "WirePad_1.6mm"
+		(at 0 1.8 0)
+		(layer "F.Fab")
+		(effects (font (size 1 1) (thickness 0.15)))
+	)
+	(attr smd board_only exclude_from_pos_files exclude_from_bom)
+	(pad "1" smd circle
+		(at 0 0)
+		(size 1.6 1.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+	)
+	(fp_line
+		(start -1.1 -1.1)
+		(end 1.1 -1.1)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 1.1 -1.1)
+		(end 1.1 1.1)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 1.1 1.1)
+		(end -1.1 1.1)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start -1.1 1.1)
+		(end -1.1 -1.1)
+		(stroke (width 0.05) (type solid))
+		(layer "F.CrtYd")
+	)
+)
