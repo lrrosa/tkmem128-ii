@@ -32,7 +32,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `gen_pcb.py` | Gera o `.kicad_pcb` com contorno, footprints posicionados e nets |
 | `mk_decoy.py` | Placa-isca + export do DSN para o Freerouting |
 | `import_ses.py` | Importa o `.ses` roteado de volta |
-| `add_zones.py` | Planos de GND nas duas faces + preenchimento |
+| `add_zones.py` | Planos de GND nas duas faces (usado só na tira, que é de 2 camadas) |
 | `limpa_cotocos.py` | Remove fragmentos de trilha de décimos de mm deixados pela importação do SES |
 | `maze.py` | Roteador de labirinto A* de duas camadas com via, para fechar a última ligação quando o autorouter desiste |
 | `galgen.py` | Monta o mapa de fusíveis do GAL20V8 das equações e confere contra um `.jed` de referência |
@@ -46,8 +46,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `repoe_principal.py` | Reposicionamento da principal para roteamento: CIs horizontais, desacoplamento junto aos CIs, corredor livre, regras 0,5/0,20 |
 | `silk_principal.py` | Reposiciona a serigrafia de nível de placa depois do rearranjo |
 | `tira_sj.py` | Removeu SJ1/SJ2 do esquemático (terra extra opcional que atravessava a placa) |
-| `busca_ilhas.py` | Acha, para cada ponta de fio de ligação, o ponto livre mais próximo onde cabe ilha + coto |
-| `poe_ilhas_fio.py` | Coloca as ilhas dedicadas dos fios (W1..W6), os cotos e os rótulos de rede |
+| `planos_4camadas.py` | Cria os planos internos de GND e +5V da placa principal |
+| `producao.sh` | Regenera gerbers, furação, BOM, posições e os `.zip` das duas placas |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)

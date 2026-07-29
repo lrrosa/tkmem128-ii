@@ -35,33 +35,7 @@ a tira de expansão é soldada.
    A **guia**: encaixe um pedacinho de PCB de ~1,6 mm na posição **5/52** do
    conector (a placa não tem furos ali, justamente porque não há terminal),
    casando com o rasgo entre os dedos do TK.
-7. **Três fios de ligação** (ver abaixo).
-8. Só então **encaixe os CIs** nos soquetes.
-
-#### Os três fios
-
-A placa tem 74 redes em duas camadas com trilha de 0,5 mm. Três ligações não
-cabem: entre duas ilhas de DIP vizinhas passa **uma** trilha de 0,5 mm, nunca
-duas, e nesses três casos não sobrou canal. Solde fio isolado fino direto de
-ilha a ilha, antes de encaixar os CIs:
-
-Cada uma tem **ilhas próprias**, marcadas na serigrafia com o nome da rede —
-não se solda em cima da perna de outro componente:
-
-| Sinal | Ilhas | Face | Comprimento |
-| --- | --- | --- | --- |
-| `A4` | par marcado `A4` | cobre | ~23 mm |
-| `A2` | par marcado `A2` | componentes | ~26 mm |
-| `RESET` | par marcado `RESET` | cobre | ~28 mm |
-
-As duas ilhas de cada par ficam sempre na **mesma face**, para o fio não ter que
-contornar a placa. Use fio isolado fino, rente à placa. São ligações de endereço
-e de reset — não são críticas em tempo —, mas confira as três com multímetro
-antes de energizar.
-
-> As ilhas são SMD de propósito. Junto do conector não há um milímetro livre nas
-> duas faces ao mesmo tempo (são 54 ilhas passantes a 2,54 mm); numa face só,
-> sobra espaço.
+7. Só então **encaixe os CIs** nos soquetes.
 
 A numeração do conector está serigrafada **nas duas faces**, nas mesmas
 posições: os terminais são passantes, então cada pino existe dos dois lados na

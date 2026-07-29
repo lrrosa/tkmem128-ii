@@ -125,6 +125,28 @@ as zonas.
 
 ---
 
+## 3b. A placa principal é de 4 camadas (CRÍTICO no pedido)
+
+**Onde:** `production/placa-principal/gerbers.zip`.
+
+Peça **4 camadas**, empilhamento padrão de 1,6 mm:
+
+| Gerber | Papel |
+| --- | --- |
+| `tkmem128-F_Cu.gbr` | sinal, lado dos componentes |
+| `tkmem128-In1_Cu.gbr` | **plano de GND** |
+| `tkmem128-In2_Cu.gbr` | **plano de +5V** |
+| `tkmem128-B_Cu.gbr` | sinal, lado do cobre |
+
+Se pedir 2 camadas por engano, a fábrica descarta os dois planos e a placa sai
+sem alimentação nenhuma — e isso não aparece na inspeção visual. Confira no
+formulário antes de fechar.
+
+A **tira de expansão continua de 2 camadas** e é pedida separadamente
+(`production/tira-expansao/gerbers.zip`).
+
+---
+
 ## 4. Acabamento dos dedos de borda
 
 **Onde:** tira de expansão, `J2`.

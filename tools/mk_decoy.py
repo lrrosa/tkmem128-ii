@@ -23,8 +23,14 @@ shutil.copy(SRC, WORK + "/route.kicad_pcb")
 shutil.copy(PRO, WORK + "/route.kicad_pro")
 
 b = pcbnew.LoadBoard(WORK + "/route.kicad_pcb")
-for z in list(b.Zones()):
-    b.Remove(z)
+# Zona em camada de SINAL vira obstaculo no DSN e deixa o roteador praticamente
+# mono-camada — tem que sair. Zona em camada de PLANO e o contrario: o roteador
+# precisa ve-la para saber que +5V e GND ja estao ligados e nao tentar rotea-los.
+sinal = [z for z in b.Zones()
+         if z.GetLayer() in (pcbnew.F_Cu, pcbnew.B_Cu)]
+if sinal:
+    raise SystemExit("ha %d zona(s) em camada de sinal; apague antes de exportar"
+                     % len(sinal))
 
 tol = pcbnew.FromMM(0.01)
 has_fingers = BOARD.KEYSLOT_COL is not None

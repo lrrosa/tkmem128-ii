@@ -124,7 +124,19 @@ de um extremo, dedos de borda no outro.
 | Principal | [`hardware/tkmem128.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 4 jumpers, desacoplamento e o conector de borda |
 | Tira de expansão | [`hardware/expansor/`](hardware/expansor/) | Ilhas de solda nas duas faces de um lado, dedos de borda do outro — nenhum componente ativo |
 
-As duas são de **2 camadas**, com plano de terra nas duas faces.
+A **placa principal é de 4 camadas**; a tira de expansão, de 2.
+
+| Camada | Placa principal | Tira |
+| --- | --- | --- |
+| F.Cu | sinal | 27 retas de 1,5 mm (pinos 29..56) |
+| In1.Cu | **plano de GND** inteiro | — |
+| In2.Cu | **plano de +5V** inteiro | — |
+| B.Cu | sinal | 27 retas de 1,5 mm (pinos 1..28) |
+
+Como todos os componentes são passantes, cada ilha de `+5V` e de `GND` toca o seu
+plano direto: **não há uma única trilha de alimentação nas faces de sinal**, e
+nenhuma via serve só para alimentação. Sinal de 0,5 mm, isolação de 0,2 mm,
+39 vias, e nenhum fio de ligação.
 
 ![Placa principal](docs/img/placa-principal.png)
 
@@ -149,7 +161,8 @@ pinos: 29..56 na frente, 1..28 no verso.
 | --- | --- |
 | **Passagem do barramento** (dedos de borda na expansora) | O original ocupava o barramento; agora dá para encadear outros periféricos |
 | **Desacoplamento por CI** (100 nF em cada um) + 10 µF de reservatório | O original tinha desacoplamento mínimo |
-| **Plano de terra nas duas faces** | Retorno de corrente e imunidade a ruído |
+| **4 camadas com planos de GND e +5V inteiros** | Alimentação sem uma única trilha nas faces de sinal, retorno de corrente curto e imunidade a ruído. O original era de 2 camadas |
+| **Trilha de sinal de 0,5 mm** | O dobro da primeira tentativa deste redesenho, e no mesmo patamar da placa original. Menos sujeito a erro de fabricação, curto e defeito difícil de achar |
 | **Jumper JP2 com duas estratégias de ROMCS** | O `ROMCS` do barramento é **ativo em nível alto** para desligar a ROM interna, o oposto da saída `/ROMCS` do GAL. É a explicação mais provável para a ROM 128 do original "funcionar num TK e não em outro". JP2 permite escolher entre acionar pelo GAL ou fixar em nível alto (como fazem os cartuchos da Interface 2), com R5 em série |
 | **Jumper de auto-desativação sem posição perigosa** | Na placa original o jumper tinha uma posição "Spectrum" que, num TK, **danificava o micro**. Aqui JP4 é simplesmente aberto/fechado, sempre no pino 17, com R4 de 1 kΩ em série limitando corrente. Ver [a análise do porquê](docs/PREPARAR-O-TK.md#a-diferença-em-relação-à-placa-original) |
 | **GAL com `.jed` pronto e verificado** | O usuário não precisa montar nada: o `.jed` distribuído é gerado das equações deste projeto e conferido fusível a fusível contra o mapa de referência (checksum `C5752`, zero divergências) |
