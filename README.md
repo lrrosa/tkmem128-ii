@@ -171,7 +171,6 @@ pinos: 29..56 na frente, 1..28 no verso.
 | **Endereços e dados da EPROM 1:1** | Obrigatório (o conteúdo da ROM é fixo) e documentado |
 | **Pontos de teste** (`VRAM`, `CLK7FFD`) | Para depurar sem grampear em perna de CI |
 | **LED de energia** (opcional) | Diagnóstico imediato |
-| **Solder jumpers SJ1/SJ2** | Terra extra opcional nos pinos 7 (ZX Spectrum) ou 15 (TK), que diferem entre as máquinas |
 | **Peças em produção na BOM** | AS6C1008 e ATF20V8B no lugar de peças só encontráveis como estoque antigo |
 
 ---
@@ -189,10 +188,6 @@ pinos: 29..56 na frente, 1..28 no verso.
 | | fechado | 512K — SRAM `AS6C4008` |
 | **JP4** AUTO-DESATIVA 32K | fechado | Injeta nível 1 no pino 17 e desliga a RAM interna do TK |
 | | aberto | Não mexe no barramento (padrão) |
-| **SJ1** | aberto | Padrão — funciona em qualquer máquina |
-| | fechado | Terra extra pelo pino 7. **Só em ZX Spectrum** |
-| **SJ2** | aberto | Padrão — funciona em qualquer máquina |
-| | fechado | Terra extra pelo pino 15. **Só em TK90X/TK95** |
 
 > ⚠️ **JP1 em 1-2 sem JP2** não faz nada útil: sem desligar a ROM interna, os dois
 > chips disputam o barramento de dados. Use os dois juntos ou nenhum.
@@ -201,22 +196,22 @@ pinos: 29..56 na frente, 1..28 no verso.
 > **Y, V e U do vídeo componente** — não são livres como no TK. Fechar JP4 lá joga
 > 5 V em cima da saída V do codificador de vídeo.
 
-### Os solder jumpers SJ1 e SJ2 são opcionais
+### Por que não há solder jumpers de terra
 
-**Nenhum dos dois é obrigatório.** Podem ficar abertos em qualquer máquina, que é
-como a placa sai de fábrica e como ela foi validada.
+Versões anteriores deste redesenho traziam `SJ1` e `SJ2`, terra extra opcional
+pelos pinos **7** (GND só no ZX Spectrum) e **15** (GND só no TK). Foram
+**removidos**: o terra já chega pelos pinos **6 e 14**, que são GND nas duas
+máquinas, e agora vai direto para um plano interno inteiro. O ganho era marginal
+e cada um puxava uma rede do conector até o outro extremo da placa.
 
-O terra já chega pelos **pinos 6 e 14**, que são GND tanto no TK90X/TK95 quanto no
-ZX Spectrum. SJ1 e SJ2 apenas **acrescentam** caminho de retorno usando pinos que
-são GND em só uma das máquinas:
+Se você quiser mesmo o retorno extra, solde um fio do pino do conector ao plano
+de terra — mas confira antes qual é a sua máquina: fechar o pino errado põe um
+sinal em curto com o terra.
 
-| | Pino | TK90X/TK95 | ZX Spectrum |
-| --- | --- | --- | --- |
-| **SJ1** | 7 | N.C. — **não feche** | GND — pode fechar |
-| **SJ2** | 15 | GND — pode fechar | sinal — **não feche** |
-
-Na dúvida, deixe os dois abertos. Nada deixa de funcionar; você só não ganha os
-dois pinos de terra a mais.
+| Pino | TK90X/TK95 | ZX Spectrum |
+| --- | --- | --- |
+| 7 | N.C. | GND |
+| 15 | GND | sinal |
 
 ---
 
@@ -280,9 +275,24 @@ Dois pontos que costumam pegar quem monta:
 Arquivos prontos em [`production/`](production/): Gerber X2, furação Excellon,
 BOM e mapa de posições, para as duas placas.
 
-Especificação: **2 camadas**, 1,6 mm, trilha 0,25 mm, isolação 0,14 mm, furo
-mínimo 0,3 mm. Está dentro da capacidade padrão de qualquer fábrica barata
-(JLCPCB e PCBWay fazem 0,127 mm em 2 camadas), na faixa de preço mais baixa.
+Cada placa tem o seu `gerbers.zip`, que é o arquivo que se envia à fábrica.
+
+| | Placa principal | Tira de expansão |
+| --- | --- | --- |
+| Camadas | **4** (F.Cu / GND / +5V / B.Cu) | **2** |
+| Espessura | 1,6 mm | 1,6 mm |
+| Trilha | 0,5 mm | 1,5 mm |
+| Isolação | 0,2 mm | 0,25 mm |
+| Furo mínimo | 0,3 mm | — (sem furos) |
+| Via | 0,8 mm com furo de 0,4 mm | nenhuma |
+
+Tudo folgado dentro da capacidade padrão de fábrica barata — nada aqui entra em
+faixa de preço especial, a não ser as 4 camadas da placa principal.
+
+> ⚠️ **Peça 4 camadas para a placa principal.** Se pedir 2 por engano, a fábrica
+> descarta os dois planos internos e a placa sai sem alimentação nenhuma — falha
+> que não aparece na inspeção visual. Ver
+> [ANTES-DE-FABRICAR, item 3b](docs/ANTES-DE-FABRICAR.md).
 
 **A tira de expansão precisa de acabamento em ouro (ENIG) na placa inteira e
 chanfro de 45° na borda dos dedos.** Os dedos entram e saem do conector do

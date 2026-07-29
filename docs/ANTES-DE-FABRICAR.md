@@ -293,19 +293,27 @@ colados no fundo e nas laterais. A caixa fecha com trava, então o EVA segura be
 
 ## 8. Regras de fabricação
 
-| Parâmetro | Valor |
-| --- | --- |
-| Camadas | 2 |
-| Espessura | 1,6 mm |
-| Trilha | 0,25 mm (0,6 mm em `+5V` e `GND`) |
-| Isolação | **0,14 mm** |
-| Furo mínimo | 0,3 mm |
-| Via | 0,7 mm com furo de 0,35 mm |
+| Parâmetro | Placa principal | Tira de expansão |
+| --- | --- | --- |
+| Camadas | **4** | 2 |
+| Espessura | 1,6 mm | 1,6 mm |
+| Trilha | 0,5 mm | 1,5 mm |
+| Isolação | 0,2 mm | 0,25 mm |
+| Furo mínimo | 0,3 mm | sem furos |
+| Via | 0,8 mm / furo 0,4 mm | nenhuma |
+| Ilha do conector | 1,50 mm / furo 1,02 mm | — |
 
-A isolação de 0,14 mm é o que permitiu fechar as duas placas em 2 camadas. Está
-dentro da capacidade **padrão** de fábrica barata (JLCPCB e PCBWay especificam
-0,127 mm em 2 camadas), mas é apertado demais para corrosão caseira — se você for
-fazer em casa, vai precisar redesenhar com folga maior.
+Nada disso é apertado: 0,2 mm de isolação e 0,5 mm de trilha estão muito acima do
+mínimo de qualquer fábrica barata (JLCPCB e PCBWay especificam 0,127 mm). Uma
+versão anterior deste projeto usava 0,25 mm de trilha com 0,14 de isolação para
+caber em 2 camadas — foi abandonada justamente por ser apertada demais para
+inspeção e retrabalho.
+
+A **ilha de 1,50 mm no conector** não é arbitrária: com os 1,75 mm iniciais
+sobravam 0,79 mm entre ilhas vizinhas, e nenhum sinal conseguia sair da fileira
+de baixo (a fuga passa entre duas ilhas da fileira de cima, e uma trilha de
+0,5/0,2 precisa de 0,90 mm). Se for mexer no footprint do conector, **não reduza
+o vão abaixo de 0,90 mm**.
 
 ---
 
@@ -317,9 +325,10 @@ fazer em casa, vai precisar redesenhar com folga maior.
 | 1b. Orientação invertida | A placa esbarra no micro e não encaixa |
 | 2. Fileira invertida | **Pode danificar o TK** |
 | 3. Chaveta | **Pode danificar o TK** |
+| 3b. Pedir 2 camadas em vez de 4 | **Placa sem alimentação** — não aparece na inspeção visual |
 | 4. Acabamento dos dedos | Contato ruim, desgaste rápido |
 | 5. ROMCS | ROM 128 instável (só afeta quem usa a EPROM) |
 | 5b. Alinhamento das placas | **Barramento invertido ponta a ponta** — ERC/DRC não pegam |
 | 6. Tira soldada | Empilhar conector reintroduz o degrau |
 | 7. Caixa | Não fecha |
-| 8. Regras de fabricação | Curto ou trilha aberta se a fábrica não atender 0,14 mm |
+| 8. Regras de fabricação | Nenhuma folga é apertada; conferir só se a fábrica for muito básica |
