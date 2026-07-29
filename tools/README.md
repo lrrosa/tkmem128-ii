@@ -43,6 +43,9 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `silk_negrito.py` | Poe toda a serigrafia em negrito (espessura = 0,2 x tamanho, como o KiCad faz) |
 | `rota_tira.py` | Roteia a tira a mao: 54 retas verticais de 1,5 mm, zero via, zero plano |
 | `tira_sem_c1.py` | Removeu C1 do esquematico da tira (ilha passante e curto numa placa de passagem) |
+| `repoe_principal.py` | Reposicionamento da principal para roteamento: CIs horizontais, desacoplamento junto aos CIs, corredor livre, regras 0,5/0,20 |
+| `silk_principal.py` | Reposiciona a serigrafia de nível de placa depois do rearranjo |
+| `tira_sj.py` | Removeu SJ1/SJ2 do esquemático (terra extra opcional que atravessava a placa) |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)

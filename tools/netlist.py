@@ -121,14 +121,6 @@ DISCRETE = [
      "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
      {"1": "RAMDIS_DRV", "2": "RAMDIS"},
      "Fechado = injeta nivel 1 no pino 17 e desliga a RAM interna do TK. NAO fechar em ZX Spectrum: la o pino 17 e o V do video componente"),
-    ("SJ1", "Jumper:SolderJumper_2_Open", "GND pino 7",
-     "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm",
-     {"1": "BUS_P07", "2": "GND"},
-     "Terra extra opcional. Pino 7 e GND so no ZX Spectrum. Pode ficar aberto"),
-    ("SJ2", "Jumper:SolderJumper_2_Open", "GND pino 15",
-     "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm",
-     {"1": "BUS_P15", "2": "GND"},
-     "Terra extra opcional. Pino 15 e GND so no TK90X/TK95. Pode ficar aberto"),
     ("TP1", "Connector_Generic:Conn_01x01", "VRAM",
      "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm",
      {"1": "VRAM"}, "Bit 3 do 7FFD (shadow screen), sem uso nesta arquitetura"),
@@ -147,6 +139,11 @@ for ref, lib, val, fp, conns, descr in DISCRETE:
 PROJ_NAME = "tkmem128"
 PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware")
 BOARD_W, BOARD_H = 78.74, 66.04
+# As ilhas de J1 chegam a 0,51 mm da aresta de baixo — de proposito, e o conector
+# de borda. A placa-isca do roteador nao pode recuar essa aresta: recuando 0,35
+# ela passa a 0,16 mm das ilhas e o Freerouting acusa 54 violacoes (uma por
+# ilha) antes mesmo de rotear o primeiro fio.
+EDGE_PADS_BOTTOM = True
 KEYSLOT_COL = None          # placa principal nao tem dedos, logo nao tem guia
 SHEET = "A2"
 TITLE = "TKMEM-128 KiCad - placa principal (128K/512K para TK90X/TK95)"
@@ -178,8 +175,6 @@ PLACE_PCB = {
     "R4": (11.0, 53.3, 0),
     "R5": (17.0, 53.3, 0),
     "R3": (23.0, 53.3, 0),
-    "SJ1": (31.0, 53.3, 0),
-    "SJ2": (37.0, 53.3, 0),
     "JP1": (71.5, 8.0, 0),
     "JP2": (71.5, 17.0, 0),
     "JP3": (71.5, 26.0, 0),

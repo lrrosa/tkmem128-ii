@@ -35,7 +35,25 @@ a tira de expansão é soldada.
    A **guia**: encaixe um pedacinho de PCB de ~1,6 mm na posição **5/52** do
    conector (a placa não tem furos ali, justamente porque não há terminal),
    casando com o rasgo entre os dedos do TK.
-7. Só então **encaixe os CIs** nos soquetes.
+7. **Três fios de ligação** (ver abaixo).
+8. Só então **encaixe os CIs** nos soquetes.
+
+#### Os três fios
+
+A placa tem 74 redes em duas camadas com trilha de 0,5 mm. Três ligações não
+cabem: entre duas ilhas de DIP vizinhas passa **uma** trilha de 0,5 mm, nunca
+duas, e nesses três casos não sobrou canal. Solde fio isolado fino direto de
+ilha a ilha, antes de encaixar os CIs:
+
+| Sinal | De | Para |
+| --- | --- | --- |
+| `A4` | `J1` pino 24 | `U3` pino 8 |
+| `A2` | `J1` pino 11 | `U3` pino 10 |
+| `RESET_N` | `J1` pino 20 | `U2` pino 1 |
+
+Passe os fios pelo lado dos componentes, rentes à placa. São ligações de
+endereço e reset — não são críticas em tempo, mas confira as três com
+multímetro antes de energizar.
 
 A numeração do conector está serigrafada **nas duas faces**, nas mesmas
 posições: os terminais são passantes, então cada pino existe dos dois lados na
@@ -95,8 +113,6 @@ Comece na configuração mais conservadora — só RAM, sem mexer em ROM:
 | JP2 (ROMCS BARRAM.) | **aberto** |
 | JP3 (ZX128/ZX512) | **aberto** (128 KB) |
 | JP4 (AUTO-DESATIVA) | **fechado** em TK90X/TK95, se você fez a modificação do pino 17. **Sempre aberto em ZX Spectrum** |
-| SJ1 | **aberto** |
-| SJ2 | **aberto** |
 
 Nessa configuração U4 (a EPROM) nem precisa estar montada.
 
@@ -104,11 +120,12 @@ Nessa configuração U4 (a EPROM) nem precisa estar montada.
 > **Y, V e U do vídeo componente**, não pinos livres como no TK. Lá a RAM tem que
 > ser desativada por outro método.
 
-**SJ1 e SJ2 são opcionais e podem ficar abertos em qualquer máquina** — é assim
-que a placa foi validada. O terra já chega pelos pinos 6 e 14, que são GND nas
-duas máquinas; os solder jumpers só acrescentam retorno usando pinos que são GND
-em apenas uma delas (7 no Spectrum, 15 no TK). Feche **no máximo o da sua
-máquina**, e só se quiser o terra extra.
+**SJ1 e SJ2 não existem mais.** Eram terra extra opcional em pinos que só são
+GND numa das máquinas (7 no ZX Spectrum, 15 no TK90X/TK95), a orientação já era
+deixar os dois abertos, e cada um puxava uma rede do conector até o outro
+extremo da placa, atravessando o corredor por onde passam `A0`–`A13` e `D0`–`D7`.
+Saíram para abrir espaço de roteamento. Quem quiser o terra extra solda um fio
+do pino do conector direto ao plano de terra, que cobre as duas faces.
 
 ---
 
