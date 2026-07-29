@@ -49,7 +49,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `planos_4camadas.py` | Cria os planos internos de GND e +5V da placa principal |
 | `move_ramdis.py` | Moveu a auto-desativação do pino 17 para o 29 e removeu JP4 — histórico, já aplicado |
 | `fecha_a14.py` | Fecha `A14` à mão pela margem direita: o Freerouting deixa essa uma em aberto |
-| `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip` e os renders de `docs/img/` |
+| `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip`, os renders de `docs/img/` e o manifesto `production/fontes.json` |
+| `confere_saidas.py` | **Verificação de regressão**: diz se as saídas correspondem às placas atuais, comparando o hash das fontes contra o manifesto |
 | `confere_compatibilidade.py` | **Verificação de regressão**: confere que a placa não liga nenhum contato que difere entre TK e ZX Spectrum 48K |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
@@ -126,22 +127,21 @@ do projeto original.
 
 ## Como saber se as saídas estão atualizadas
 
-**Não olhe a data dos arquivos.** O `kicad-cli` reescreve a `.kicad_pcb` byte a
-byte idêntica ao rodar `export` e `render`, então a placa fica sempre "mais nova"
-que os derivados dela e a comparação de timestamp acusa defasagem que não existe.
-
-O teste que vale é de conteúdo:
-
 ```bash
-bash tools/producao.sh
-git status --short
+python tools/confere_saidas.py
 ```
 
-Os **renders são determinísticos** — duas rodadas dão os mesmos bytes —, então se
-o git não acusar mudança em `docs/img/`, eles estão em dia. Os **gerbers, o `.drl`,
-o `.gbrjob` e o PDF carregam a data de geração embutida** e sempre aparecem como
-modificados; para saber se mudaram de verdade, compare ignorando a data (nos
-gerbers, as linhas `CreationDate`) ou o texto extraído do PDF.
+As duas maneiras óbvias de responder isso **não funcionam** neste projeto, e vale
+saber por quê antes de tentar:
+
+| Tentativa | Por que falha |
+| --- | --- |
+| comparar **data** dos arquivos | O `kicad-cli` reescreve a `.kicad_pcb` byte a byte idêntica ao rodar `export` e `render`. A placa fica sempre "mais nova" que os derivados dela, e a comparação acusa defasagem que não existe |
+| comparar **conteúdo** | Gerber, `.drl`, `.gbrjob` e PDF carregam a data de geração embutida. E o **raytracer dos renders não é determinístico**: duas rodadas seguidas dão PNGs diferentes com a placa intacta |
+
+Então `producao.sh` registra o hash das **fontes** em `production/fontes.json`, e
+`confere_saidas.py` compara. Se bate, as saídas foram geradas desta versão das
+placas. Sai com código 1 se não bate, então serve em hook ou CI.
 
 ## A outra verificação de regressão
 

@@ -25,6 +25,13 @@ gera() {
   "$KC" sch export pdf -o "$dir/esquematico.pdf" "$sch" >/dev/null
   "$KC" sch export bom --fields 'Reference,Value,Footprint,Description' \
       --group-by Value -o "$dir/bom.csv" "$sch" >/dev/null
+  # Renders da documentacao: sao derivados da placa como qualquer outro, entao
+  # saem daqui. Fora do pipeline eles envelhecem sem ninguem notar — foi o que
+  # aconteceu com o JP4, que ficou na imagem do README depois de ser removido.
+  "$KC" pcb render --side top --quality high --width 1300 --height 1100 \
+      -o "docs/img/$img.png" "$pcb" >/dev/null
+  "$KC" pcb render --side bottom --quality high --width 1300 --height 1100 \
+      -o "docs/img/$img-verso.png" "$pcb" >/dev/null
   # zip via Python: o Git Bash do Windows nao traz o utilitario `zip`
   python -c "import glob,os,zipfile,sys
 d=sys.argv[1]
@@ -44,5 +51,9 @@ gera hardware/expansor/tkmem128-expansor.kicad_pcb \
      hardware/expansor/tkmem128-expansor.kicad_sch \
      production/tira-expansao \
      "F.Cu,B.Cu,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts"      placa-expansora
+
+# registra o hash das fontes: e assim que confere_saidas.py sabe depois se as
+# saidas correspondem a estas placas (data e conteudo nao servem — ver o script)
+python tools/confere_saidas.py --grava
 
 echo "pronto."

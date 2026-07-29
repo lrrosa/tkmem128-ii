@@ -139,23 +139,7 @@ essas fileiras** — uma passa por cima dela, a outra por baixo — e é soldada
 **dos dois lados**. Ela não tem conector nenhum: ilhas de solda nas duas faces
 de um extremo, dedos de borda no outro.
 
-```
-        vista de lado, com a caixa em corte
-
-              ┌─────────────────────────┐
-              │                         │
-              │   placa principal       │  em pé, 78,74 × 66,04 mm
-              │   (componentes deste    │
-              │    lado ─────────────►  │
-              │                         │
-        ┌─────┴─────┐  ╤════════════════╡
-  micro ─┤ conector │══╪═ tira ═════════╪══► periféricos
-        └─────┬─────┘  ╧════════════════╡   78,74 × 45 mm
-              │      terminais retos,    │
-              └──────a tira entra entre──┘
-                     eles e solda dos       tudo no mesmo plano:
-                     dois lados             degrau zero na corrente
-```
+![Vista de lado, com a caixa em corte](docs/img/vista-de-lado.svg)
 
 > No conector, **1..28 fica na fileira de baixo** (junto à aresta inferior da
 > placa), igual à fileira inferior do cartão do micro; 29..56 fica do lado de
