@@ -50,6 +50,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `move_ramdis.py` | Moveu a auto-desativação do pino 17 para o 29 e removeu JP4 — histórico, já aplicado |
 | `fecha_a14.py` | Fecha `A14` à mão pela margem direita: o Freerouting deixa essa uma em aberto |
 | `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip`, os renders de `docs/img/` e o manifesto `production/fontes.json` |
+| `confere_svg.py` | Procura texto pousado sobre trilha, ilha, parede ou outro texto no `docs/img/vista-de-lado.svg` |
 | `confere_saidas.py` | **Verificação de regressão**: diz se as saídas correspondem às placas atuais, comparando o hash das fontes contra o manifesto |
 | `confere_compatibilidade.py` | **Verificação de regressão**: confere que a placa não liga nenhum contato que difere entre TK e ZX Spectrum 48K |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
