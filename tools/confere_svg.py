@@ -12,6 +12,7 @@ SVG = sys.argv[1] if len(sys.argv) > 1 else (
     "vista-de-lado.svg")
 NS = "{http://www.w3.org/2000/svg}"
 raiz = ET.parse(SVG).getroot()
+LARG_TELA, ALT_TELA = [float(v) for v in raiz.get("viewBox").split()[2:]]
 
 
 def num(el, chave, padrao=0.0):
@@ -50,7 +51,7 @@ for el in raiz.iter():
                        num(el, "stroke-width", 1.0)))
     elif t == NS + "rect":
         w, h = num(el, "width"), num(el, "height")
-        if w > 800 and h > 500:
+        if num(el, "x") == 0 and num(el, "y") == 0 and w >= LARG_TELA:
             continue                       # o fundo
         rects.append((num(el, "x"), num(el, "y"), num(el, "x") + w,
                       num(el, "y") + h))
@@ -90,7 +91,7 @@ for i in range(len(caixas)):
                            % (caixas[i][0], caixas[j][0]))
 
 print("%d textos, %d tracos, %d retangulos" % (len(caixas), len(tracos), len(rects)))
-fora = [c for c in caixas if c[1] < 0 or c[2] < 0 or c[3] > 880 or c[4] > 600]
+fora = [c for c in caixas if c[1] < 0 or c[2] < 0 or c[3] > LARG_TELA or c[4] > ALT_TELA]
 print("texto fora do quadro:", [c[0] for c in fora] or "nenhum")
 print()
 if achados:
