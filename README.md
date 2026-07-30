@@ -139,7 +139,13 @@ essas fileiras** — uma passa por cima dela, a outra por baixo — e é soldada
 **dos dois lados**. Ela não tem conector nenhum: ilhas de solda nas duas faces
 de um extremo, dedos de borda no outro.
 
-![Vista de lado, com a caixa em corte](docs/img/vista-de-lado.svg)
+![Vista de lado, com as caixas em corte](docs/img/vista-de-lado.svg)
+
+O **conector fica fora da caixa Patola**, atravessando o recorte que se abre na
+frente dela. Não é escolha estética: no TK e no ZX Spectrum a abertura
+`EXPANSION` é **recuada dentro da carcaça**, então a caixa encosta na traseira do
+micro e só o conector entra. A placa, por sua vez, assenta rente ao fundo da
+caixa.
 
 > No conector, **1..28 fica na fileira de baixo** (junto à aresta inferior da
 > placa), igual à fileira inferior do cartão do micro; 29..56 fica do lado de

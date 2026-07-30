@@ -177,6 +177,10 @@ oposto da placa principal.
 
 1. Abra duas fendas: uma **na frente**, para o corpo do conector de borda sair
    e receber os dedos do micro, e uma **atrás**, para a tira de expansão passar.
+   A da frente não é opcional: a abertura `EXPANSION` do micro é **recuada dentro
+   da carcaça**, então a caixa encosta na traseira dele e o conector precisa
+   atravessar a parede da caixa para alcançar o cartão. Ver a
+   [vista de lado](img/vista-de-lado.svg).
 2. Uma das torres de fixação (a de `y = 62,02 mm`, sob o conector `J1`) cai dentro
    da fenda maior e precisa ser desgastada com micro-retífica.
 3. Fixe as placas com **pedaços de EVA** colados no fundo e nas laterais — é como
