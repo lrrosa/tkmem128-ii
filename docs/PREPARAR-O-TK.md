@@ -47,7 +47,7 @@ Ao remover a interface o pino fica flutuando e o TK volta a operar como 48 KB.
 Transparente, e **sem jumper nenhum para configurar**.
 
 > **Atenção ao lado da placa.** O pino 29 está na **fileira de cima** (29..56),
-> ou seja, na face do cartão do TK oposta à dos pinos 1..28. Se você já viu as
+> ou seja, na face da placa do TK oposta à dos pinos 1..28. Se você já viu as
 > fotos da modificação original — que usava o pino 17 —, o ponto de solda agora é
 > do outro lado da placa-mãe.
 
@@ -69,7 +69,7 @@ Porque ele é **não-conectado nas duas máquinas**, TK e ZX Spectrum:
 ```
 
 No TK isso está confirmado na pinagem oficial arquivada em [`docs/`](.), que
-marca o 29 como `N.C.`, e nas fotos do cartão, onde o dedo não tem trilha
+marca o 29 como `N.C.`, e nas fotos da placa, onde o dedo não tem trilha
 nenhuma. No Spectrum, o 28A também é livre.
 
 **Consequência prática:** o pull-up de `R4` pode ficar permanente. Num Spectrum

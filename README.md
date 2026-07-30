@@ -130,8 +130,8 @@ realmente usa, e falha se algum aparecer.
 
 A placa de componentes fica **em pé** dentro da caixa. O conector de borda é
 soldado **diretamente nela** — e como esse conector é de entrada vertical
-(o cartão entra perpendicular à placa que o segura), a fenda dele cai no plano
-horizontal e recebe o cartão do micro.
+(a placa que entra fica perpendicular à que segura o conector), a fenda dele cai
+no plano horizontal e recebe a placa do micro.
 
 Os terminais do conector são **retos** e atravessam a placa, sobrando ~3,18 mm
 do outro lado em duas fileiras a 4,85 mm. A **tira de expansão** entra **entre
@@ -148,7 +148,7 @@ micro e só o conector entra. A placa, por sua vez, assenta rente ao fundo da
 caixa.
 
 > No conector, **1..28 fica na fileira de baixo** (junto à aresta inferior da
-> placa), igual à fileira inferior do cartão do micro; 29..56 fica do lado de
+> placa), igual à fileira inferior da placa do micro; 29..56 fica do lado de
 > dentro. É a mesma convenção no TK e no ZX Spectrum, onde essas fileiras são
 > chamadas de B e A.
 >
@@ -204,7 +204,7 @@ pinos: 29..56 na frente, 1..28 no verso.
 | **Jumper JP2 com duas estratégias de ROMCS** | O `ROMCS` do barramento é **ativo em nível alto** para desligar a ROM interna, o oposto da saída `/ROMCS` do GAL. É a explicação mais provável para a ROM 128 do original "funcionar num TK e não em outro". JP2 permite escolher entre acionar pelo GAL ou fixar em nível alto (como fazem os cartuchos da Interface 2), com R5 em série |
 | **Auto-desativação sem jumper nenhum** | A original usava o **pino 17**, livre no TK mas **V do vídeo componente no ZX Spectrum** — daí o jumper e o aviso de que a posição errada danifica o micro. Aqui o sinal vai pelo **pino 29**, que é N.C. nas duas máquinas, então o pull-up é permanente e **JP4 deixou de existir**. Ver [a análise](docs/PREPARAR-O-TK.md#por-que-o-pino-29) |
 | **GAL com `.jed` pronto e verificado** | O usuário não precisa montar nada: o `.jed` distribuído é gerado das equações deste projeto e conferido fusível a fusível contra o mapa de referência (checksum `C5752`, zero divergências) |
-| **Degrau zero na corrente de periféricos** | A tira de expansão solda nos terminais do próprio conector, ficando coplanar com o cartão do micro. O periférico seguinte entra no mesmo plano, sem escadinha |
+| **Degrau zero na corrente de periféricos** | A tira de expansão solda nos terminais do próprio conector, ficando coplanar com a placa do micro. O periférico seguinte entra no mesmo plano, sem escadinha |
 | **Bit N da porta 7FFD no flip-flop N** | O original embaralhava as entradas do latch; aqui a ordem é natural e o esquemático se lê sozinho |
 | **Endereços e dados da EPROM 1:1** | Obrigatório (o conteúdo da ROM é fixo) e documentado |
 | **Pontos de teste** (`VRAM`, `CLK7FFD`) | Para depurar sem grampear em perna de CI |

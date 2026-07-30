@@ -47,9 +47,9 @@ uma divergência de décimos custa a placa inteira.
 
 ## 1b. Orientação: componentes virados para a tira (CRÍTICO)
 
-O conector é de **entrada vertical** — o cartão entra perpendicular à placa em
-que ele está soldado. Por isso ele vai na placa **em pé**, e a fenda cai no
-plano horizontal para receber o cartão do micro.
+O conector é de **entrada vertical** — a placa que entra fica perpendicular
+àquela em que ele está soldado. Por isso ele vai na placa **em pé**, e a fenda cai no
+plano horizontal para receber a placa do micro.
 
 O corpo do conector fica de **um** lado da placa e os terminais atravessam para
 o **outro**, onde a tira de expansão é soldada.
@@ -77,7 +77,7 @@ O projeto assume, com a placa **em pé** e o conector na borda de baixo:
 | a **de cima**, do lado de dentro da placa | **29..56** | fileira de cima do micro (fileira A no ZX Spectrum) |
 
 Ou seja: o pino 1 (`A14`) fica embaixo, junto da borda. É a mesma orientação
-física do cartão do micro, onde 1..28 é a fileira inferior.
+física da placa do micro, onde 1..28 é a fileira inferior.
 
 Trocar as duas inverte a placa inteira e **pode danificar o micro** (alimentação
 onde deveriam estar sinais).

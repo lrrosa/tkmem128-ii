@@ -4,9 +4,9 @@
   <desc>A placa principal fica em pe dentro da caixa Patola, rente ao fundo dela.
   O conector de borda e soldado na placa e SAI da caixa pela frente, porque a
   abertura EXPANSION do micro e recuada dentro da carcaça: a caixa encosta na
-  traseira do micro e so o conector entra, recebendo o cartao la dentro. Os
+  traseira do micro e so o conector entra, recebendo a placa do micro la dentro. Os
   terminais do conector atravessam a placa e a tira de expansao e soldada neles,
-  entre as duas fileiras, saindo pela traseira. Cartao, fenda do conector e tira
+  entre as duas fileiras, saindo pela traseira. A placa do micro, a fenda do conector e a tira
   ficam todos no mesmo plano horizontal.</desc>
 
   <rect width="780" height="600" fill="#fbfbfa"/>
@@ -53,7 +53,7 @@
   <rect x="248" y="220" width="102" height="62" rx="3" fill="#3f3f3f"/>
   <rect x="248" y="243" width="44" height="14" fill="#fbfbfa"/>
 
-  <!-- ===================== cartao do micro (recuado, entra na fenda) ===== -->
+  <!-- ===================== placa do micro (recuada, entra na fenda) ===== -->
   <rect x="56" y="245" width="230" height="10" fill="#2a6b3f"/>
   <rect x="240" y="245" width="46" height="10" fill="url(#ouro)"/>
   <text x="340" y="233" fill="#fff" font-size="12" text-anchor="middle">J1</text>
@@ -69,9 +69,14 @@
   <line x1="338" y1="260" x2="418" y2="260" stroke="#b0b0b0" stroke-width="2.8"/>
 
   <!-- ===================== caixa Patola ================================== -->
-  <path d="M330 160 L330 214" fill="none" stroke="#9a9a9a" stroke-width="3.5"/>
-  <path d="M330 344 L500 344 L500 272 M500 232 L500 160"
+  <!-- A parede da frente e cortada em duas: o recorte que se abre para o
+       conector passar vai de y=214 a y=288, e a parede continua ACIMA e ABAIXO
+       dele. O trecho de baixo faltava. -->
+  <path d="M330 160 L330 214 M330 288 L330 344 L500 344 L500 272
+           M500 232 L500 160"
         fill="none" stroke="#9a9a9a" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- sem rotulo no recorte: entre o conector e a placa nao ha vao que o
+       comporte, e o bloco de baixo ja diz "atravessando o recorte da frente" -->
   <use href="#quebra" x="330" y="150"/>
   <use href="#quebra" x="500" y="150"/>
   <!-- x=366: a direita da placa (350..360). Comecando em 340 o texto passava
@@ -98,12 +103,15 @@
 
   <!-- ===================== rotulos, banda de baixo ======================= -->
   <line x1="150" y1="256" x2="150" y2="366" stroke="#bbb" stroke-width="1"/>
-  <text x="150" y="384" fill="#111" font-weight="bold" text-anchor="middle">cartão do micro</text>
+  <text x="150" y="384" fill="#111" font-weight="bold" text-anchor="middle">placa do micro</text>
   <text x="150" y="402" fill="#555" font-size="12" text-anchor="middle">a abertura EXPANSION é</text>
   <text x="150" y="418" fill="#555" font-size="12" text-anchor="middle">recuada na carcaça — por</text>
   <text x="150" y="434" fill="#555" font-size="12" text-anchor="middle">isso o conector sai da caixa</text>
 
-  <line x1="299" y1="284" x2="299" y2="366" stroke="#bbb" stroke-width="1"/>
+  <!-- x=315: entre a parede da carcaça (300) e a da Patola (330). Em 299 o coto
+       corria por cima da parede do micro e cruzava o fundo dela, parecendo parte
+       da carcaça em vez de um indicador. -->
+  <line x1="315" y1="286" x2="315" y2="366" stroke="#bbb" stroke-width="1"/>
   <text x="390" y="384" fill="#111" font-weight="bold" text-anchor="middle">conector de borda</text>
   <text x="390" y="402" fill="#555" font-size="12" text-anchor="middle">entrada vertical, FORA da</text>
   <text x="390" y="418" fill="#555" font-size="12" text-anchor="middle">caixa Patola, atravessando</text>
@@ -130,5 +138,5 @@
 
   <!-- ===================== degrau zero =================================== -->
   <text x="24" y="580" fill="#0a7d55" font-size="12" font-weight="bold">Degrau zero:</text>
-  <text x="118" y="580" fill="#555" font-size="12">cartão, fenda do conector e tira ficam na linha tracejada.</text>
+  <text x="118" y="580" fill="#555" font-size="12">a placa do micro, a fenda do conector e a tira ficam na tracejada.</text>
 </svg>

@@ -59,7 +59,7 @@ o fio tem que ser isolado.
 
 1. Enfie a tira **entre as duas fileiras** de terminais do conector, que são
    retos: uma fileira fica por cima da tira e a outra por baixo. Ela sai
-   perpendicular à placa principal, no plano do cartão do micro.
+   perpendicular à placa principal, no plano da placa do micro.
 2. **Solde dos dois lados** — por cima e por baixo. Comece pelas duas pontas
    de cada face para travar o alinhamento, depois preencha o resto.
    As ilhas chegam até a aresta da tira, então não importa se o seu conector
@@ -179,7 +179,7 @@ oposto da placa principal.
    e receber os dedos do micro, e uma **atrás**, para a tira de expansão passar.
    A da frente não é opcional: a abertura `EXPANSION` do micro é **recuada dentro
    da carcaça**, então a caixa encosta na traseira dele e o conector precisa
-   atravessar a parede da caixa para alcançar o cartão. Ver a
+   atravessar a parede da caixa para alcançar a placa do micro. Ver a
    [vista de lado](img/vista-de-lado.svg).
 2. Uma das torres de fixação (a de `y = 62,02 mm`, sob o conector `J1`) cai dentro
    da fenda maior e precisa ser desgastada com micro-retífica.
