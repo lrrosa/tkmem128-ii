@@ -1,4 +1,4 @@
-# TKMEM-128 KiCad
+# TKMEM-128 II
 
 Expansão externa de **128 KB (ou 512 KB) de RAM paginada no padrão ZX Spectrum 128**
 para **TK90X, TK95 e ZX Spectrum 48K**. Redesenho completo em **KiCad 10**, com
@@ -159,7 +159,7 @@ caixa.
 
 | Placa | Arquivo | Conteúdo |
 | --- | --- | --- |
-| Principal | [`hardware/tkmem128.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 3 jumpers, desacoplamento e o conector de borda |
+| Principal | [`hardware/tkmem128-ii.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 3 jumpers, desacoplamento e o conector de borda |
 | Tira de expansão | [`hardware/expansor/`](hardware/expansor/) | Ilhas de solda nas duas faces de um lado, dedos de borda do outro — nenhum componente ativo |
 
 A **placa principal é de 4 camadas**; a tira de expansão, de 2.
@@ -378,7 +378,7 @@ causava incompatibilidades entre unidades diferentes de TK90X.
 
 ```
 hardware/
-  tkmem128.kicad_pro/.kicad_sch/.kicad_pcb   placa principal
+  tkmem128-ii.kicad_pro/.kicad_sch/.kicad_pcb   placa principal
   expansor/                                   tira de expansão
   lib/                                        símbolos e footprints próprios
   gal/                                        fonte e documentação do GAL

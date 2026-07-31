@@ -5,64 +5,82 @@
       "Application": "Pcbnew",
       "Version": "10.0.4"
     },
-    "CreationDate": "2026-07-30T01:10:28-03:00"
+    "CreationDate": "2026-07-30T22:02:22-03:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "tkmem128-expansor",
-      "GUID": "746b6d65-6d31-4323-982d-657870616e73",
+      "Name": "tkmem128-ii",
+      "GUID": "746b6d65-6d31-4323-982d-69692e6b6963",
       "Revision": "rev?"
     },
     "Size": {
       "X": 78.84,
-      "Y": 45.1
+      "Y": 66.14
     },
-    "LayerNumber": 2,
+    "LayerNumber": 4,
     "BoardThickness": 1.6,
     "Finish": "None"
   },
   "DesignRules": [
     {
       "Layers": "Outer",
-      "PadToPad": 0.14,
-      "PadToTrack": 0.14,
-      "TrackToTrack": 0.14,
-      "MinLineWidth": 1.5
+      "PadToPad": 0.2,
+      "PadToTrack": 0.2,
+      "TrackToTrack": 0.2,
+      "MinLineWidth": 0.5
+    },
+    {
+      "Layers": "Inner",
+      "PadToPad": 0.2,
+      "PadToTrack": 0.2,
+      "TrackToTrack": 0.2,
+      "TrackToRegion": 0.3,
+      "RegionToRegion": 0.3
     }
   ],
   "FilesAttributes": [
     {
-      "Path": "tkmem128-expansor-F_Cu.gbr",
+      "Path": "tkmem128-ii-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tkmem128-expansor-B_Cu.gbr",
-      "FileFunction": "Copper,L2,Bot",
+      "Path": "tkmem128-ii-In1_Cu.gbr",
+      "FileFunction": "Copper,L2,Inr",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tkmem128-expansor-F_Silkscreen.gbr",
+      "Path": "tkmem128-ii-In2_Cu.gbr",
+      "FileFunction": "Copper,L3,Inr",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "tkmem128-ii-B_Cu.gbr",
+      "FileFunction": "Copper,L4,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "tkmem128-ii-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tkmem128-expansor-B_Silkscreen.gbr",
+      "Path": "tkmem128-ii-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tkmem128-expansor-F_Mask.gbr",
+      "Path": "tkmem128-ii-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "tkmem128-expansor-B_Mask.gbr",
+      "Path": "tkmem128-ii-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "tkmem128-expansor-Edge_Cuts.gbr",
+      "Path": "tkmem128-ii-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }
@@ -88,10 +106,34 @@
     },
     {
       "Type": "Dielectric",
-      "Thickness": 1.51,
+      "Thickness": 0.48,
       "Material": "FR4",
-      "Name": "F.Cu/B.Cu",
-      "Notes": "Type: dielectric layer 1 (from F.Cu to B.Cu)"
+      "Name": "F.Cu/In1.Cu",
+      "Notes": "Type: dielectric layer 1 (from F.Cu to In1.Cu)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.035,
+      "Name": "In1.Cu"
+    },
+    {
+      "Type": "Dielectric",
+      "Thickness": 0.48,
+      "Material": "FR4",
+      "Name": "In1.Cu/In2.Cu",
+      "Notes": "Type: dielectric layer 2 (from In1.Cu to In2.Cu)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.035,
+      "Name": "In2.Cu"
+    },
+    {
+      "Type": "Dielectric",
+      "Thickness": 0.48,
+      "Material": "FR4",
+      "Name": "In2.Cu/B.Cu",
+      "Notes": "Type: dielectric layer 3 (from In2.Cu to B.Cu)"
     },
     {
       "Type": "Copper",

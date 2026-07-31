@@ -21,7 +21,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from busdef import BUS
 
-PROJ_NAME = "tkmem128-expansor"
+PROJ_NAME = "tkmem128-ii-expansor"
 PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/"
             "expansor")
 BOARD_W, BOARD_H = 78.74, 45.0
@@ -80,7 +80,7 @@ SILK = [
      39.37, 10.0, 0.8, "F"),
     ("parede de tras da caixa", 20.0, 28.6, 0.85, "F"),
     ("PASSAGEM ->", 60.0, 34.0, 1.2, "F"),
-    ("CERN-OHL-S v2  |  github.com/lrrosa/tkmem128-kicad", 39.37, 22.0, 0.9, "B"),
+    ("CERN-OHL-S v2  |  github.com/lrrosa/tkmem128-ii", 39.37, 22.0, 0.9, "B"),
     ("Derivado de Velesoft 2009 e Luccas Eletronica 2012", 39.37, 25.0, 0.9, "B"),
 ]
 

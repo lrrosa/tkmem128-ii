@@ -1,6 +1,6 @@
 {
-  "hardware/expansor/tkmem128-expansor.kicad_pcb": "69486255ab4d804871799d872d6447d2",
-  "hardware/expansor/tkmem128-expansor.kicad_sch": "3718cf9043d670eca848333dc7cc2814",
-  "hardware/tkmem128.kicad_pcb": "6d17c93ef80e3cff6f55ea033bab6e1e",
-  "hardware/tkmem128.kicad_sch": "81b69626aa432f67ea20a5bde45efe46"
+  "hardware/expansor/tkmem128-ii-expansor.kicad_pcb": "9f3816ef3bab46786ad4ff2fb92c6262",
+  "hardware/expansor/tkmem128-ii-expansor.kicad_sch": "3718cf9043d670eca848333dc7cc2814",
+  "hardware/tkmem128-ii.kicad_pcb": "2b706de6129256f44f8a9b75e4f0ca8b",
+  "hardware/tkmem128-ii.kicad_sch": "81b69626aa432f67ea20a5bde45efe46"
 }

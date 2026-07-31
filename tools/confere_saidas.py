@@ -26,10 +26,10 @@ import hashlib, io, json, os, sys
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MANIFESTO = os.path.join(RAIZ, "production", "fontes.json")
 FONTES = (
-    "hardware/tkmem128.kicad_pcb",
-    "hardware/tkmem128.kicad_sch",
-    "hardware/expansor/tkmem128-expansor.kicad_pcb",
-    "hardware/expansor/tkmem128-expansor.kicad_sch",
+    "hardware/tkmem128-ii.kicad_pcb",
+    "hardware/tkmem128-ii.kicad_sch",
+    "hardware/expansor/tkmem128-ii-expansor.kicad_pcb",
+    "hardware/expansor/tkmem128-ii-expansor.kicad_sch",
 )
 
 

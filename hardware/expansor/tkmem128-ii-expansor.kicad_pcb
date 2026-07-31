@@ -1463,7 +1463,7 @@
 			)
 		)
 	)
-	(gr_text "TKMEM-128  TIRA DE EXPANSÃO DO BARRAMENTO"
+	(gr_text "TKMEM-128 II  TIRA DE EXPANSÃO DO BARRAMENTO"
 		(at 39.37 15 0)
 		(layer "F.SilkS")
 		(uuid "9a663a12-3cb3-46c5-8a47-95df44e76894")
@@ -1487,7 +1487,7 @@
 			)
 		)
 	)
-	(gr_text "CERN-OHL-S v2  |  github.com/lrrosa/tkmem128-kicad"
+	(gr_text "CERN-OHL-S v2  |  github.com/lrrosa/tkmem128-ii"
 		(at 39.37 22 0)
 		(layer "B.SilkS")
 		(uuid "840caf2d-16c0-4296-a7d0-ea52703c053c")

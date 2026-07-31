@@ -6985,8 +6985,8 @@
 			)
 		)
 	)
-	(gr_text "TKMEM-128   LRRosa 2026 v1.0"
-		(at 22 53 0)
+	(gr_text "TKMEM-128 II   LRRosa 2026 v1.0"
+		(at 27 53 0)
 		(layer "F.SilkS")
 		(uuid "e3069aac-0e65-4f0c-8064-ba4853006158")
 		(effects
@@ -7010,7 +7010,7 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "github.com/lrrosa/tkmem128-kicad"
+	(gr_text "github.com/lrrosa/tkmem128-ii"
 		(at 20.5 12 0)
 		(layer "B.SilkS")
 		(uuid "b27711a8-2469-42f6-9bd0-2986dfe2b8d1")

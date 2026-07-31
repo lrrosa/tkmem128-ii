@@ -1,4 +1,4 @@
-# GAL20V8B — decodificador da TKMEM-128
+# GAL20V8B — decodificador da TKMEM-128 II
 
 O GAL faz toda a decodificação de endereços da placa: seleciona ROM e SRAM,
 gera o clock do latch da porta `0x7FFD` e produz os bits altos de endereço da

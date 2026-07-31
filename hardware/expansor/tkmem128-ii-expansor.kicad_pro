@@ -495,7 +495,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "tkmem128-expansor.kicad_pro",
+    "filename": "tkmem128-ii-expansor.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -640,7 +640,7 @@
       "include_excluded_from_bom": true,
       "name": "Default Editing",
       "sort_asc": true,
-      "sort_field": "Referência"
+      "sort_field": "Refer\u00eancia"
     },
     "bus_aliases": {},
     "connection_grid_size": 50.0,
@@ -678,8 +678,8 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "tkmem128-expansor.kicad_sch",
-        "name": "tkmem128-expansor",
+        "filename": "tkmem128-ii-expansor.kicad_sch",
+        "name": "tkmem128-ii-expansor",
         "uuid": "8c22154b-c952-396c-6e1c-0ae032eedbbc"
       }
     ],
@@ -689,7 +689,7 @@
   "sheets": [
     [
       "8c22154b-c952-396c-6e1c-0ae032eedbbc",
-      "tkmem128-expansor"
+      "tkmem128-ii-expansor"
     ]
   ],
   "text_variables": {},

@@ -180,7 +180,7 @@ def write_jed(path, fuses):
     body.append("TKMEM-128 KiCad - decodificador de enderecos")
     body.append("Gerado por tools/galgen.py a partir de hardware/gal/"
                 "tkmem128.pld")
-    body.append("Licenca CERN-OHL-S v2 - github.com/lrrosa/tkmem128-kicad")
+    body.append("Licenca CERN-OHL-S v2 - github.com/lrrosa/tkmem128-ii")
     body.append("*")
     linha = []
     notas = []

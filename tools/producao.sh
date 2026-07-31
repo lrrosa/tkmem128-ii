@@ -43,12 +43,12 @@ with zipfile.ZipFile(z,'w',zipfile.ZIP_DEFLATED) as a:
 print('   %d arquivos -> %s (%.0f kB)' % (len(f), os.path.basename(z), os.path.getsize(z)/1024.0))" "$dir"
 }
 
-gera hardware/tkmem128.kicad_pcb hardware/tkmem128.kicad_sch \
+gera hardware/tkmem128-ii.kicad_pcb hardware/tkmem128-ii.kicad_sch \
      production/placa-principal \
      "F.Cu,In1.Cu,In2.Cu,B.Cu,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts"      placa-principal
 
-gera hardware/expansor/tkmem128-expansor.kicad_pcb \
-     hardware/expansor/tkmem128-expansor.kicad_sch \
+gera hardware/expansor/tkmem128-ii-expansor.kicad_pcb \
+     hardware/expansor/tkmem128-ii-expansor.kicad_sch \
      production/tira-expansao \
      "F.Cu,B.Cu,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts"      placa-expansora
 

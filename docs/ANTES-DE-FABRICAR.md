@@ -133,10 +133,10 @@ Peça **4 camadas**, empilhamento padrão de 1,6 mm:
 
 | Gerber | Papel |
 | --- | --- |
-| `tkmem128-F_Cu.gbr` | sinal, lado dos componentes |
-| `tkmem128-In1_Cu.gbr` | **plano de GND** |
-| `tkmem128-In2_Cu.gbr` | **plano de +5V** |
-| `tkmem128-B_Cu.gbr` | sinal, lado do cobre |
+| `tkmem128-ii-F_Cu.gbr` | sinal, lado dos componentes |
+| `tkmem128-ii-In1_Cu.gbr` | **plano de GND** |
+| `tkmem128-ii-In2_Cu.gbr` | **plano de +5V** |
+| `tkmem128-ii-B_Cu.gbr` | sinal, lado do cobre |
 
 Se pedir 2 camadas por engano, a fábrica descarta os dois planos e a placa sai
 sem alimentação nenhuma — e isso não aparece na inspeção visual. Confira no

@@ -132,7 +132,7 @@ for ref, lib, val, fp, conns, descr in DISCRETE:
     CONN[ref] = conns
 
 
-PROJ_NAME = "tkmem128"
+PROJ_NAME = "tkmem128-ii"
 PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware")
 BOARD_W, BOARD_H = 78.74, 66.04
 # As ilhas de J1 chegam a 0,51 mm da aresta de baixo — de proposito, e o conector
@@ -191,7 +191,7 @@ SILK = [
     ("SJ1  fechar SO em ZX Spectrum (pino 7 = GND la)", 39.37, 25.0, 0.9, "B"),
     ("SJ2  fechar SO em TK90X/TK95 (pino 15 = GND la)", 39.37, 27.5, 0.9, "B"),
     ("CERN-OHL-S v2", 39.37, 32.0, 1.3, "B"),
-    ("github.com/lrrosa/tkmem128-kicad", 39.37, 35.0, 1.0, "B"),
+    ("github.com/lrrosa/tkmem128-ii", 39.37, 35.0, 1.0, "B"),
     ("Derivado de Velesoft 2009 e Luccas Eletronica 2012", 39.37, 38.0, 0.9, "B"),
 ]
 

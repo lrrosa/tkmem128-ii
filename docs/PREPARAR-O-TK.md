@@ -1,6 +1,6 @@
 # Preparando o TK90X / TK95
 
-A TKMEM-128 mapeia a SRAM externa em `0x8000-0xFFFF`. Como o banco superior de
+A TKMEM-128 II mapeia a SRAM externa em `0x8000-0xFFFF`. Como o banco superior de
 32 KB do TK ocupa exatamente essa faixa, **os dois brigariam pelo barramento**.
 Desativar essa RAM interna é a **única alteração necessária dentro do micro**.
 
@@ -40,7 +40,7 @@ Faz o TK voltar a ser 48 KB sozinho quando você desconecta a interface.
    (74LS32).
 2. Confirme a ligação com multímetro no teste de continuidade **antes de ligar o
    micro**.
-3. Nada a fazer na TKMEM-128: `R4` já mantém o pino 29 em nível 1
+3. Nada a fazer na TKMEM-128 II: `R4` já mantém o pino 29 em nível 1
    permanentemente.
 
 Ao remover a interface o pino fica flutuando e o TK volta a operar como 48 KB.
@@ -122,7 +122,7 @@ que torna a placa segura nas duas máquinas —, mas significa que num Spectrum 
 desativação tem de ser feita por dentro, do jeito que aquele micro pedir.
 
 Se você fizer isso num Spectrum e funcionar, uma
-[issue](https://github.com/lrrosa/tkmem128-kicad/issues) com o ponto exato é
+[issue](https://github.com/lrrosa/tkmem128-ii/issues) com o ponto exato é
 bem-vinda: entra aqui com o crédito.
 
 ---
