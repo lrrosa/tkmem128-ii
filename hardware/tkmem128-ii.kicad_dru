@@ -1,12 +1,4 @@
 (version 1)
 
-# Os dedos de borda de J2 chegam propositalmente ate a borda da placa:
-# dispensa a folga cobre-borda so para esse conector.
-(rule "dedos_de_borda_ate_a_borda"
-  (condition "A.Reference == 'J2'")
-  (constraint edge_clearance (min -0.2mm)))
-
-# Solder jumpers sao mascara aberta por definicao.
-(rule "solder_jumpers"
-  (condition "A.Reference == 'SJ1' || A.Reference == 'SJ2'")
-  (constraint solder_mask_expansion (min -1mm) (max 1mm)))
+# (sem regras proprias: a excecao de folga de borda e da tira,
+#  onde ficam os dedos de J2 e as ilhas de J1.)
