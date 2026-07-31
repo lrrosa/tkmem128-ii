@@ -160,7 +160,7 @@ caixa.
 | Placa | Arquivo | Conteúdo |
 | --- | --- | --- |
 | Principal | [`hardware/tkmem128-ii.kicad_pro`](hardware/) | GAL20V8B, 74HCT273, SRAM DIP-32, EPROM 27C256, 3 jumpers, desacoplamento e o conector de borda |
-| Tira de expansão | [`hardware/expansor/`](hardware/expansor/) | Ilhas de solda nas duas faces de um lado, dedos de borda do outro — nenhum componente ativo |
+| Tira de expansão | [`hardware/expansor/`](hardware/expansor/) | Ilhas de solda nas duas faces de um lado, dedos de borda do outro — nenhum componente, só o fio de terra `W1` |
 
 A **placa principal é de 4 camadas**; a tira de expansão, de 2.
 
@@ -275,13 +275,14 @@ sinal em curto com o terra.
 
 ### Tira de expansão
 
-Não leva conector nenhum — os "conectores" são cobre da própria PCB:
+Não leva componente nenhum, nem conector: os "conectores" são cobre da própria
+PCB, e o único item a soldar além das ilhas é um pedaço de fio.
 
 | Ref | O que é | Observação |
 | --- | --- | --- |
 | J1 | Ilhas de solda nas duas faces, até a borda | Solda nos terminais retos do conector da placa principal, por cima e por baixo |
 | J2 | Dedos de borda | Passagem do barramento ao próximo periférico |
-| C1 | 100 nF cerâmico | Único componente montado |
+| W1 | Fio isolado curto | Liga as duas ilhas `GND - FIO ISOLADO` no verso (pinos 6 e 14); passa por cima das trilhas, por isso isolado |
 
 ---
 
