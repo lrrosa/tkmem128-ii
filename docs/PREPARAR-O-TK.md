@@ -142,8 +142,59 @@ bem-vinda.
 
 A auto-desativação pelo contato 29 continua **inerte num Spectrum**: lá esse
 contato é N.C., então o pull-up de `R4` não chega a lugar nenhum. Isso é de
-propósito — é o que torna a placa segura nas duas máquinas —, mas significa que
-num Spectrum a desativação é sempre por dentro, pelo fio da tabela acima.
+propósito — é o que torna a placa segura nas duas máquinas.
+
+### Dava para levar a auto-desativação para o Spectrum?
+
+A pergunta é natural: em vez de amarrar o pino do mod ao +5 V do próprio chip,
+por que não ligá-lo ao **contato 29**, como fazemos no TK, e ganhar a mesma
+comodidade — tirou a interface, voltou a ser 48K?
+
+Em princípio sim, é a mesma topologia. Mas há uma diferença elétrica que decide
+o caso, e ela é fácil de passar despercebida:
+
+> **O contato 29 não é +5 V. É +5 V através de `R4`, 1 kΩ.**
+> O mod publicado liga o pino do mod ao **pino de alimentação do próprio CI** —
+> impedância zero. `R4` é um pull-up fraco, e pull-up fraco só vence quem não
+> está brigando.
+
+| O que houver no ponto do mod | O que o pull-up de 1 kΩ faz |
+| --- | --- |
+| Nada (entrada solta) ou pull-down ≥ 4k7 | **segura em nível alto com folga** — 4,1 V ou mais |
+| Saída TTL-LS puxando para baixo | **perde**: ela absorve 8 mA e o `R4` só injeta 5 mA |
+
+E há um indício de que o ponto do Spectrum é do segundo tipo: **se o pino 5 do
+IC23 já ficasse alto sozinho, o mod não precisaria existir**. Amarrá-lo ao +5 V
+só faz sentido porque alguma coisa o mantém baixo — e essa alguma coisa
+provavelmente é uma saída, que ganharia do `R4`.
+
+Compare com o TK, onde o truque funciona: ali a placa original do Luccas usava
+pull-up de **10 kΩ** e bastava. Um ponto que se deixa levar por 10 kΩ é um ponto
+de alta impedância, não uma saída em disputa. As duas máquinas simplesmente não
+oferecem o mesmo tipo de nó.
+
+**O que precisaria acontecer para funcionar**, se alguém quiser tentar:
+
+1. **Cortar a trilha** que alimenta a entrada do mod, para que ela pare de ser
+   disputada;
+2. acrescentar um **pull-down** nessa entrada (10 kΩ para GND serve: com o `R4`
+   de 1 kΩ o nó vai a 4,55 V com a interface, e a 0 V sem ela);
+3. ligar a entrada ao **contato 28A/29** do conector.
+
+Aí sim o comportamento fica igual ao do TK. Sem o passo 2 o resultado é o
+oposto do desejado: entrada de LS solta flutua **alta**, e o micro ficaria em
+16K justamente quando a interface fosse removida.
+
+> **Nada disto foi verificado por nós, nem em bancada nem em esquemático** — não
+> temos a máquina nem o desenho da Issue aqui. Antes de cortar trilha nenhuma,
+> meça o pino do mod com o micro ligado: se ele chaveia, é saída, e o caminho é
+> este; se fica parado num nível, meça a impedância para GND com o micro
+> desligado. E conte o resultado numa
+> [issue](https://github.com/lrrosa/tkmem128-ii/issues).
+
+O que **não** muda em nenhum cenário: a placa já faz a parte dela. `R4` está lá,
+o contato 29 é N.C. nas duas máquinas, e nada precisa ser alterado no hardware
+para tentar.
 
 ---
 
