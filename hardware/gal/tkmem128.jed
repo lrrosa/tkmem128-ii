@@ -1,8 +1,8 @@
 
 GAL20V8
-TKMEM-128 KiCad - decodificador de enderecos
+TKMEM-128 II - decodificador de enderecos
 Gerado por tools/galgen.py a partir de hardware/gal/tkmem128.pld
-Licenca CERN-OHL-S v2 - github.com/lrrosa/tkmem128-kicad
+Licenca CERN-OHL-S v2 - github.com/lrrosa/tkmem128-ii
 *
 NOTE PINS MREQ:1 ZX512:2 A1:3 WR:4 DIS128:5 BANK2:6 A5:7 BANK0:8*
 NOTE PINS BANK4:9 BANK3:10 BANK1:11 GND:12 A15:13 A14:14 ROMCS:15*
@@ -92,4 +92,4 @@ L2640
 L2704
 11*
 C5752*
-86A8
+8454

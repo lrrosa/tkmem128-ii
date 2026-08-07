@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Netlist completa da TKMEM-128 KiCad (fonte unica da verdade)."""
+"""Netlist completa da TKMEM-128 II (fonte unica da verdade)."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from busdef import BUS, HEADER_NETS
@@ -142,7 +142,7 @@ BOARD_W, BOARD_H = 78.74, 66.04
 EDGE_PADS_BOTTOM = True
 KEYSLOT_COL = None          # placa principal nao tem dedos, logo nao tem guia
 SHEET = "A2"
-TITLE = "TKMEM-128 KiCad - placa principal (128K/512K para TK90X/TK95)"
+TITLE = "TKMEM-128 II - placa principal (128K/512K para TK90X/TK95)"
 
 # posicionamento no esquematico
 PLACE_SCH = {

@@ -32,7 +32,7 @@ KEYSLOT_COL = 5             # rasgo da guia nos dedos de J2
 KEYSLOT_DEPTH = 7.0
 EDGE_PADS_TOP = True        # as ilhas de J1 chegam ate a aresta y=0
 SHEET = "A3"
-TITLE = "TKMEM-128 KiCad - tira de expansao do barramento TK90X/TK95"
+TITLE = "TKMEM-128 II - tira de expansao do barramento TK90X/TK95"
 
 PARTS = [
     ("J1", "tkmem128:ZX_TK_Bus_56", "Terminais do conector",

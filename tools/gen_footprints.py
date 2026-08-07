@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Footprints proprios da TKMEM-128 KiCad.
+"""Footprints proprios da TKMEM-128 II.
 
 J1  soquete de borda femea 56 vias (grade 0,100" x 0,200" = 2,54 x 5,08 mm)
 J2  dedos de borda para passagem do barramento (1,524 x 7,62 mm, passo 2,54)

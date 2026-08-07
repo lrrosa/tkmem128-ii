@@ -5,7 +5,7 @@
 	(uuid "214ef319-1120-feeb-674c-ee15bc976f0e")
 	(paper "A2")
 	(title_block
-		(title "TKMEM-128 KiCad - expansao de 128K para TK90X/TK95")
+		(title "TKMEM-128 II - expansao de 128K para TK90X/TK95")
 		(rev "1.0")
 		(company "Derivado de Velesoft (2009) e Luccas Eletronica (2012) - CERN-OHL-S v2")
 	)

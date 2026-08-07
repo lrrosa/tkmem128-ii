@@ -49,7 +49,7 @@ SA18 = A14 * A15 * BANK4 * /ZX512
 
 DESCRIPTION
 
-TKMEM-128 KiCad - decodificador de enderecos.
+TKMEM-128 II - decodificador de enderecos.
 
 Expansao de 128K (ou 512K) paginados no padrao ZX Spectrum 128 para os
 TK90X/TK95. Deriva do projeto do Velesoft (2009) e da TKMEM-128 da Luccas

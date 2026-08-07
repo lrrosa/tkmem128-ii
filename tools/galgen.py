@@ -177,7 +177,7 @@ def write_jed(path, fuses):
     """Escreve um arquivo JEDEC padrao (STX/ETX e checksum de transmissao)."""
     body = []
     body.append("GAL20V8")
-    body.append("TKMEM-128 KiCad - decodificador de enderecos")
+    body.append("TKMEM-128 II - decodificador de enderecos")
     body.append("Gerado por tools/galgen.py a partir de hardware/gal/"
                 "tkmem128.pld")
     body.append("Licenca CERN-OHL-S v2 - github.com/lrrosa/tkmem128-ii")
