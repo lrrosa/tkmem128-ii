@@ -262,43 +262,41 @@ Conferido contra os desenhos técnicos da Patola (`PB 085/3_CX` e `PB 085/3_TP`)
 | Altura | 69 mm | 66,04 mm | 1,48 mm por lado |
 | Altura de componentes | ~25 mm | ~10 mm (soquete torneado + DIP) | ~15 mm |
 
-### O furo de fixação `H1` — e por que só existe um
+### O furo `H1` — passagem da torre, não do parafuso
 
 As torres ficam em **x = 39,37 mm** (centro) e **y = 4,02 e 62,02 mm** nas
 coordenadas da placa, medidas conferidas contra a caixa real em impressão 1:1.
-Só uma das duas serve:
 
-- A de **y = 62,02** cai exatamente sobre o conector `J1`. É a que se desgasta
-  com micro-retífica ao abrir a fenda — não tem como ser furo.
-- A de **y = 4,02** virou `H1`, um furo **Ø2,7 não metalizado**. Enquanto a placa
-  era de 2 camadas ele custava duas ligações que o roteador não fechava; com as
-  faces de sinal livres de alimentação ele passou a caber, e o leque de trilhas
-  que passava por ali desviou para o vão entre o furo e a aresta de cima.
+O ponto que engana: no desenho `PB 085/3_TP` a torre tem **Ø5 externo**; o Ø2,5
+é só o furo-piloto **dentro** dela. E a placa assenta no fundo da tampa, que é de
+onde a torre nasce. Ou seja, o furo na placa não é passagem de parafuso — é
+**passagem da torre**. Com um furo de parafuso a placa simplesmente não desce:
+para em cima da torre.
 
-Três coisas a saber antes de usar o parafuso:
+- A torre de **y = 62,02** cai exatamente sobre o conector `J1`. É a que se
+  desgasta com micro-retífica ao abrir a fenda — não tem como ser furo.
+- A de **y = 4,02** virou `H1`, **Ø5,4 não metalizado**: 0,2 mm de folga radial,
+  que a conicidade de desmoldagem pede, porque é a **base** da torre — a parte
+  mais larga — que encontra a placa.
 
-1. **Ø2,7 é o teto.** Acima disso o furo entra no *courtyard* do soquete de U4,
-   que termina a 1,42 mm do centro. O cobre não é o limite — sobra 0,72 mm até a
-   ilha `U4.15`; o soquete é.
-2. **A folga da cabeça do parafuso não está garantida.** É justamente por isso
-   que `H1` não tem courtyard: declarar um seria mentir. Com o soquete de U4 a
-   1,42 mm, cabeça de parafuso comum encosta nele. Meça no seu conjunto antes de
-   contar com o parafuso; a fixação por **EVA** continua valendo sozinha.
-3. **Use parafuso de náilon, ou uma arruela isolante.** A placa tem plano de GND
-   em `In1.Cu` e plano de +5 V em `In2.Cu`. O furo mantém os dois 0,5 mm longe da
-   parede (área de exclusão desenhada na placa, não é só a folga da regra), mas
-   parafuso metálico raspando a parede de uma placa de 4 camadas pode arrastar
-   cobre de um plano ao outro — e isso é +5 V em curto com o terra.
+Consequência boa: o parafuso da caixa corre dentro da torre e **nunca toca a
+placa**. Não há questão de folga para a cabeça do parafuso, nem risco de parafuso
+metálico raspar a parede do furo e encostar o plano de GND no de +5 V. `H1` é um
+**pino de localização**, não um ponto de aperto — o que segura a placa continua
+sendo o **EVA** colado no fundo e nas laterais, mais a fenda frontal por onde o
+corpo do conector atravessa.
 
-Com uma torre só, o que segura a placa é o parafuso numa ponta e a fenda frontal
-na outra, onde o corpo do conector atravessa. Continua valendo colar **EVA** no
-fundo e nas laterais, como na montagem original.
+O que esse furo custou: **U4 recuou 1,5 mm para a esquerda**, senão ele entraria
+no *courtyard* do soquete. Depois do recuo sobram 0,60 mm entre o cobre de U4 e a
+aresta esquerda (a regra pede 0,30), e 2,91 mm entre o soquete e o furo. `H1` não
+tem courtyard de propósito: nessa vizinhança não existe envelope livre para
+declarar.
 
 > Na furação, `H1` sai no mesmo `.drl` dos outros furos, declarado como
 > `NonPlated,NPTH` (o arquivo é `MixedPlating`). Se a sua fábrica ignorar o
 > atributo e metalizar tudo, não há curto: nenhum cobre chega à parede do furo em
 > nenhuma das quatro camadas. Só avise, porque metalizado ele fica com a parede
-> mais estreita.
+> mais estreita e a torre pode não passar.
 
 ### O conjunto montado também cabe — mas só com a fenda aberta
 

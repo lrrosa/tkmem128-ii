@@ -183,15 +183,14 @@ oposto da placa principal.
    [vista de lado](img/vista-de-lado.svg).
 2. Uma das torres de fixação (a de `y = 62,02 mm`, sob o conector `J1`) cai dentro
    da fenda maior e precisa ser desgastada com micro-retífica.
-3. A outra torre (`y = 4,02 mm`) tem furo na placa: `H1`, **Ø2,7 não metalizado**.
-   Use **parafuso de náilon** ou uma arruela isolante — a placa tem plano de GND e
-   plano de +5 V nas camadas internas.
+3. A outra torre (`y = 4,02 mm`) **passa pela placa**, pelo furo `H1` de
+   **Ø5,4 não metalizado**. Ela é que localiza a placa; o parafuso da caixa
+   corre por dentro dela e não encosta em nada.
 4. Fixe as placas com **pedaços de EVA** colados no fundo e nas laterais — é como
    a montagem original resolve, e funciona bem porque a caixa fecha com trava.
 
-> ⚠️ **O parafuso pode não caber.** `H1` fica a 1,42 mm do soquete de `U4`, então
-> cabeça de parafuso comum encosta nele. Meça no seu conjunto; se não couber, o
-> EVA sozinho já segura. Detalhes em
+> `H1` não é furo de parafuso: a torre da Patola tem **Ø5 externo** e o Ø2,5 do
+> desenho é o furo-piloto dentro dela. Detalhes em
 > [ANTES-DE-FABRICAR.md](ANTES-DE-FABRICAR.md#7-caixa-patola-pb-0853).
 
 O resultado fica com a placa em pé dentro da caixa, o conector saindo pela

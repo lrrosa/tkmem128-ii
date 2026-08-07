@@ -48,7 +48,9 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `tira_sj.py` | Removeu SJ1/SJ2 do esquemático — histórico, já aplicado |
 | `planos_4camadas.py` | Cria os planos internos de GND e +5V da placa principal |
 | `move_ramdis.py` | Moveu a auto-desativação do pino 17 para o 29 e removeu JP4 — histórico, já aplicado |
-| `sobe_j1.py` | Subiu `J1` 1,5 mm (corpo do conector deixa de sair pela aresta) e abriu `H1`, o furo de fixação — apaga o roteamento de propósito |
+| `sobe_j1.py` | Subiu `J1` 1,5 mm: o corpo do conector deixa de sair pela aresta. Apaga o roteamento de propósito |
+| `furo_da_torre.py` | Abriu `H1` em Ø5,4 — passagem da **torre** Ø5 da caixa, não do parafuso — e recuou `U4` 1,5 mm para caber. Apaga o roteamento |
+| `tabelas_jumpers.py` | Serigrafia dos jumpers em tabela no verso e título da placa em duas linhas. Idempotente: limpa a faixa antes de desenhar |
 | `fecha_silk_conector.py` | Fecha o contorno de `J1` na serigrafia agora que o corpo cabe dentro da placa; tira as linhas duplicadas |
 | `fecha_a14.py` | Fecha `A14` à mão pela margem direita: o Freerouting deixa essa uma em aberto |
 | `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip`, os renders de `docs/img/` e o manifesto `production/fontes.json` |
@@ -84,7 +86,7 @@ ligados e não tentar roteá-los nas faces de sinal.
 ```bash
 "$KIPY" planos_4camadas.py                   # GND em In1.Cu, +5V em In2.Cu
 "$KIPY" mk_decoy.py netlist main
-sed -i "s/(clearance 200)/(clearance 213)/g" route.dsn
+sed -i "s/(clearance 200)/(clearance 215)/g" route.dsn
 freerouting -de route.dsn -do route.ses -mp 900
 "$KIPY" import_ses.py netlist main
 "$KIPY" limpa_cotocos.py netlist
@@ -100,18 +102,20 @@ com os planos desatualizados acusa centenas de violações que não existem.
 "$KIPY" rota_tira.py
 ```
 
-O Freerouting fecha 73 das 74 nets da principal com isolação **0,213** no DSN; a
+O Freerouting fecha 73 das 74 nets da principal com isolação **0,215** no DSN; a
 que sobra é sempre `A14`, fechada à mão por `fecha_a14.py`. Ele é determinístico
 por entrada: se sobrar ligação em aberto, repetir não muda nada — tem que
-perturbar a isolação. E a resposta **não é monotônica**: a varredura que levou a
-0,213 deu, na mesma placa,
+perturbar a isolação. E a resposta **não é monotônica**: uma varredura deu, numa
+mesma placa,
 
-| isolação no DSN | 200 | 205 | 211 | **213** | 214 | 216 | 220 |
+| isolação no DSN | 200 | 205 | 211 | 213 | 214 | 216 | 220 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| nets em aberto | 14 | 2 | 1 | **1** | 17 | 2 | 13 |
+| nets em aberto | 14 | 2 | 1 | 1 | **17** | 2 | 13 |
 
 — ou seja, 1 mícron a mais que o ótimo faz saltar de 1 para 17. Não adianta
-"afrouxar até funcionar"; varra a faixa 200–220 e escolha o mínimo.
+"afrouxar até funcionar"; varra a faixa 200–220 e escolha o melhor. E **varra de
+novo a cada mudança de placa**: com `U4` recuado e o furo em Ø5,4 o ótimo saiu de
+0,213 para **0,215**, e 0,213 passou a deixar 2 nets.
 
 Antes de mexer em posicionamento por causa de net em aberto, **conferir o vão
 entre ilhas do conector**: foi ali que o gargalo real estava.

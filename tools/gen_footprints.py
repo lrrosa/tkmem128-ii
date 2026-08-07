@@ -337,49 +337,52 @@ def gen_wirepad():
 
 
 # ------------------------------------------------------- furo de fixacao H1
-def gen_mountinghole():
-    """Furo Ø2,7 para a torre superior da caixa Patola, em (39,37 ; 4,02).
+def gen_mountinghole(D=5.4):
+    """Furo por onde PASSA a torre superior da caixa Patola, em (39,37 ; 4,02).
 
-    Mesma geometria do MountingHole:MountingHole_2.7mm da biblioteca padrao do
-    KiCad, MENOS o courtyard de raio 2,95 dela. Aquele circulo e a folga da
-    cabeca do parafuso, e aqui ele invadiria o soquete de U4, cujo courtyard
-    termina a 1,42 mm do centro do furo. Declarar um courtyard que a placa nao
-    tem seria mentira util: o FURO esta desenhado e conferido, a folga da
-    CABECA do parafuso nao esta garantida — ver docs/ANTES-DE-FABRICAR.md.
+    A torre da PB 085/3 tem **Ø5 externo** e furo-piloto Ø2,5 (desenho
+    `PB 085/3_TP`). A placa assenta no fundo da tampa e a torre nasce desse
+    fundo, entao o furo aqui nao e passagem de parafuso: e passagem da TORRE.
+    Dai Ø5,4 e nao Ø2,7 — 0,2 mm de folga radial, que a conicidade de
+    desmoldagem pede, porque a base da torre e mais larga que o topo.
 
-    Ø2,7 e o teto: acima disso o proprio furo entra no courtyard de U4. O
-    cobre nao e o limite (sobra 0,72 mm ate a ilha U4.15); o soquete e.
+    Consequencia boa: o parafuso da caixa corre dentro da torre e nunca toca a
+    placa. Somem as duas preocupacoes que o furo pequeno criava — folga para a
+    cabeca do parafuso, e parafuso metalico raspando a parede e encostando o
+    plano de GND no de +5V. O furo virou pino de localizacao, nao aperto.
 
-    O recuo dos planos internos NAO vem daqui: quem garante os 0,5 mm de GND e
-    +5V longe da parede do furo e a area de exclusao que tools/sobe_j1.py cria
-    na placa. Furo passante nao metalizado sozinho so afastaria o cobre os
-    0,25 mm da regra, e parafuso metalico raspando a parede de uma placa de 4
-    camadas pode arrastar cobre de um plano ao outro.
+    Sem courtyard de proposito: mesmo com U4 recuado 1,5 mm o soquete dele fica
+    a 2,92 mm do centro, e qualquer circulo de folga realista o invadiria. O
+    furo esta desenhado e conferido; envelope livre em volta dele, nao.
+
+    O recuo dos planos internos nao vem daqui, vem da area de exclusao que
+    tools/furo_da_torre.py cria na placa.
     """
-    D = 2.7
-    return ('(footprint "MountingHole_2.7mm"\n\t(version 20260206)\n'
+    return ('(footprint "MountingHole_%(d).1fmm"\n\t(version 20260206)\n'
             '\t(generator "tkmem128-gen")\n\t(generator_version "10.0")\n'
             '\t(layer "F.Cu")\n'
-            '\t(descr "Furo de fixacao %s mm sem anel e SEM courtyard: a folga '
-            'da cabeca do parafuso nao cabe entre o furo e o soquete de U4.")\n'
-            '\t(tags "mountinghole furo fixacao patola")\n'
-            '\t(property "Reference" "H**"\n\t\t(at 0 -2.5 0)\n'
+            '\t(descr "Furo Ø%(d).1f mm nao metalizado: passagem da torre Ø5 da '
+            'caixa Patola PB 085/3. Sem courtyard — nao ha envelope livre entre '
+            'ele e o soquete de U4.")\n'
+            '\t(tags "mountinghole furo torre patola")\n'
+            '\t(property "Reference" "H**"\n\t\t(at 0 -%(m).1f 0)\n'
             '\t\t(layer "F.SilkS")\n\t\t(hide yes)\n'
             '\t\t(effects (font (size 1 1) (thickness 0.15)))\n\t)\n'
-            '\t(property "Value" "MountingHole_2.7mm"\n\t\t(at 0 2.5 0)\n'
+            '\t(property "Value" "MountingHole_%(d).1fmm"\n\t\t(at 0 %(m).1f 0)\n'
             '\t\t(layer "F.Fab")\n\t\t(hide yes)\n'
             '\t\t(effects (font (size 1 1) (thickness 0.15)))\n\t)\n'
             '\t(attr exclude_from_pos_files exclude_from_bom)\n'
             '\t(pad "" np_thru_hole circle\n\t\t(at 0 0)\n'
-            '\t\t(size %s %s)\n\t\t(drill %s)\n'
-            '\t\t(layers "F&B.Cu" "*.Mask")\n\t)\n)\n' % (D, D, D, D))
+            '\t\t(size %(d).1f %(d).1f)\n\t\t(drill %(d).1f)\n'
+            '\t\t(layers "F&B.Cu" "*.Mask")\n\t)\n)\n'
+            % {"d": D, "m": D / 2 + 1.0})
 
 
 if not os.path.isdir(OUTDIR):
     os.makedirs(OUTDIR)
 
 for name, body in (("ZX_TK_Bus_Socket_56", gen_socket()),
-                   ("MountingHole_2.7mm", gen_mountinghole()),
+                   ("MountingHole_5.4mm", gen_mountinghole()),
                    ("ZX_TK_Bus_Fingers_56", gen_fingers()),
                    ("ZX_TK_Bus_Header_2x28", gen_header()),
                    ("ZX_TK_Bus_SolderPads_56", gen_solderpads()),

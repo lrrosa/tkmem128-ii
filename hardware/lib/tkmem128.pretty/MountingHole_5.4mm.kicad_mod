@@ -1,18 +1,18 @@
-(footprint "MountingHole_2.7mm"
+(footprint "MountingHole_5.4mm"
 	(version 20260206)
 	(generator "tkmem128-gen")
 	(generator_version "10.0")
 	(layer "F.Cu")
-	(descr "Furo de fixacao 2.7 mm sem anel e SEM courtyard: a folga da cabeca do parafuso nao cabe entre o furo e o soquete de U4.")
-	(tags "mountinghole furo fixacao patola")
+	(descr "Furo Ø5.4 mm nao metalizado: passagem da torre Ø5 da caixa Patola PB 085/3. Sem courtyard — nao ha envelope livre entre ele e o soquete de U4.")
+	(tags "mountinghole furo torre patola")
 	(property "Reference" "H**"
-		(at 0 -2.5 0)
+		(at 0 -3.7 0)
 		(layer "F.SilkS")
 		(hide yes)
 		(effects (font (size 1 1) (thickness 0.15)))
 	)
-	(property "Value" "MountingHole_2.7mm"
-		(at 0 2.5 0)
+	(property "Value" "MountingHole_5.4mm"
+		(at 0 3.7 0)
 		(layer "F.Fab")
 		(hide yes)
 		(effects (font (size 1 1) (thickness 0.15)))
@@ -20,8 +20,8 @@
 	(attr exclude_from_pos_files exclude_from_bom)
 	(pad "" np_thru_hole circle
 		(at 0 0)
-		(size 2.7 2.7)
-		(drill 2.7)
+		(size 5.4 5.4)
+		(drill 5.4)
 		(layers "F&B.Cu" "*.Mask")
 	)
 )
