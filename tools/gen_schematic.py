@@ -175,7 +175,7 @@ def main():
                '\t(generator_version "10.0")\n\t(uuid "%s")\n\t(paper "A2")\n'
                % ROOT_UUID)
     out.append('\t(title_block\n\t\t(title "TKMEM-128 II - expansao de '
-               '128K para TK90X/TK95")\n\t\t(rev "1.0")\n'
+               '128K para ZX Spectrum 48K e clones")\n\t\t(rev "1.0")\n'
                '\t\t(company "Derivado de Velesoft (2009) e Luccas Eletronica '
                '(2012) - CERN-OHL-S v2")\n\t)\n')
 

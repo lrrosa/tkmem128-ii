@@ -5,7 +5,7 @@
 	(uuid "8c22154b-c952-396c-6e1c-0ae032eedbbc")
 	(paper "A2")
 	(title_block
-		(title "TKMEM-128 II - tira de expansao do barramento TK90X/TK95")
+		(title "TKMEM-128 II - tira de expansao do barramento do ZX Spectrum 48K e clones")
 		(rev "1.0")
 		(company "Derivado de Velesoft (2009) e Luccas Eletronica (2012) - CERN-OHL-S v2")
 	)
@@ -587,7 +587,7 @@
 					)
 				)
 			)
-			(property "Description" "Barramento de expansao TK90X/TK95 (compativel ZX Spectrum), 2x28 passo 2,54mm, pinos 5 e 52 = guia. Numeracao 1..56 do TK."
+			(property "Description" "Barramento de expansao do ZX Spectrum 48K e clones (TK90X/TK95), 2x28 passo 2,54mm, pinos 5 e 52 = guia. Numeracao 1..56 do TK."
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -878,7 +878,7 @@
 				(pin passive line
 					(at -25.4 -1.27 0)
 					(length 2.54)
-					(name "NC_(16)"
+					(name "NC/Y_(16)"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -896,7 +896,7 @@
 				(pin passive line
 					(at -25.4 -3.81 0)
 					(length 2.54)
-					(name "RAMDIS_(17)"
+					(name "BUS_P17_(17)"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -914,7 +914,7 @@
 				(pin passive line
 					(at -25.4 -6.35 0)
 					(length 2.54)
-					(name "NC_(18)"
+					(name "NC/U_(18)"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1112,7 +1112,7 @@
 				(pin passive line
 					(at 25.4 -31.75 180)
 					(length 2.54)
-					(name "NC_(29)"
+					(name "RAMDIS_(29)"
 						(effects
 							(font
 								(size 1.27 1.27)

@@ -3,7 +3,7 @@
 	(generator "tkmem128-gen")
 	(generator_version "10.0")
 	(layer "F.Cu")
-	(descr "Dedos de borda 56 vias (28x2) passo 2,54mm para passagem do barramento TK90X/TK95. Requer chanfro 45 graus e ouro ENIG. Coluna 5 = guia (rasgo no contorno da placa).")
+	(descr "Dedos de borda 56 vias (28x2) passo 2,54mm para passagem do barramento do ZX Spectrum 48K e clones. Requer chanfro 45 graus e ouro ENIG. Coluna 5 = guia (rasgo no contorno da placa).")
 	(tags "conector borda edge fingers 56 ZX Spectrum TK90X TK95 passthrough")
 	(property "Reference" "J**"
 		(at 0 -6.5 0)

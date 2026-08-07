@@ -6410,7 +6410,7 @@
 				(justify mirror)
 			)
 		)
-		(fp_text user "TK90X/TK95"
+		(fp_text user "ZX SPECTRUM 48K E CLONES"
 			(at 0 6.2 0)
 			(layer "B.Fab")
 			(uuid "d130faee-511c-43f8-ba41-fdb8b7f5a982")

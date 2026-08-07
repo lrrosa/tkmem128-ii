@@ -119,7 +119,7 @@ L = [(str(p), "%s (%s)" % (BUS[p][1], p), "passive") for p in BOTTOM]
 R = [(str(p), "%s (%s)" % (BUS[p][1], p), "passive") for p in reversed(TOP)]
 parts.append(build(
     "ZX_TK_Bus_56", "ZX_TK_Bus_56", "",
-    "Barramento de expansao TK90X/TK95 (compativel ZX Spectrum), "
+    "Barramento de expansao do ZX Spectrum 48K e clones (TK90X/TK95), "
     "2x28 passo 2,54mm, pinos 5 e 52 = guia. Numeracao 1..56 do TK.",
     "conector barramento TK90X TK95 ZX Spectrum edge",
     L, R, [], [], half_w=22.86, half_h=36.83, ref="J"))

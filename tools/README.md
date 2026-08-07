@@ -60,6 +60,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `confere_svg.py` | Procura texto pousado sobre trilha, ilha, parede ou outro texto no `docs/img/vista-de-lado.svg` |
 | `confere_saidas.py` | **Verificação de regressão**: diz se as saídas correspondem às placas atuais, comparando o hash das fontes contra o manifesto |
 | `confere_compatibilidade.py` | **Verificação de regressão**: confere que a placa não liga nenhum contato que difere entre TK e ZX Spectrum 48K |
+| `confere_pinos.py` | **Verificação de regressão**: confere que os rótulos de pino do conector nos dois esquemáticos e na biblioteca de símbolos batem com `busdef.py` |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)

@@ -121,7 +121,7 @@ def gen_socket():
         s += text("28", col_x(NCOL), 6.2, ly, 1.0)
         s += text("56", col_x(1), -6.2, ly, 1.0)
         s += text("29", col_x(NCOL), -6.2, ly, 1.0)
-    s += text("TK90X/TK95", 0, -6.2, "F.Fab", 1.0)
+    s += text("ZX SPECTRUM 48K E CLONES", 0, -6.2, "F.Fab", 1.0)
     return s + ')\n'
 
 
@@ -136,7 +136,8 @@ def gen_fingers():
     W = 1.524     # largura do dedo
     s = HDR % ("ZX_TK_Bus_Fingers_56",
                "Dedos de borda 56 vias (28x2) passo 2,54mm para passagem do "
-               "barramento TK90X/TK95. Requer chanfro 45 graus e ouro ENIG. "
+               "barramento do ZX Spectrum 48K e clones. Requer chanfro 45 "
+               "graus e ouro ENIG. "
                "Coluna 5 = guia (rasgo no contorno da placa).",
                "conector borda edge fingers 56 ZX Spectrum TK90X TK95 passthrough",
                -6.5, "ZX_TK_Bus_Fingers_56", 6.5)

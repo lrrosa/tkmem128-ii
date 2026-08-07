@@ -145,7 +145,7 @@ BOARD_W, BOARD_H = 78.74, 66.04
 EDGE_PADS_BOTTOM = False
 KEYSLOT_COL = None          # placa principal nao tem dedos, logo nao tem guia
 SHEET = "A2"
-TITLE = "TKMEM-128 II - placa principal (128K/512K para TK90X/TK95)"
+TITLE = "TKMEM-128 II - placa principal (128K/512K para ZX Spectrum 48K e clones)"
 
 # posicionamento no esquematico
 PLACE_SCH = {

@@ -32,7 +32,7 @@ KEYSLOT_COL = 5             # rasgo da guia nos dedos de J2
 KEYSLOT_DEPTH = 7.0
 EDGE_PADS_TOP = True        # as ilhas de J1 chegam ate a aresta y=0
 SHEET = "A3"
-TITLE = "TKMEM-128 II - tira de expansao do barramento TK90X/TK95"
+TITLE = "TKMEM-128 II - tira de expansao do barramento do ZX Spectrum 48K e clones"
 
 PARTS = [
     ("J1", "tkmem128:ZX_TK_Bus_56", "Terminais do conector",
@@ -75,7 +75,7 @@ LINES = [
 
 SILK = [
     ("TKMEM-128  TIRA DE EXPANSAO DO BARRAMENTO", 39.37, 15.0, 1.1, "F"),
-    ("TK90X / TK95", 39.37, 17.5, 1.0, "F"),
+    ("ZX SPECTRUM 48K E CLONES", 39.37, 17.5, 1.0, "F"),
     ("ilhas ate a borda: servem para terminal curto ou longo",
      39.37, 10.0, 0.8, "F"),
     ("parede de tras da caixa", 20.0, 28.6, 0.85, "F"),
