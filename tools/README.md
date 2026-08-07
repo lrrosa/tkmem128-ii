@@ -51,6 +51,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `sobe_j1.py` | Subiu `J1` 1,5 mm: o corpo do conector deixa de sair pela aresta. Apaga o roteamento de propósito |
 | `furo_da_torre.py` | Abriu `H1` em Ø5,4 — passagem da **torre** Ø5 da caixa, não do parafuso — e recuou `U4` 1,5 mm para caber. Apaga o roteamento |
 | `tabelas_jumpers.py` | Serigrafia dos jumpers em tabela no verso e título da placa em duas linhas. Idempotente: limpa a faixa antes de desenhar |
+| `silk_r4.py` | Quebra a nota do `R4` em duas linhas (era uma só de 43,4 mm) e troca "do TK" por "do micro" |
 | `ajusta_u4_c6.py` | Traz a referência de `U4` de volta para dentro da placa (o recuo dele a jogou para x = −0,57), aproxima o `27C256`, e move `C6` 0,70 mm para cima e 0,80 para a esquerda — longe dos terminais de `J1` e da vertical de `D5`. Confere as trilhas vizinhas antes de gravar |
 | `fecha_silk_conector.py` | Fecha o contorno de `J1` na serigrafia agora que o corpo cabe dentro da placa; tira as linhas duplicadas |
 | `fecha_a14.py` | Fecha `A14` à mão pela margem direita: o Freerouting deixa essa uma em aberto |

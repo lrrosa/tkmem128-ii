@@ -7444,6 +7444,30 @@
 			(justify mirror)
 		)
 	)
+	(gr_text "R4: pull-up do pino 29"
+		(at 23.5 49.4 0)
+		(layer "B.SilkS")
+		(uuid "f94dfa00-72b1-4678-be7a-1ad6cfc15fa3")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.18)
+			)
+			(justify mirror)
+		)
+	)
+	(gr_text "(auto-desativa a RAM de 32K do micro)"
+		(at 23.5 51.6 0)
+		(layer "B.SilkS")
+		(uuid "8b89426f-82db-4f99-8203-8875323d3e75")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.18)
+			)
+			(justify mirror)
+		)
+	)
 	(gr_text "CERN-OHL-S v2"
 		(at 20.5 10 0)
 		(layer "B.SilkS")
@@ -7474,19 +7498,6 @@
 		(at 21 14.5 0)
 		(layer "B.SilkS")
 		(uuid "c16994a3-3f04-4e76-9eb4-38f6a934dfd1")
-		(effects
-			(font
-				(size 0.9 0.9)
-				(thickness 0.18)
-				(bold yes)
-			)
-			(justify mirror)
-		)
-	)
-	(gr_text "R4: pull-up do pino 29 (auto-desativa a RAM de 32K do TK)"
-		(at 23.5 50.5 0)
-		(layer "B.SilkS")
-		(uuid "5d45bc81-de86-4dcb-a8f1-a582dbe1787c")
 		(effects
 			(font
 				(size 0.9 0.9)
