@@ -53,7 +53,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `tabelas_jumpers.py` | Serigrafia dos jumpers em tabela no verso e título da placa em duas linhas. Idempotente: limpa a faixa antes de desenhar |
 | `silk_r4.py` | Quebra a nota do `R4` em duas linhas (era uma só de 43,4 mm) e troca "do TK" por "do micro" |
 | `ajusta_u4_c6.py` | Traz a referência de `U4` de volta para dentro da placa (o recuo dele a jogou para x = −0,57), aproxima o `27C256`, e move `C6` 0,70 mm para cima e 0,80 para a esquerda — longe dos terminais de `J1` e da vertical de `D5`. Confere as trilhas vizinhas antes de gravar |
-| `fecha_silk_conector.py` | Fecha o contorno de `J1` na serigrafia agora que o corpo cabe dentro da placa; tira as linhas duplicadas |
+| `fecha_silk_conector.py` | Fecha o contorno de `J1` na serigrafia agora que o corpo cabe dentro da placa, tira as linhas duplicadas, e afasta o rótulo `GUIA 5/52` de qualquer ilha vizinha |
 | `fecha_a14.py` | Fecha `A14` à mão pela margem direita: o Freerouting deixa essa uma em aberto |
 | `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip`, os renders de `docs/img/` e o manifesto `production/fontes.json` |
 | `confere_svg.py` | Procura texto pousado sobre trilha, ilha, parede ou outro texto no `docs/img/vista-de-lado.svg` |
@@ -124,6 +124,19 @@ entre ilhas do conector**: foi ali que o gargalo real estava.
 
 > Os caminhos das ferramentas estão fixos no topo dos scripts — ajuste para a
 > sua instalação.
+
+## Uma regra de DRC que vale a pena estar ligada
+
+Os dois projetos trazem `silk_over_copper` em **`warning`**, e não no `ignore`
+que é o padrão do KiCad. É a regra que acusa serigrafia por cima da abertura de
+máscara de uma ilha — texto que na placa pronta sai cortado, ou pior, tinta
+sobre a área a soldar.
+
+Ela ficou desligada por um tempo e no meio disso um capacitor andou 0,8 mm, o
+rótulo `GUIA 5/52` passou a cobrir uma ilha dele, e **nada acusou**: DRC zerado,
+os quatro conferidores passando, e o defeito só apareceu quando alguém olhou o
+render. Ligada, ela acusa exatamente esse caso e nenhum falso positivo nas duas
+placas.
 
 ## Refazendo o `.jed` do GAL
 

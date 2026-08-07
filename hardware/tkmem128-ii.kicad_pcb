@@ -6173,7 +6173,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "77b851de-ac7e-4866-b935-da0ba12dca2c")
+			(uuid "fd22572c-e4cb-4e0b-9c06-1f5b82109437")
 		)
 		(fp_line
 			(start -24.13 5)
@@ -6183,7 +6183,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "60c1f49c-07ac-4e46-aeb8-cc813fbf7b02")
+			(uuid "adaa60be-7cd4-4843-90b3-c1e26576a7af")
 		)
 		(fp_line
 			(start -36.49 5)
@@ -6193,7 +6193,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "1066cd0f-ffb8-4d13-a32a-d0f2983c14d5")
+			(uuid "f085ef76-2c5e-46f4-b1b0-2325d1b6910a")
 		)
 		(fp_line
 			(start -36.49 -5)
@@ -6203,7 +6203,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "3349355f-595a-4907-b9aa-ab207293507b")
+			(uuid "ee8c1551-0bfa-416e-8bcc-16fb1beba368")
 		)
 		(fp_line
 			(start 36.49 5)
@@ -6213,7 +6213,7 @@
 				(type default)
 			)
 			(layer "B.SilkS")
-			(uuid "be7b6c66-0b31-47b2-bd06-09d478436e52")
+			(uuid "a86fab7c-8521-4ed5-a7bf-410d7c960e4c")
 		)
 		(fp_line
 			(start 36.49 -5)
@@ -6223,7 +6223,7 @@
 				(type default)
 			)
 			(layer "B.SilkS")
-			(uuid "1886f84c-2de5-46b6-99c4-d55ddc9df2a1")
+			(uuid "0e7bbab9-ce19-409f-8a73-0ae726be7b6f")
 		)
 		(fp_line
 			(start -24.13 5)
@@ -6233,7 +6233,7 @@
 				(type default)
 			)
 			(layer "B.SilkS")
-			(uuid "77263747-b7a4-486d-b623-29c1d941703f")
+			(uuid "ac569783-9300-4d94-b518-f6645ada619b")
 		)
 		(fp_line
 			(start -36.49 5)
@@ -6243,7 +6243,7 @@
 				(type default)
 			)
 			(layer "B.SilkS")
-			(uuid "7d7aa7e1-d719-401a-8f5f-409c2c385aae")
+			(uuid "36f66292-9f05-4d41-bfe0-05cdbc24936f")
 		)
 		(fp_line
 			(start -36.49 -5)
@@ -6253,7 +6253,7 @@
 				(type default)
 			)
 			(layer "B.SilkS")
-			(uuid "a0bd8cf2-e34b-4f3d-a5b5-4dae3ad6abc8")
+			(uuid "1e9d8967-c474-4235-8813-f10eff4b60fe")
 		)
 		(fp_line
 			(start 36.49 5)
@@ -6375,7 +6375,7 @@
 			)
 		)
 		(fp_text user "GUIA 5/52"
-			(at -24.13 5.73 0)
+			(at -23.33 5.73 0)
 			(layer "B.SilkS")
 			(uuid "a3d370fa-5fa7-4ac6-a546-59318ab088c8")
 			(effects

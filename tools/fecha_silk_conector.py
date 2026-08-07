@@ -104,6 +104,43 @@ for lay in SILK:
 print("linhas novas: %d na face de cima, %d no verso"
       % (len(POR_FACE[pcbnew.F_SilkS]), len(POR_FACE[pcbnew.B_SilkS])))
 
+# ---- o rotulo da guia nao pode pousar em ilha vizinha ----------------------
+# Ele fica logo acima do corpo do conector, e ali passam C5 e C6. Quando C6
+# andou 0,8 mm para a esquerda, o 'GUIA 5/52' do verso passou a cobrir a ilha 1
+# dele — e o DRC ficou calado, porque `silk_over_copper` estava em `ignore`
+# neste projeto. A regra agora esta em `warning`; este laco resolve o caso em
+# vez de deixar para o DRC reclamar.
+todas_ilhas = []
+for fp in b.Footprints():
+    for q in fp.Pads():
+        bb = q.GetBoundingBox()
+        todas_ilhas.append((q.GetLayerSet(), bb.GetLeft() / MM, bb.GetTop() / MM,
+                            bb.GetRight() / MM, bb.GetBottom() / MM))
+FOLGA_TXT = 0.25
+for t in J1.GraphicalItems():
+    if t.GetClass() != "PCB_TEXT" or not t.GetText().startswith("GUIA"):
+        continue
+    for passo in range(0, 60):
+        bb = t.GetBoundingBox()
+        x1, y1 = bb.GetLeft() / MM, bb.GetTop() / MM
+        x2, y2 = bb.GetRight() / MM, bb.GetBottom() / MM
+        bate = None
+        for ls, ax, ay, bx, by in todas_ilhas:
+            if not ls.Contains(t.GetLayer() == pcbnew.F_SilkS
+                               and pcbnew.F_Cu or pcbnew.B_Cu):
+                continue
+            if (x1 - FOLGA_TXT <= bx and x2 + FOLGA_TXT >= ax and
+                    y1 - FOLGA_TXT <= by and y2 + FOLGA_TXT >= ay):
+                bate = (ax, ay)
+                break
+        if bate is None:
+            break
+        t.Move(pcbnew.VECTOR2I(int(round(-0.1 * MM)), 0))
+    else:
+        raise SystemExit("nao consegui afastar %r de nenhuma ilha" % t.GetText())
+    print("  %-13s %-11r centro x=%.2f" % (b.GetLayerName(t.GetLayer()),
+                                           t.GetText(), t.GetPosition().x / MM))
+
 b.Save(PCB)
 
 # ---- reconfere lendo do disco ---------------------------------------------
