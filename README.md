@@ -174,7 +174,7 @@ A **placa principal é de 4 camadas**; a tira de expansão, de 2.
 Como todos os componentes são passantes, cada ilha de `+5V` e de `GND` toca o seu
 plano direto: **não há uma única trilha de alimentação nas faces de sinal**, e
 nenhuma via serve só para alimentação. Sinal de 0,5 mm, isolação de 0,2 mm,
-39 vias, e nenhum fio de ligação.
+33 vias, e nenhum fio de ligação.
 
 ![Placa principal](docs/img/placa-principal.png)
 
@@ -323,6 +323,7 @@ Cada placa tem o seu `gerbers.zip`, que é o arquivo que se envia à fábrica.
 | Isolação | 0,2 mm | 0,25 mm |
 | Furo mínimo | 0,3 mm | — (sem furos) |
 | Via | 0,8 mm com furo de 0,4 mm | nenhuma |
+| Furo não metalizado | 1 × Ø2,7 (`H1`, fixação) | nenhum |
 
 Tudo folgado dentro da capacidade padrão de fábrica barata — nada aqui entra em
 faixa de preço especial, a não ser as 4 camadas da placa principal.

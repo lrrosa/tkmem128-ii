@@ -135,11 +135,14 @@ for ref, lib, val, fp, conns, descr in DISCRETE:
 PROJ_NAME = "tkmem128-ii"
 PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware")
 BOARD_W, BOARD_H = 78.74, 66.04
-# As ilhas de J1 chegam a 0,51 mm da aresta de baixo — de proposito, e o conector
-# de borda. A placa-isca do roteador nao pode recuar essa aresta: recuando 0,35
-# ela passa a 0,16 mm das ilhas e o Freerouting acusa 54 violacoes (uma por
-# ilha) antes mesmo de rotear o primeiro fio.
-EDGE_PADS_BOTTOM = True
+# Ate J1 subir 1,5 mm as ilhas dele chegavam a 0,51 mm da aresta de baixo, e a
+# placa-isca do roteador NAO podia recuar essa aresta: recuando 0,35 ela passava
+# a 0,16 mm das ilhas e o Freerouting acusava 54 violacoes (uma por ilha) antes
+# de rotear o primeiro fio. Agora o cobre para a 2,135 mm da aresta, entao o
+# recuo volta a valer — e passa a ser desejavel, porque a faixa livre que sobrou
+# embaixo do conector e larga o bastante para o roteador querer usa-la e encostar
+# na borda.
+EDGE_PADS_BOTTOM = False
 KEYSLOT_COL = None          # placa principal nao tem dedos, logo nao tem guia
 SHEET = "A2"
 TITLE = "TKMEM-128 II - placa principal (128K/512K para TK90X/TK95)"
@@ -153,7 +156,7 @@ SCH_DISC_ORIGIN = (470, 40)
 
 # posicionamento na PCB (pino 1 nos DIP, centro nos conectores)
 PLACE_PCB = {
-    "J1": (39.37, 62.23, 0),
+    "J1": (39.37, 60.73, 0),   # 1,5 mm acima do original: ver tools/sobe_j1.py
     "U3": (6.35, 5.08, 0),
     "U4": (26.67, 7.62, 0),
     "U1": (46.99, 10.16, 0),

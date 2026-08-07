@@ -90,8 +90,15 @@ def gen_socket():
         x = col_x(c)
         for y, num in ((yf, bottom_pin(c)), (yr, top_pin(c))):
             shape = "rect" if num == 1 else "circle"
+            # 1,50 e NAO 1,75. Para sair da fileira de baixo um sinal tem que
+            # passar entre duas ilhas da fileira de cima. Com 1,75 no passo 2,54
+            # sobram 0,79 mm, e uma trilha de 0,50 com 0,20 de isolacao dos dois
+            # lados precisa de 0,90 — nenhum sinal escapava, e o sintoma
+            # (nets em aberto) parecia posicionamento. Com 1,50 o vao vai a
+            # 1,04 mm e o anel fica com 0,24. Antes de culpar posicionamento,
+            # camadas ou largura de trilha, MEDIR O VAO ENTRE ILHAS.
             s += ('\t(pad "%d" thru_hole %s\n\t\t(at %s %s)\n'
-                  '\t\t(size 1.75 1.75)\n\t\t(drill 1.02)\n'
+                  '\t\t(size 1.50 1.50)\n\t\t(drill 1.02)\n'
                   '\t\t(layers "*.Cu" "*.Mask")\n\t)\n' % (num, shape, x, y))
     # contorno do corpo do conector
     x1, x2 = X0 - 2.2, col_x(NCOL) + 2.2
@@ -329,10 +336,50 @@ def gen_wirepad():
     return s + ')\n'
 
 
+# ------------------------------------------------------- furo de fixacao H1
+def gen_mountinghole():
+    """Furo Ø2,7 para a torre superior da caixa Patola, em (39,37 ; 4,02).
+
+    Mesma geometria do MountingHole:MountingHole_2.7mm da biblioteca padrao do
+    KiCad, MENOS o courtyard de raio 2,95 dela. Aquele circulo e a folga da
+    cabeca do parafuso, e aqui ele invadiria o soquete de U4, cujo courtyard
+    termina a 1,42 mm do centro do furo. Declarar um courtyard que a placa nao
+    tem seria mentira util: o FURO esta desenhado e conferido, a folga da
+    CABECA do parafuso nao esta garantida — ver docs/ANTES-DE-FABRICAR.md.
+
+    Ø2,7 e o teto: acima disso o proprio furo entra no courtyard de U4. O
+    cobre nao e o limite (sobra 0,72 mm ate a ilha U4.15); o soquete e.
+
+    O recuo dos planos internos NAO vem daqui: quem garante os 0,5 mm de GND e
+    +5V longe da parede do furo e a area de exclusao que tools/sobe_j1.py cria
+    na placa. Furo passante nao metalizado sozinho so afastaria o cobre os
+    0,25 mm da regra, e parafuso metalico raspando a parede de uma placa de 4
+    camadas pode arrastar cobre de um plano ao outro.
+    """
+    D = 2.7
+    return ('(footprint "MountingHole_2.7mm"\n\t(version 20260206)\n'
+            '\t(generator "tkmem128-gen")\n\t(generator_version "10.0")\n'
+            '\t(layer "F.Cu")\n'
+            '\t(descr "Furo de fixacao %s mm sem anel e SEM courtyard: a folga '
+            'da cabeca do parafuso nao cabe entre o furo e o soquete de U4.")\n'
+            '\t(tags "mountinghole furo fixacao patola")\n'
+            '\t(property "Reference" "H**"\n\t\t(at 0 -2.5 0)\n'
+            '\t\t(layer "F.SilkS")\n\t\t(hide yes)\n'
+            '\t\t(effects (font (size 1 1) (thickness 0.15)))\n\t)\n'
+            '\t(property "Value" "MountingHole_2.7mm"\n\t\t(at 0 2.5 0)\n'
+            '\t\t(layer "F.Fab")\n\t\t(hide yes)\n'
+            '\t\t(effects (font (size 1 1) (thickness 0.15)))\n\t)\n'
+            '\t(attr exclude_from_pos_files exclude_from_bom)\n'
+            '\t(pad "" np_thru_hole circle\n\t\t(at 0 0)\n'
+            '\t\t(size %s %s)\n\t\t(drill %s)\n'
+            '\t\t(layers "F&B.Cu" "*.Mask")\n\t)\n)\n' % (D, D, D, D))
+
+
 if not os.path.isdir(OUTDIR):
     os.makedirs(OUTDIR)
 
 for name, body in (("ZX_TK_Bus_Socket_56", gen_socket()),
+                   ("MountingHole_2.7mm", gen_mountinghole()),
                    ("ZX_TK_Bus_Fingers_56", gen_fingers()),
                    ("ZX_TK_Bus_Header_2x28", gen_header()),
                    ("ZX_TK_Bus_SolderPads_56", gen_solderpads()),

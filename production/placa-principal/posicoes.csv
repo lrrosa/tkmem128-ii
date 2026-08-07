@@ -1,5 +1,5 @@
 Ref,Val,Package,PosX,PosY,Rot,Side
-"J1","Barramento TK","ZX_TK_Bus_Socket_56",39.370000,-62.230000,180.000000,bottom
+"J1","Barramento TK","ZX_TK_Bus_Socket_56",39.370000,-60.730000,180.000000,bottom
 "C1","100n","C_Disc_D5.0mm_W2.5mm_P5.00mm",48.300000,-23.500000,0.000000,top
 "C2","100n","C_Disc_D5.0mm_W2.5mm_P5.00mm",47.300000,-53.000000,0.000000,top
 "C3","100n","C_Disc_D5.0mm_W2.5mm_P5.00mm",3.300000,-24.000000,0.000000,top

@@ -38,6 +38,15 @@ A **guia** ocupa a posição das vias 5 e 52 — é um pedacinho de PCB que o
 montador encaixa ali, casando com o rasgo entre os dedos do micro. Como não há
 terminal nessa posição, o footprint tem **54 furos**, não 56.
 
+**Onde a furação cai em relação à aresta.** A fileira de baixo (pinos 1–28) fica
+a **2,885 mm** da aresta inferior — 2,135 mm de cobre até a borda. Não é sobra
+gratuita: o corpo do conector tem 10 mm de fundo, e nessa posição ele termina
+**0,31 mm dentro** do contorno da placa. Numa versão anterior a furação estava
+1,5 mm mais para baixo, e o corpo sobrava 1,19 mm para fora — o contorno da PCB
+cortava o conector, restavam 0,635 mm de cobre até a aresta e a serigrafia dele
+tinha que ser um "U" aberto. A medida de 1,5 mm veio de conferir interfaces reais
+de TK90X.
+
 **Conferido em papel (jul/2026)** contra o conector real: as duas fileiras
 (4,85 mm) e o furo (1,02 mm) batem. Ainda assim, **confira com paquímetro o
 conector que você comprou** — modelos de outros fabricantes variam, e é aqui que
@@ -253,21 +262,43 @@ Conferido contra os desenhos técnicos da Patola (`PB 085/3_CX` e `PB 085/3_TP`)
 | Altura | 69 mm | 66,04 mm | 1,48 mm por lado |
 | Altura de componentes | ~25 mm | ~10 mm (soquete torneado + DIP) | ~15 mm |
 
-### Por que a placa não tem furos de fixação
+### O furo de fixação `H1` — e por que só existe um
 
 As torres ficam em **x = 39,37 mm** (centro) e **y = 4,02 e 62,02 mm** nas
-coordenadas da placa. Nenhuma das duas dá para usar:
+coordenadas da placa, medidas conferidas contra a caixa real em impressão 1:1.
+Só uma das duas serve:
 
-- A de **y = 62,02** cai exatamente sobre o conector `J1` — é a que se desgasta
-  com micro-retífica ao abrir a fenda.
-- A de **y = 4,02** cai numa área livre de componentes, mas bem no meio do leque
-  de trilhas que sai do header para os CIs. Um furo Ø2,7 ali foi testado e custa
-  duas ligações que o roteador não consegue fechar. A placa 100% roteada vale
-  mais que um parafuso.
+- A de **y = 62,02** cai exatamente sobre o conector `J1`. É a que se desgasta
+  com micro-retífica ao abrir a fenda — não tem como ser furo.
+- A de **y = 4,02** virou `H1`, um furo **Ø2,7 não metalizado**. Enquanto a placa
+  era de 2 camadas ele custava duas ligações que o roteador não fechava; com as
+  faces de sinal livres de alimentação ele passou a caber, e o leque de trilhas
+  que passava por ali desviou para o vão entre o furo e a aresta de cima.
 
-A fixação é por **EVA**, como na montagem original. Se você quiser mesmo o furo,
-as coordenadas estão aí e os geradores estão em [`tools/`](../tools/) — é só
-acrescentar e reproduzir o roteamento.
+Três coisas a saber antes de usar o parafuso:
+
+1. **Ø2,7 é o teto.** Acima disso o furo entra no *courtyard* do soquete de U4,
+   que termina a 1,42 mm do centro. O cobre não é o limite — sobra 0,72 mm até a
+   ilha `U4.15`; o soquete é.
+2. **A folga da cabeça do parafuso não está garantida.** É justamente por isso
+   que `H1` não tem courtyard: declarar um seria mentir. Com o soquete de U4 a
+   1,42 mm, cabeça de parafuso comum encosta nele. Meça no seu conjunto antes de
+   contar com o parafuso; a fixação por **EVA** continua valendo sozinha.
+3. **Use parafuso de náilon, ou uma arruela isolante.** A placa tem plano de GND
+   em `In1.Cu` e plano de +5 V em `In2.Cu`. O furo mantém os dois 0,5 mm longe da
+   parede (área de exclusão desenhada na placa, não é só a folga da regra), mas
+   parafuso metálico raspando a parede de uma placa de 4 camadas pode arrastar
+   cobre de um plano ao outro — e isso é +5 V em curto com o terra.
+
+Com uma torre só, o que segura a placa é o parafuso numa ponta e a fenda frontal
+na outra, onde o corpo do conector atravessa. Continua valendo colar **EVA** no
+fundo e nas laterais, como na montagem original.
+
+> Na furação, `H1` sai no mesmo `.drl` dos outros furos, declarado como
+> `NonPlated,NPTH` (o arquivo é `MixedPlating`). Se a sua fábrica ignorar o
+> atributo e metalizar tudo, não há curto: nenhum cobre chega à parede do furo em
+> nenhuma das quatro camadas. Só avise, porque metalizado ele fica com a parede
+> mais estreita.
 
 ### O conjunto montado também cabe — mas só com a fenda aberta
 

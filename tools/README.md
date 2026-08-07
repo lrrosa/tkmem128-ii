@@ -48,6 +48,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `tira_sj.py` | Removeu SJ1/SJ2 do esquemático — histórico, já aplicado |
 | `planos_4camadas.py` | Cria os planos internos de GND e +5V da placa principal |
 | `move_ramdis.py` | Moveu a auto-desativação do pino 17 para o 29 e removeu JP4 — histórico, já aplicado |
+| `sobe_j1.py` | Subiu `J1` 1,5 mm (corpo do conector deixa de sair pela aresta) e abriu `H1`, o furo de fixação — apaga o roteamento de propósito |
+| `fecha_silk_conector.py` | Fecha o contorno de `J1` na serigrafia agora que o corpo cabe dentro da placa; tira as linhas duplicadas |
 | `fecha_a14.py` | Fecha `A14` à mão pela margem direita: o Freerouting deixa essa uma em aberto |
 | `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip`, os renders de `docs/img/` e o manifesto `production/fontes.json` |
 | `confere_svg.py` | Procura texto pousado sobre trilha, ilha, parede ou outro texto no `docs/img/vista-de-lado.svg` |
@@ -82,11 +84,15 @@ ligados e não tentar roteá-los nas faces de sinal.
 ```bash
 "$KIPY" planos_4camadas.py                   # GND em In1.Cu, +5V em In2.Cu
 "$KIPY" mk_decoy.py netlist main
-sed -i "s/(clearance 200)/(clearance 215)/g" route.dsn
+sed -i "s/(clearance 200)/(clearance 213)/g" route.dsn
 freerouting -de route.dsn -do route.ses -mp 900
 "$KIPY" import_ses.py netlist main
 "$KIPY" limpa_cotocos.py netlist
+"$KIPY" fecha_a14.py                         # a unica que o autorouter nao fecha
 ```
+
+Depois de importar, **repreencher as zonas**: o SES traz só as trilhas, e um DRC
+com os planos desatualizados acusa centenas de violações que não existem.
 
 **Tira de expansão** — não usa autorouter: as 54 ligações são retas verticais.
 
@@ -94,11 +100,21 @@ freerouting -de route.dsn -do route.ses -mp 900
 "$KIPY" rota_tira.py
 ```
 
-O Freerouting fecha as 74 nets da principal com isolação 0,215 no DSN. Ele é
-determinístico por entrada: se sobrar ligação em aberto, repetir não muda nada —
-tem que perturbar (isolação 0,20 a 0,215, largura, posicionamento). E antes de
-mexer em posicionamento, **conferir o vão entre ilhas do conector**: foi ali que
-o gargalo real estava.
+O Freerouting fecha 73 das 74 nets da principal com isolação **0,213** no DSN; a
+que sobra é sempre `A14`, fechada à mão por `fecha_a14.py`. Ele é determinístico
+por entrada: se sobrar ligação em aberto, repetir não muda nada — tem que
+perturbar a isolação. E a resposta **não é monotônica**: a varredura que levou a
+0,213 deu, na mesma placa,
+
+| isolação no DSN | 200 | 205 | 211 | **213** | 214 | 216 | 220 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| nets em aberto | 14 | 2 | 1 | **1** | 17 | 2 | 13 |
+
+— ou seja, 1 mícron a mais que o ótimo faz saltar de 1 para 17. Não adianta
+"afrouxar até funcionar"; varra a faixa 200–220 e escolha o mínimo.
+
+Antes de mexer em posicionamento por causa de net em aberto, **conferir o vão
+entre ilhas do conector**: foi ali que o gargalo real estava.
 
 > Os caminhos das ferramentas estão fixos no topo dos scripts — ajuste para a
 > sua instalação.

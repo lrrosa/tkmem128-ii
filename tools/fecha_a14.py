@@ -88,9 +88,18 @@ def livre(x1, y1, x2, y2):
     return None
 
 
+# As duas pontas saem da placa, nao de constante: J1 ja subiu 1,5 mm uma vez
+# (tools/sobe_j1.py) e o caminho tem que acompanhar sozinho da proxima.
+pontas = {}
+for fp in b.GetFootprints():
+    for p in fp.Pads():
+        if p.GetNetCode() == code:
+            pontas[fp.GetReference()] = (mm(p.GetPosition().x), mm(p.GetPosition().y))
+(XJ, YJ), (XU, YU) = pontas["J1"], pontas["U1"]
+
 X_MARGEM, Y_ACIMA = 78.04, 24.00
-CAMINHO = [(73.66, 64.655), (X_MARGEM, 64.655), (X_MARGEM, Y_ACIMA),
-           (73.70, Y_ACIMA), (73.70, 28.20)]
+CAMINHO = [(XJ, YJ), (X_MARGEM, YJ), (X_MARGEM, Y_ACIMA),
+           (XU, Y_ACIMA), (XU, YU)]
 
 for i in range(len(CAMINHO) - 1):
     (x1, y1), (x2, y2) = CAMINHO[i], CAMINHO[i + 1]
