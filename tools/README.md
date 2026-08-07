@@ -51,6 +51,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `sobe_j1.py` | Subiu `J1` 1,5 mm: o corpo do conector deixa de sair pela aresta. Apaga o roteamento de propósito |
 | `furo_da_torre.py` | Abriu `H1` em Ø5,4 — passagem da **torre** Ø5 da caixa, não do parafuso — e recuou `U4` 1,5 mm para caber. Apaga o roteamento |
 | `tabelas_jumpers.py` | Serigrafia dos jumpers em tabela no verso e título da placa em duas linhas. Idempotente: limpa a faixa antes de desenhar |
+| `endireita_trilhas.py` | Poda os desvios que o Freerouting deixa e chanfra cantos de 90°. Simula por padrão; `--grava` aplica. Rodar até dar zero |
 | `silk_r4.py` | Quebra a nota do `R4` em duas linhas (era uma só de 43,4 mm) e troca "do TK" por "do micro" |
 | `ajusta_u4_c6.py` | Traz a referência de `U4` de volta para dentro da placa (o recuo dele a jogou para x = −0,57), aproxima o `27C256`, e move `C6` 0,70 mm para cima e 0,80 para a esquerda — longe dos terminais de `J1` e da vertical de `D5`. Confere as trilhas vizinhas antes de gravar |
 | `fecha_silk_conector.py` | Fecha o contorno de `J1` na serigrafia agora que o corpo cabe dentro da placa, tira as linhas duplicadas, e afasta o rótulo `GUIA 5/52` de qualquer ilha vizinha |
@@ -121,6 +122,14 @@ novo a cada mudança de placa**: com `U4` recuado e o furo em Ø5,4 o ótimo sai
 
 Antes de mexer em posicionamento por causa de net em aberto, **conferir o vão
 entre ilhas do conector**: foi ali que o gargalo real estava.
+
+E depois de importar o SES, rodar `endireita_trilhas.py`. O otimizador do
+Freerouting não desfaz escadinha: sobra caminho de iterações anteriores, de
+quando outra rede ainda ocupava o espaço. Na rodada em que isto foi escrito ele
+tirou **54,7 mm em 41 cadeias** e reduziu os cantos de 90° de 23 para zero, sem
+mudar nenhuma ponta, sem trocar de camada e sem mexer em via. Rodar repetido
+até dar `total: 0` — cada passada muda a decomposição em cadeias e abre a
+seguinte.
 
 > Os caminhos das ferramentas estão fixos no topo dos scripts — ajuste para a
 > sua instalação.
