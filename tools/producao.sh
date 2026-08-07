@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
-# Regenera tudo que e DERIVADO das placas: gerbers, furacao, BOM, posicoes,
-# esquematico em PDF, os .zip da fabrica e os renders da documentacao.
+# Regenera tudo que e DERIVADO das placas — gerbers, furacao, BOM, posicoes,
+# esquematico em PDF, os .zip da fabrica e os renders da documentacao — e no
+# fim roda as verificacoes de regressao.
 #
 # Rodar SEMPRE que a placa mudar — ate ajuste de serigrafia. Os .zip sao o que
 # a fabrica pede no formulario de pedido; os arquivos soltos ficam ao lado para
 # quem quiser inspecionar sem descompactar.
 #
 #   bash tools/producao.sh
-set -e
+#
+# `pipefail` importa: sem ele, um conferidor que falha e cujo ruido de saida
+# passa por um `grep` devolveria o status do grep, e a geracao terminaria
+# "com sucesso" depois de uma falha.
+set -eo pipefail
 cd "$(dirname "$0")/.."
 KC="${KICAD_CLI:-C:/Program Files/KiCad/10.0/bin/kicad-cli.exe}"
+KIPY="${KICAD_PY:-C:/Program Files/KiCad/10.0/bin/python.exe}"
 
 # placa principal: 4 camadas (F.Cu / In1.Cu=GND / In2.Cu=+5V / B.Cu)
 # tira de expansao: 2 camadas
@@ -55,5 +61,17 @@ gera hardware/expansor/tkmem128-ii-expansor.kicad_pcb \
 # registra o hash das fontes: e assim que confere_saidas.py sabe depois se as
 # saidas correspondem a estas placas (data e conteudo nao servem — ver o script)
 python tools/confere_saidas.py --grava
+
+# ...e agora confere o resto. Regerar sem conferir ja deixou passar coisa
+# demais neste projeto: biblioteca com ilha de 1,75 mm enquanto a placa usava
+# 1,50, o bloco de legenda com o nome antigo do projeto, e o simbolo do
+# conector rotulando pino 17 = RAMDIS depois de a auto-desativacao ter ido para
+# o 29 — esse ultimo saindo no PDF entregue. Nenhum aparecia no ERC nem no DRC.
+# Com `set -e`, qualquer um destes agora derruba a geracao.
+echo "== conferindo"
+python tools/confere_pinos.py
+python tools/confere_compatibilidade.py
+python tools/confere_svg.py
+"$KIPY" tools/confere_alinhamento.py 2>&1 | grep -v "duplicate image handler"
 
 echo "pronto."

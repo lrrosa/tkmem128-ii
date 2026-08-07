@@ -56,7 +56,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `ajusta_u4_c6.py` | Traz a referência de `U4` de volta para dentro da placa (o recuo dele a jogou para x = −0,57), aproxima o `27C256`, e move `C6` 0,70 mm para cima e 0,80 para a esquerda — longe dos terminais de `J1` e da vertical de `D5`. Confere as trilhas vizinhas antes de gravar |
 | `fecha_silk_conector.py` | Fecha o contorno de `J1` na serigrafia agora que o corpo cabe dentro da placa, tira as linhas duplicadas, e afasta o rótulo `GUIA 5/52` de qualquer ilha vizinha |
 | `fecha_a14.py` | Fecha `A14` à mão pela margem direita: o Freerouting deixa essa uma em aberto |
-| `producao.sh` | Regenera **tudo que é derivado** das placas: gerbers, furação, BOM, posições, esquemático em PDF, os `.zip`, os renders de `docs/img/` e o manifesto `production/fontes.json` |
+| `producao.sh` | Regenera **tudo que é derivado** das placas — gerbers, furação, BOM, posições, esquemático em PDF, os `.zip`, os renders de `docs/img/` e o manifesto `production/fontes.json` — e no fim roda as verificações de regressão. Qualquer uma falhando derruba a geração |
 | `confere_svg.py` | Procura texto pousado sobre trilha, ilha, parede ou outro texto no `docs/img/vista-de-lado.svg` |
 | `confere_saidas.py` | **Verificação de regressão**: diz se as saídas correspondem às placas atuais, comparando o hash das fontes contra o manifesto |
 | `confere_compatibilidade.py` | **Verificação de regressão**: confere que a placa não liga nenhum contato que difere entre TK e ZX Spectrum 48K |
@@ -170,6 +170,22 @@ checksum reconstruido : 5752
 É essa comparação que autoriza distribuir `hardware/gal/tkmem128.jed` pronto: o
 arquivo é gerado das equações deste projeto, e bate fusível a fusível com o mapa
 do projeto original.
+
+## Uma geração que também confere
+
+`producao.sh` termina rodando `confere_pinos`, `confere_compatibilidade`,
+`confere_svg` e `confere_alinhamento`. Com `set -eo pipefail`, qualquer uma
+falhando derruba a geração antes do `pronto.` — conferido com teste negativo.
+
+Não é zelo: regerar sem conferir já deixou passar coisa demais aqui. A
+biblioteca ficou com ilha de 1,75 mm enquanto a placa usava 1,50; o bloco de
+legenda ficou com o nome antigo do projeto; e o símbolo do conector continuou
+rotulando *pino 17 = RAMDIS* depois de a auto-desativação ter ido para o 29 —
+esse último saindo no PDF entregue. **Nenhum aparecia no ERC nem no DRC**, que
+não leem `busdef.py` nem o esquemático um do outro.
+
+O `pipefail` não é decoração: a saída do `confere_alinhamento` passa por um
+`grep` para tirar o ruído do wxWidgets, e sem ele o status seria o do `grep`.
 
 ## Como saber se as saídas estão atualizadas
 
