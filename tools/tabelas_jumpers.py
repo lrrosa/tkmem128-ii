@@ -8,8 +8,9 @@ Antes cada jumper tinha uma linha corrida no verso, do tipo
 shunt na pinca isso e ruim: nao da para achar a posicao de relance. Vira
 tabela, no formato que o Leonardo desenhou.
 
-Onde couberam: verso, faixa y 29..36. E o unico vazio grande da placa — o resto
-esta tomado por ilhas passantes, que existem nas DUAS faces.
+Onde couberam: nos canais que os soquetes DIP deixam entre as duas fileiras de
+pinos. Sao os unicos retangulos grandes da placa — o resto esta tomado por
+ilhas passantes, que existem nas DUAS faces — e no verso nada os cobre.
 
 O texto vai centralizado em cada celula de proposito: em B.Silk ele e
 espelhado, e com justificacao a esquerda o espelhamento joga a caixa para o
@@ -41,18 +42,24 @@ LARG_LINHA = 0.15
 COL1, COL2, ALT = 6.5, 10.5, 1.7
 FOLGA_ILHA = 0.25
 
-# ATENCAO A ORDEM. Isto vai no VERSO, que se le espelhado: x maior aparece mais
-# a ESQUERDA para quem olha a placa por tras. Entao, em coordenada de placa, a
-# tabela do JP1 fica na direita e a coluna da POSICAO fica depois da coluna do
+# ONDE. As tabelas moram nos vazios que os soquetes DIP deixam entre as duas
+# fileiras de pinos — no verso nada os cobre, e sao os unicos retangulos
+# grandes da placa. JP2 e JP3 vao no canal de U3 (y 29,0..42,64, 13,64 mm de
+# altura), centrados nele; JP1 vai na faixa livre acima de U1 (x 54..77,
+# y 17..27), entre os pontos de teste e a fileira de cima do soquete.
+#
+# ATENCAO A ORDEM. Isto e o VERSO, que se le espelhado: x maior aparece mais a
+# ESQUERDA para quem olha a placa por tras. Entao, em coordenada de placa, a
+# tabela do JP1 fica na direita e a coluna da POSICAO vem depois da coluna do
 # efeito — o inverso do que se quer ver. Lido na mao sai JP1, JP2, JP3, cada um
 # com a posicao a esquerda e o efeito a direita, como no desenho do Leonardo.
 TABELAS = [
-    (3.0, 29.3, "JP3", [("ABERTO", "128K"),
-                        ("FECHADO", "512K")]),
-    (21.5, 29.3, "JP2", [("ABERTO", "ROM INTERNA"),
-                         ("1-2", "ROMCS LOW"),
-                         ("2-3", "ROMCS HIGH")]),
-    (40.0, 29.3, "JP1", [("1-2", "ROM TKMEM"),
+    (4.0, 33.27, "JP3", [("ABERTO", "128K"),
+                         ("FECHADO", "512K")]),
+    (23.5, 32.42, "JP2", [("ABERTO", "ROM INTERNA"),
+                          ("1-2", "ROMCS GAL"),
+                          ("2-3", "ROMCS HIGH")]),
+    (57.0, 21.3, "JP1", [("1-2", "ROM TKMEM"),
                          ("2-3", "ROM INTERNA")]),
 ]
 
@@ -60,9 +67,9 @@ TABELAS = [
 # 37 mm (entre R4 e C2) e os 31 caracteres ja ocupam 30 deles a 1,10. Em DUAS
 # linhas o nome da placa vai a 2,2 — o dobro do que era — e o credito fica
 # menor, embaixo, que e onde credito fica.
-TITULO = [("TKMEM-128 II", 26.5, 50.0, 2.2),
-          ("LRRosa 2026 v1.0", 26.5, 53.2, 1.1)]
-BLOCO_TITULO = (8.3, 47.8, 44.7, 54.7)     # vazio conferido no mapa da face
+TITULO = [("TKMEM-128 II", 26.5, 50.7, 2.2),
+          ("LRRosa 2026 v1.0", 26.5, 53.8, 1.4)]
+BLOCO_TITULO = (8.3, 48.6, 44.7, 55.0)     # vazio conferido no mapa da face
 
 
 def p(x, y):
@@ -92,9 +99,10 @@ def bate_em_ilha(x1, y1, x2, y2):
 
 # ---- limpa a faixa antes de desenhar --------------------------------------
 # Idempotente de proposito: apaga tanto as legendas de uma linha (a versao
-# antiga) quanto tabelas de uma rodada anterior. A faixa e exclusiva nossa —
-# no verso, entre y 28,5 e 37 so havia essas legendas.
-FAIXA = (1.0, 28.5, 60.0, 37.0)
+# antiga) quanto tabelas de rodadas anteriores, onde quer que elas tenham
+# ficado. A faixa e exclusiva nossa: conferido item a item, entre y 18 e 42,5
+# o verso nao tem mais nada — a licenca fica em y 9..15 e a nota do R4 em 50.
+FAIXA = (1.0, 18.0, 78.0, 42.5)
 velhas = []
 for d in b.GetDrawings():
     if d.GetLayer() != FACE:
@@ -167,14 +175,19 @@ for x0, y0, nome, linhas_tab in TABELAS:
           % (nome, nlin, x0, x2, y0, y_fim))
 
 # ---- titulo ---------------------------------------------------------------
+# Idempotente tambem aqui: apaga o titulo de uma linha (versao antiga) OU as
+# duas linhas de uma rodada anterior. Casar so por "TKMEM-128 II" deixava a
+# linha do credito para tras, e a rodada seguinte empilhava outra por cima.
 tit = [d for d in b.GetDrawings()
-       if d.GetClass() == "PCB_TEXT" and d.GetText().startswith("TKMEM-128 II")]
-if len(tit) != 1:
-    raise SystemExit("achei %d titulos, esperava 1" % len(tit))
+       if d.GetClass() == "PCB_TEXT"
+       and d.GetText().startswith(("TKMEM-128 II", "LRRosa"))]
+if not tit:
+    raise SystemExit("nao achei o titulo da placa")
 FACE_TIT, ESP_TIT = tit[0].GetLayer(), tit[0].IsMirrored()
-print("\ntitulo antigo: %r em %.1f mm"
-      % (tit[0].GetText(), tit[0].GetTextWidth() / MM))
-b.Remove(tit[0])
+for d in tit:
+    print("titulo antigo removido: %r em %.1f mm"
+          % (d.GetText(), d.GetTextWidth() / MM))
+    b.Remove(d)
 for s, cx, cy, tam in TITULO:
     texto(s, cx, cy, tam, FACE_TIT, ESP_TIT)
     conferir.append((s, cx, cy, BLOCO_TITULO[2] - BLOCO_TITULO[0], tam))
