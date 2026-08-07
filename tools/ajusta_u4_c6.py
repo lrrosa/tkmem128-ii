@@ -43,7 +43,8 @@ PCB = "hardware/tkmem128-ii.kicad_pcb"
 
 C6_NOVO = (68.00, 54.30)
 X_TEXTO = 37.70                 # coluna a direita de U4, ~0,7 mm do courtyard
-Y_NOME, Y_REF = 12.50, 16.60
+Y_NOME, Y_REF = 12.50, 17.70   # 1,2 mm de vao: com 16,60 sobrava 0,13 e as
+                               # duas linhas liam como uma so, 'U4 27C256'
 
 
 def p(x, y):
