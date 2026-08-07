@@ -112,18 +112,38 @@ A placa serve — o barramento é compatível contato a contato, ver
 Ela descreve o interior do TK.
 
 O que vale igual: os 32 KB superiores de RAM interna também têm que sair de
-`0x8000-0xFFFF`, senão colidem com a SRAM da placa. O que muda: **o ponto interno
-onde se faz isso**. No TK é o pino 10 do IC27 (74LS32); num Spectrum é outro
-circuito, e **nós não verificamos qual** — não temos a máquina aqui.
+`0x8000-0xFFFF`, senão colidem com a SRAM da placa. O que muda é **o ponto
+interno onde se faz isso**, e ele depende da revisão da placa-mãe:
 
-A auto-desativação pelo contato 29 é **inerte num Spectrum**: lá esse contato é
-N.C., então o pull-up de `R4` não chega a lugar nenhum. Isso é de propósito — é o
-que torna a placa segura nas duas máquinas —, mas significa que num Spectrum a
-desativação tem de ser feita por dentro, do jeito que aquele micro pedir.
+| Issue | Componente | Fio |
+| --- | --- | --- |
+| 2, 3 e 4 | `IC23`, um **74LS32** | do **pino 5** ao **pino 14** (+5 V) |
+| 5 e 6 | `IC27`, o **ZX8401** | do **pino 35** ao **pino 40** (+5 V) |
 
-Se você fizer isso num Spectrum e funcionar, uma
-[issue](https://github.com/lrrosa/tkmem128-ii/issues) com o ponto exato é
-bem-vinda: entra aqui com o crédito.
+O efeito é o mesmo nos dois casos e é o mesmo do TK: segurar `CAS`/`RAS` em
+nível alto para que não chegue aos chips de RAM de cima. Repare que a versão
+Issue 2/3/4 é literalmente o mesmo tipo de intervenção que a do TK — forçar a
+entrada de uma porta do 74LS32 para +5 V —, só que noutra porta e noutro CI.
+
+**Teste rápido de que o fio ficou certo:** com o mod feito e a interface
+*desconectada*, o micro tem que se comportar como um **Spectrum de 16K**.
+
+> ⚠️ **`IC27` não quer dizer a mesma coisa nas duas máquinas.** No TK90X/TK95 o
+> `IC27` é o 74LS32 desta página; num Spectrum Issue 5/6 o `IC27` é o ZX8401 —
+> outro chip, outro pino, 40 pinos em vez de 14. Lendo os dois procedimentos
+> lado a lado é fácil trocar. Confira o que está escrito no encapsulamento
+> antes de soldar.
+
+**De onde veio isto:** do [goloskokovic/zx16to128upgrade](https://github.com/goloskokovic/zx16to128upgrade),
+que redistribui o mesmo projeto do Velesoft de onde este aqui deriva.
+**Não verificamos em bancada** — não temos a máquina aqui. Se você fizer, uma
+[issue](https://github.com/lrrosa/tkmem128-ii/issues) dizendo se funcionou é
+bem-vinda.
+
+A auto-desativação pelo contato 29 continua **inerte num Spectrum**: lá esse
+contato é N.C., então o pull-up de `R4` não chega a lugar nenhum. Isso é de
+propósito — é o que torna a placa segura nas duas máquinas —, mas significa que
+num Spectrum a desativação é sempre por dentro, pelo fio da tabela acima.
 
 ---
 

@@ -65,6 +65,15 @@ precisam ser desativados** — é a única alteração necessária dentro do mic
 única coisa que difere entre TK e ZX Spectrum. Veja
 [`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md).
 
+> **Sobre a variante `EASY_6b` do Velesoft.** Existe uma versão posterior das
+> equações, distribuída junto com a nossa em outros repositórios. Ela **decodifica
+> também `0x4000-0x7FFF`** e mapeia essa janela no banco 5 da SRAM externa
+> (`SA14` e `SA16` ganham o termo `A14*/A15`), e condiciona a trava de paginação
+> ao modo 128K (`DIS128*ZX512` em vez de `DIS128`). É outra arquitetura de
+> memória, que exigiria desativar mais coisa dentro do micro e mexe com a janela
+> que a ULA lê. **Este projeto deriva da `EASY_3`**, e a comparação das duas está
+> em [`docs/VELESOFT-EASY3-x-EASY6B.md`](docs/VELESOFT-EASY3-x-EASY6B.md).
+
 ### Porta 0x7FFD
 
 Um `74HCT273` latcheia o barramento de dados quando o GAL detecta a escrita na
@@ -116,13 +125,16 @@ realmente usa, e falha se algum aparecer.
 
 > ⚠️ **O que ainda é específico de cada máquina: desativar a RAM interna de 32 KB.**
 > Isso não é opcional — sem desativar, a memória do micro colide com a SRAM
-> externa em `0x8000-0xFFFF`. O método documentado aqui é o do TK (fio do contato
-> 29 ao pino 10 do IC27). **Num ZX Spectrum o ponto interno é outro e não foi
-> verificado por nós**; a auto-desativação pelo contato 29 é inerte lá, porque
-> naquele micro o contato é N.C.
+> externa em `0x8000-0xFFFF`. No TK é um fio do contato 29 ao pino 10 do IC27;
+> num Spectrum o ponto é outro e **depende da Issue da placa-mãe** — os dois
+> procedimentos estão em
+> [`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md#e-num-zx-spectrum-48k).
+> A auto-desativação pelo contato 29 é inerte num Spectrum, porque lá o contato
+> é N.C.; ali a intervenção é sempre por dentro.
 >
-> Também não montamos a placa num Spectrum: a compatibilidade acima é do
-> barramento, conferida contato a contato, não bancada.
+> Não montamos a placa num Spectrum: a compatibilidade acima é do barramento,
+> conferida contato a contato, não de bancada — e o ponto interno do Spectrum
+> vem de terceiros, também não verificado por nós.
 
 ---
 
@@ -305,6 +317,7 @@ Guias detalhados:
 - [`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md) — desativar a RAM interna de 32K
 - [`docs/MONTAGEM.md`](docs/MONTAGEM.md) — ordem de montagem, guia do conector, caixa
 - [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — conferências obrigatórias
+- [`docs/VELESOFT-EASY3-x-EASY6B.md`](docs/VELESOFT-EASY3-x-EASY6B.md) — as duas variantes do circuito original, e por que este projeto usa a `EASY_3`
 
 Dois pontos que costumam pegar quem monta:
 
@@ -401,6 +414,7 @@ production/
   tira-expansao/                            idem
 docs/
   PREPARAR-O-TK.md   MONTAGEM.md   ANTES-DE-FABRICAR.md
+  VELESOFT-EASY3-x-EASY6B.md                  comparação com a variante do autor original
   relatorios/                                 saídas de ERC e DRC
 tools/                                        geradores do projeto KiCad
 ```
