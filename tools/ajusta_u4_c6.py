@@ -25,10 +25,23 @@ Soldar aquela fileira com uma lata de 5 mm a meio milimetro e ruim.
 Subindo C6 0,70 mm a folga vai a 1,13 mm embaixo, e em cima sobra 1,11 mm ate o
 corpo do soquete de U2 (F.Fab em 50,64). Fica equilibrado.
 
-Por que 0,70 e nao 0,80: a ilha 2 de C6 passa raspando numa diagonal de `D3` a
-45 graus, e subir aperta essa folga em 1/raiz(2) por milimetro. Com 0,80 dava
-0,195 contra os 0,200 da regra — cinco microns. O laco de conferencia no fim
-deste script mede isso antes de gravar.
+Por que subir so 0,70 e nao 0,80: a ilha 2 de C6 passa raspando numa diagonal
+de `D3` a 45 graus, e subir aperta essa folga em 1/raiz(2) por milimetro. Com
+0,80 dava 0,195 contra os 0,200 da regra — cinco microns. O laco de conferencia
+no fim deste script mede isso antes de gravar.
+
+E POR QUE TAMBEM 0,80 PARA A ESQUERDA. Mesmo depois de subir, a ilha 2 ficava a
+0,234 mm de uma vertical de `D5` na face de trás — dentro da regra, mas e a
+menor folga da placa inteira. Andar na horizontal ataca isso de frente, 1 mm
+por milimetro, em vez de 1/raiz(2). Varrendo -0,1 a -2,5:
+
+    -0,10  0,334   (sai de cima do D5)
+    -0,80  0,806   <- maximo
+    -1,50  0,302
+    -1,80  0,002   (a ilha 1 encosta no D7, que vem pelo outro lado)
+
+Ou seja, existe um otimo e ele nao esta na ponta: passar de 0,80 comeca a
+piorar. A folga da pior trilha vai de 0,234 para 0,806 mm, 3,4 vezes.
 
 Mover C6 NAO obriga a rerotear: as duas ilhas dele sao +5V e GND, e nesta placa
 alimentacao nao usa trilha nenhuma — cada ilha toca o plano interno direto. So
@@ -41,7 +54,7 @@ import pcbnew
 MM = 1e6
 PCB = "hardware/tkmem128-ii.kicad_pcb"
 
-C6_NOVO = (68.00, 54.30)
+C6_NOVO = (67.20, 54.30)
 X_TEXTO = 37.70                 # coluna a direita de U4, ~0,7 mm do courtyard
 Y_NOME, Y_REF = 12.50, 17.70   # 1,2 mm de vao: com 16,60 sobrava 0,13 e as
                                # duas linhas liam como uma so, 'U4 27C256'
