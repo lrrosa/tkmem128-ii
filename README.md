@@ -178,11 +178,20 @@ nenhuma via serve só para alimentação. Sinal de 0,5 mm, isolação de 0,2 mm,
 
 ![Placa principal](docs/img/placa-principal.png)
 
+O furo grande no topo é o `H1`, e ele não é furo de parafuso: por ali **passa a
+torre** de fixação da caixa Patola, que tem Ø5 externo e nasce do fundo da
+tampa. O parafuso da caixa corre dentro da torre e nunca toca a placa — `H1`
+serve para localizar, não para apertar.
+
 O conector é passante e é usado pelos dois lados — por baixo entra o conector,
 por cima solda a tira —, então a numeração dele está serigrafada nas duas
 faces.
 
 ![Placa principal, verso](docs/img/placa-principal-verso.png)
+
+O verso é o manual da placa. Traz as **três tabelas de jumper**, a função do
+`R4` e a licença — na bancada, com um shunt na pinça, isso vale mais que este
+README.
 
 ![Tira de expansão](docs/img/placa-expansora.png)
 
@@ -218,12 +227,15 @@ pinos: 29..56 na frente, 1..28 no verso.
 | Jumper | Posição | Efeito |
 | --- | --- | --- |
 | **JP1** SELECIONA ROM | 1-2 | ROM 128: a EPROM da placa responde em `0x0000-0x3FFF` |
-| | 2-3 | ROM TK: EPROM desligada (padrão) |
+| | 2-3 | ROM interna: EPROM desligada (padrão) |
 | **JP2** ROMCS BARRAMENTO | aberto | Usa a ROM interna do micro (padrão) |
 | | 1-2 | Aciona `ROMCS` pelo GAL (comportamento da placa original) |
 | | 2-3 | Fixa `ROMCS` em nível alto (estilo Interface 2) |
 | **JP3** ZX128/ZX512 | aberto | 128K — SRAM `AS6C1008` (padrão) |
 | | fechado | 512K — SRAM `AS6C4008` |
+
+Esta tabela está **serigrafada no verso da placa**, uma por jumper, com as
+mesmas palavras — ver o render do verso acima.
 
 > ⚠️ **JP1 em 1-2 sem JP2** não faz nada útil: sem desligar a ROM interna, os dois
 > chips disputam o barramento de dados. Use os dois juntos ou nenhum.
