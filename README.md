@@ -65,13 +65,13 @@ precisam ser desativados** — é a única alteração necessária dentro do mic
 única coisa que difere entre TK e ZX Spectrum. Veja
 [`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md).
 
-> **Sobre a variante `EASY_6b` do Velesoft.** Existe uma versão posterior,
-> distribuída junto com a nossa em outros repositórios, cujo arquivo de equações
-> **decodifica também `0x4000-0x7FFF`** e mapeia essa janela no banco 5 da SRAM
-> externa. O esquemático dela, porém, imprime as equações da `EASY_3` — o pacote
-> se contradiz, e a tabela de termos do compilador diz que quem vale é o
-> `.eqn`. **Este projeto deriva da `EASY_3`**; a comparação completa, incluindo a
-> conferência do nosso esquemático contra o do Velesoft, está em
+> **Sobre a variante `EASY_6b` do Velesoft.** Circula junto com a nossa em
+> outros repositórios, e é fácil confundir com uma versão melhor. Não é: a
+> serigrafia da placa dela diz `MEMORY UPGRADE FOR ZX 16`. É para um Spectrum de
+> **16 KB**, onde a RAM inteira vem de fora — por isso as equações dela também
+> decodificam `0x4000-0x7FFF`. **Este projeto deriva da `EASY_3`**; a comparação
+> completa, incluindo a conferência do nosso esquemático e do nosso layout contra
+> os do Velesoft, está em
 > [`docs/VELESOFT-EASY3-x-EASY6B.md`](docs/VELESOFT-EASY3-x-EASY6B.md).
 
 ### Porta 0x7FFD

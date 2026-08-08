@@ -87,11 +87,27 @@ conector `ZX-EDGET`, o `GAL 20V8`, o `74HCT273N` e a `SRAM 128 KB`. O que o
 melhor** (100 µF + 100 nF em vez de dois cerâmicos). O `.sch` ser 2,4× maior é
 bagagem do Eagle, não circuito.
 
-**E isso deixa a pergunta da ULA sem resposta por hardware:** não há hardware
-adicional nenhum no `6b` para arbitrar `0x4000-0x7FFF` com a ULA, que continua
-lendo a DRAM de dentro do micro. Se as equações do `.eqn` forem mesmo as de
-produção, essa variante depende de alguma intervenção interna diferente, que o
-pacote não documenta. Não sabemos qual.
+## E o layout do `6b` diz para que máquina ele é
+
+A serigrafia da placa `EASY_6b` traz, em letras grandes:
+
+> `ZX 128/512/1024 kB MEMORY UPGRADE FOR ZX 16`
+
+**"FOR ZX 16"** — é para um ZX Spectrum de **16 KB**, não de 48. E aí as
+diferenças do `.eqn` param de parecer arbitrárias e passam a fazer sentido: num
+16K não existe RAM interna acima de `0x7FFF`, então a SRAM externa tem de cobrir
+`0x4000-0xFFFF` — que é exatamente o que `/RAMCS = /MREQ*A15 + /MREQ*A14` faz — e
+a janela `0x4000-0x7FFF` tem de aparecer como **banco 5**, que é onde o Spectrum
+128 põe a tela. Os termos `+ A14*/A15` em `SA14` e `SA16` são precisamente isso.
+
+Ou seja: **o `EASY_6b` não é uma versão melhor do `EASY_3` para a nossa máquina.
+É outra máquina.** E isso reforça, com um motivo melhor do que "conservadorismo",
+a decisão de ficar no `EASY_3`.
+
+O que continua **sem explicação**: como a ULA obtém os dados de vídeo se a
+janela dela vem de fora. Não há hardware adicional no `6b` para arbitrar isso, e
+o pacote não documenta a intervenção interna que essa variante exigiria. Fica
+como pergunta em aberto — não é conclusão nossa que funcione.
 
 Enquanto isso, a limitação que este projeto documenta continua valendo: **não há
 shadow video aqui**, e os poucos jogos de 128K que dependem dele não funcionam.
@@ -137,10 +153,40 @@ O resto bate: pinagem do GAL idêntica, `/RAMCS` no `/CS1`, `/SA17` no `CS2`
 (que no `AS6C1008` é habilitação ativa em alto, e é por isso que essa saída do
 GAL é invertida), `WR` no `/WE`, `RD` no `/OE`.
 
+## Os layouts
+
+Medidos nos PDFs, usando o passo de 2,54 mm do conector como régua:
+
+| | Contorno | Camadas | Plano | Passagem do barramento |
+| --- | --- | --- | --- | --- |
+| `EASY_3` | ~77 × 41 mm | 2 | nenhum | não tem |
+| `EASY_6b` | ~77 × 40 mm | 2 | nenhum | não tem |
+| **TKMEM-128 II** | 78,7 × 66,0 mm | **4** | GND e +5 V inteiros | dedos de borda na tira |
+
+As duas do Velesoft são **de duas camadas sem plano nenhum**: trilhas finas de
+sinal e algumas bem gordas fazendo o papel de alimentação, que é como se fazia
+placa caseira de dois lados. As três placas têm as mesmas **27 ilhas por
+fileira** no conector — 28 colunas menos a guia —, o que confirma que o
+barramento é o mesmo.
+
+Nossa placa é maior por dois motivos que não são do circuito: ela precisa caber
+na caixa Patola PB 085/3 (e ocupa a tampa inteira), e leva a **EPROM**, que o
+Velesoft não tem — a 27C256 e o soquete dela vieram da adaptação do Luccas.
+
+E nenhuma das duas do Velesoft tem **passagem do barramento**: quem as usa perde
+o conector de expansão. A tira que resolve isso é herança do Luccas, e aqui
+virou uma segunda PCB.
+
 ## Por que ficamos no `EASY_3`
 
-Não é conservadorismo: é que a placa de 2012 do Luccas, da qual herdamos a
-adaptação ao TK, os jumpers e a divisão em duas placas, é construída sobre o
-`EASY_3`. Trocar as equações mudaria o que precisa ser desativado dentro do
-micro — e é justamente essa a parte que já é específica de cada máquina e a que
-mais tem chance de danificar alguma coisa se estiver errada.
+Dois motivos, e o segundo só ficou claro depois de ler a serigrafia do `6b`:
+
+1. A placa de 2012 do Luccas, da qual herdamos a adaptação ao TK, os jumpers e a
+   divisão em duas placas, é construída sobre o `EASY_3`.
+2. O `EASY_6b` **é para outra máquina** — um Spectrum de 16 KB, onde a RAM
+   inteira vem de fora. Adotá-lo aqui não seria uma atualização, seria trocar de
+   alvo.
+
+E trocar as equações mudaria o que precisa ser desativado dentro do micro — que
+é justamente a parte já específica de cada máquina e a que mais tem chance de
+danificar alguma coisa se estiver errada.
