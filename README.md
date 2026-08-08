@@ -65,14 +65,14 @@ precisam ser desativados** — é a única alteração necessária dentro do mic
 única coisa que difere entre TK e ZX Spectrum. Veja
 [`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md).
 
-> **Sobre a variante `EASY_6b` do Velesoft.** Existe uma versão posterior das
-> equações, distribuída junto com a nossa em outros repositórios. Ela **decodifica
-> também `0x4000-0x7FFF`** e mapeia essa janela no banco 5 da SRAM externa
-> (`SA14` e `SA16` ganham o termo `A14*/A15`), e condiciona a trava de paginação
-> ao modo 128K (`DIS128*ZX512` em vez de `DIS128`). É outra arquitetura de
-> memória, que exigiria desativar mais coisa dentro do micro e mexe com a janela
-> que a ULA lê. **Este projeto deriva da `EASY_3`**, e a comparação das duas está
-> em [`docs/VELESOFT-EASY3-x-EASY6B.md`](docs/VELESOFT-EASY3-x-EASY6B.md).
+> **Sobre a variante `EASY_6b` do Velesoft.** Existe uma versão posterior,
+> distribuída junto com a nossa em outros repositórios, cujo arquivo de equações
+> **decodifica também `0x4000-0x7FFF`** e mapeia essa janela no banco 5 da SRAM
+> externa. O esquemático dela, porém, imprime as equações da `EASY_3` — o pacote
+> se contradiz, e a tabela de termos do compilador diz que quem vale é o
+> `.eqn`. **Este projeto deriva da `EASY_3`**; a comparação completa, incluindo a
+> conferência do nosso esquemático contra o do Velesoft, está em
+> [`docs/VELESOFT-EASY3-x-EASY6B.md`](docs/VELESOFT-EASY3-x-EASY6B.md).
 
 ### Porta 0x7FFD
 
