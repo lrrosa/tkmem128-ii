@@ -33,12 +33,28 @@ FONTES = (
 )
 
 
+CRLF = b"\x0d\x0a"
+LF = b"\x0a"
+
+
 def md5(caminho):
-    h = hashlib.md5()
+    """Hash do conteudo, com fim de linha NORMALIZADO.
+
+    Sem normalizar, o hash passa a depender de quem escreveu o arquivo por
+    ultimo: o `pcbnew` grava LF e o `git checkout` no Windows devolve CRLF.
+    Trocar de um para o outro muda todos os bytes sem mudar nada da placa.
+
+    Isso mordeu numa conferencia de vespera de fabricacao: rodar o DRC com
+    `--save-board` regravou a placa em CRLF, ela cresceu exatamente 17627 bytes
+    — um por linha —, o `git diff` reportou ZERO linhas alteradas, e mesmo
+    assim este script acusou "as saidas nao correspondem a estas placas".
+
+    Alarme falso e pior que nenhum alarme: ensina a ignorar o alarme, e no dia
+    em que a diferenca for de verdade ninguem vai olhar.
+    """
     with open(caminho, "rb") as f:
-        for pedaco in iter(lambda: f.read(1 << 16), b""):
-            h.update(pedaco)
-    return h.hexdigest()
+        dados = f.read()
+    return hashlib.md5(dados.replace(CRLF, LF)).hexdigest()
 
 
 agora = {f: md5(os.path.join(RAIZ, f)) for f in FONTES}
