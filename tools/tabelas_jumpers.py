@@ -37,10 +37,28 @@ MM = 1e6
 PCB = "hardware/tkmem128-ii.kicad_pcb"
 FACE = pcbnew.B_SilkS
 
-FONTE, ESP = 0.8, 0.16          # 0,2 x tamanho, a regra de negrito do projeto
+FONTE, ESP = 1.2, 0.24          # 0,2 x tamanho, a regra de negrito do projeto
 LARG_LINHA = 0.15
-COL1, COL2, ALT = 6.5, 10.5, 1.7
+ALT = 2.0                       # altura da linha; a tinta ocupa 1,2 + 0,24
 FOLGA_ILHA = 0.25
+PAD = 0.80                      # folga horizontal dentro da celula
+
+# Largura medida DA PLACA a 1,2 mm, nao estimada. Cada coluna e dimensionada
+# pelo seu conteudo mais largo: com largura unica as tres tabelas somariam mais
+# que o vao disponivel e nao caberiam lado a lado.
+LARGURA = {
+    "ROM INTERNA": 12.30, "ROMCS HIGH": 11.61, "ROM TKMEM": 10.93,
+    "ROMCS GAL": 10.53, "FECHADO": 8.30, "ABERTO": 6.93,
+    "128K": 4.87, "512K": 4.87, "1-2": 4.01, "2-3": 4.01,
+    "JP1": 3.50, "JP2": 3.50, "JP3": 3.50,
+}
+
+
+def colunas(nome, linhas):
+    """(largura da coluna da posicao, largura da coluna do efeito)."""
+    c1 = max([LARGURA[nome]] + [LARGURA[a] for a, _ in linhas]) + PAD
+    c2 = max(LARGURA[b] for _, b in linhas) + PAD
+    return round(c1, 1), round(c2, 1)
 
 # ONDE. As tabelas moram nos vazios que os soquetes DIP deixam entre as duas
 # fileiras de pinos — no verso nada os cobre, e sao os unicos retangulos
@@ -53,13 +71,19 @@ FOLGA_ILHA = 0.25
 # tabela do JP1 fica na direita e a coluna da POSICAO vem depois da coluna do
 # efeito — o inverso do que se quer ver. Lido na mao sai JP1, JP2, JP3, cada um
 # com a posicao a esquerda e o efeito a direita, como no desenho do Leonardo.
+#
+# As posicoes mudaram quando a fonte foi para 1,2 mm: as tabelas cresceram ~22%
+# e as duas maiores nao cabiam mais lado a lado no canal do U3 com o JP1 junto.
+# O limite fino e x = 46,75, onde comeca a fileira de cima do soquete de U1 —
+# so a ESQUERDA disso o verso tem 8 mm de altura livre (y 29..37), e o JP2, com
+# quatro linhas, precisa deles.
 TABELAS = [
-    (4.0, 33.27, "JP3", [("ABERTO", "128K"),
-                         ("FECHADO", "512K")]),
-    (23.5, 32.42, "JP2", [("ABERTO", "ROM INTERNA"),
-                          ("1-2", "ROMCS GAL"),
-                          ("2-3", "ROMCS HIGH")]),
-    (57.0, 21.3, "JP1", [("1-2", "ROM TKMEM"),
+    (3.0, 29.8, "JP3", [("ABERTO", "128K"),
+                        ("FECHADO", "512K")]),
+    (24.0, 29.8, "JP2", [("ABERTO", "ROM INTERNA"),
+                         ("1-2", "ROMCS GAL"),
+                         ("2-3", "ROMCS HIGH")]),
+    (55.0, 20.62, "JP1", [("1-2", "ROM TKMEM"),
                          ("2-3", "ROM INTERNA")]),
 ]
 
@@ -68,7 +92,7 @@ TABELAS = [
 # linhas o nome da placa vai a 2,2 — o dobro do que era — e o credito fica
 # menor, embaixo, que e onde credito fica.
 TITULO = [("TKMEM-128 II", 26.5, 50.7, 2.2),
-          ("LRRosa 2026 v1.0", 26.5, 53.8, 1.4)]
+          ("LRRosa 2026 v1.0", 26.5, 53.8, 1.5)]
 BLOCO_TITULO = (8.3, 48.6, 44.7, 55.0)     # vazio conferido no mapa da face
 
 
@@ -80,13 +104,19 @@ BAK = PCB + ".bak"
 shutil.copy(PCB, BAK)
 b = pcbnew.LoadBoard(PCB)
 
+# ATENCAO: usar GetBoundingBox(), nao GetPosition()+GetSize(). GetSize()
+# devolve a ilha SEM rotacao, e 104 das 191 ilhas desta placa estao rotacionadas
+# — os DIP estao todos a 90 graus. Medir pelo GetSize() faz uma ilha de
+# 2,40 x 1,60 parecer 1,60 de altura quando na verdade ela ocupa 2,40, e a
+# conferencia passa dizendo "cabe" enquanto o DRC acusa silk_over_copper.
+# Foi exatamente assim que a linha de topo das tabelas invadiu a fileira do U3
+# por 0,075 mm com este script dando OK.
 ilhas = []
 for fp in b.Footprints():
     for q in fp.Pads():
-        sz = q.GetSize(pcbnew.F_Cu)
-        x, y = q.GetPosition().x / MM, q.GetPosition().y / MM
-        ilhas.append((x - sz.x / MM / 2, y - sz.y / MM / 2,
-                      x + sz.x / MM / 2, y + sz.y / MM / 2))
+        bb = q.GetBoundingBox()
+        ilhas.append((bb.GetLeft() / MM, bb.GetTop() / MM,
+                      bb.GetRight() / MM, bb.GetBottom() / MM))
 
 
 def bate_em_ilha(x1, y1, x2, y2):
@@ -147,12 +177,13 @@ def texto(s, cx, cy, tam, camada, espelhado):
 
 
 problemas = []
-conferir = []       # (texto, cx, cy, largura util, tamanho da fonte)
+conferir = []   # (texto, cx, cy, largura util, fonte, e_titulo)
 
 for x0, y0, nome, linhas_tab in TABELAS:
     nlin = len(linhas_tab) + 1
+    col1, col2 = colunas(nome, linhas_tab)
     # coluna do EFEITO primeiro, coluna da POSICAO depois — ver a nota da ordem
-    x1, x2 = x0 + COL2, x0 + COL2 + COL1
+    x1, x2 = x0 + col2, x0 + col2 + col1
     y_fim = y0 + nlin * ALT
     for i in range(nlin + 1):
         linha(x0, y0 + i * ALT, x2, y0 + i * ALT)
@@ -160,19 +191,19 @@ for x0, y0, nome, linhas_tab in TABELAS:
         linha(xv, y0, xv, y_fim)
     for i, (esq, dir_) in enumerate([(nome, "")] + list(linhas_tab)):
         cy = y0 + (i + 0.5) * ALT
-        for s, cx, larg in ((dir_, x0 + COL2 / 2, COL2),
-                            (esq, x1 + COL1 / 2, COL1)):
+        for s, cx, larg in ((dir_, x0 + col2 / 2, col2),
+                            (esq, x1 + col1 / 2, col1)):
             if not s:
                 continue
             texto(s, cx, cy, FONTE, FACE, ESPELHADO)
-            conferir.append((s, cx, cy, larg, FONTE))
+            conferir.append((s, cx, cy, larg, FONTE, False))
     colisao = bate_em_ilha(x0, y0, x2, y_fim)
     if colisao:
         problemas.append("%s (x %.1f..%.1f y %.1f..%.1f) encosta na ilha em "
                          "(%.2f, %.2f)" % (nome, x0, x2, y0, y_fim,
                                            colisao[0], colisao[1]))
-    print("%s: %d linhas, x %.1f..%.1f, y %.1f..%.1f"
-          % (nome, nlin, x0, x2, y0, y_fim))
+    print("%s: %d linhas, %.1f x %.1f mm em x %.1f..%.1f, y %.1f..%.1f"
+          % (nome, nlin, x2 - x0, y_fim - y0, x0, x2, y0, y_fim))
 
 # ---- titulo ---------------------------------------------------------------
 # Idempotente tambem aqui: apaga o titulo de uma linha (versao antiga) OU as
@@ -190,7 +221,8 @@ for d in tit:
     b.Remove(d)
 for s, cx, cy, tam in TITULO:
     texto(s, cx, cy, tam, FACE_TIT, ESP_TIT)
-    conferir.append((s, cx, cy, BLOCO_TITULO[2] - BLOCO_TITULO[0], tam))
+    conferir.append((s, cx, cy, BLOCO_TITULO[2] - BLOCO_TITULO[0],
+                     tam, True))
 
 b.Save(PCB)
 
@@ -203,7 +235,7 @@ for d in b2.GetDrawings():
         achados.append((d.GetText(), bb.GetLeft() / MM, bb.GetTop() / MM,
                         bb.GetRight() / MM, bb.GetBottom() / MM))
 print("\nmedido no arquivo gravado:")
-for s, cx, cy, larg, tam in conferir:
+for s, cx, cy, larg, tam, e_titulo in conferir:
     # so o texto certo NA POSICAO certa: 'ABERTO' e '1-2' aparecem em mais de
     # uma tabela, entao casar por conteudo sozinho pega a instancia errada
     cand = [a for a in achados if a[0] == s
@@ -215,7 +247,7 @@ for s, cx, cy, larg, tam in conferir:
     _, ax1, ay1, ax2, ay2 = cand[0]
     w = ax2 - ax1
     tinta = tam + tam * 0.2
-    cabe = w <= larg - 0.4 and tinta <= (ALT if larg <= COL2 else 99) - 0.2
+    cabe = w <= larg - 0.4 and (e_titulo or tinta <= ALT - 0.2)
     print("   %-18s largura %5.2f de %5.2f   tinta %.2f   %s"
           % (s, w, larg, tinta, "cabe" if cabe else "NAO CABE"))
     if not cabe:
@@ -224,7 +256,7 @@ for s, cx, cy, larg, tam in conferir:
     if colisao:
         problemas.append("%r encosta na ilha em (%.2f, %.2f)"
                          % (s, colisao[0], colisao[1]))
-    if larg > COL2:      # titulo: tem que caber no bloco livre
+    if e_titulo:         # titulo: tem que caber no bloco livre
         if not (BLOCO_TITULO[0] <= ax1 and ax2 <= BLOCO_TITULO[2]
                 and BLOCO_TITULO[1] <= cy - tinta / 2
                 and cy + tinta / 2 <= BLOCO_TITULO[3]):

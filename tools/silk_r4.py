@@ -22,10 +22,14 @@ import pcbnew
 MM = 1e6
 PCB = "hardware/tkmem128-ii.kicad_pcb"
 
-LINHAS = [("R4: pull-up do pino 29", 23.50, 49.40),
-          ("(auto-desativa a RAM de 32K do micro)", 23.50, 51.60)]
+# x=26,6 e nao 23,5: com a fonte em 1,2 mm a segunda linha passou a medir
+# 37,7 mm, e centrada em 23,5 a ponta esquerda dela caia em cima das ilhas do
+# proprio R4 (x 3,20..7,34). O vao livre nessa faixa vai de 7,34 a 46,50 —
+# 39,2 mm — entao a linha so cabe centrada em 26,6.
+LINHAS = [("R4: pull-up do pino 29", 26.60, 49.40),
+          ("(auto-desativa a RAM de 32K do micro)", 26.60, 51.60)]
 PREFIXOS = ("R4:", "(auto-desativa")
-LIVRE = (1.0, 47.5, 46.0, 53.0)     # vazio do verso conferido no mapa
+LIVRE = (7.6, 47.5, 46.2, 53.0)     # vazio do verso conferido no mapa
 
 
 def p(x, y):

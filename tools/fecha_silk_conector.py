@@ -117,13 +117,39 @@ for fp in b.Footprints():
         todas_ilhas.append((q.GetLayerSet(), bb.GetLeft() / MM, bb.GetTop() / MM,
                             bb.GetRight() / MM, bb.GetBottom() / MM))
 FOLGA_TXT = 0.25
+
+# Com a serigrafia em 1,2 mm o rotulo do verso passou a medir 9,90 mm e a tinta
+# 1,44 de altura, e na altura antiga (y=54,50) ele encostava no C5 por cima e no
+# C6 pela direita — nao havia deslocamento lateral que resolvesse. Resolve
+# DESCENDO: entre o fim do C5 (y=53,80) e o retangulo do conector (55,73) ha
+# 1,93 mm livres, e ali so o C6 atrapalha, a partir de x=66,40. Centrado em
+# (61,2 ; 54,77) ele fica a 0,25 do C5 e a 0,25 do C6, ainda em cima da linha
+# da guia, que e o que ele precisa apontar.
+# E o TAMANHO deste rotulo, so dele, nao segue os 1,2 mm do resto da placa.
+# Nao e descuido: entre o fim do C5 (y=53,80) e a linha do retangulo do conector
+# (55,655) o vao e de 1,855 mm, e o KiCad reserva cerca de 1,87 x o tamanho da
+# fonte para um texto. A 1,2 mm ele quer 2,24 e nao cabe em altura nenhuma —
+# nao ha deslocamento lateral que resolva. A 0,8 sobram 0,20 mm em cima e
+# 0,155 embaixo. O rotulo da FACE DE CIMA continua em 1,2: la o retangulo nao
+# tem linha superior, entao o vao e o dobro.
+POSICAO_VERSO, TAM_VERSO = (61.1, 54.75), 0.8
 for t in J1.GraphicalItems():
     if t.GetClass() != "PCB_TEXT" or not t.GetText().startswith("GUIA"):
         continue
+    if t.GetLayer() == pcbnew.B_SilkS:
+        t.SetPosition(p(*POSICAO_VERSO))
+        t.SetTextSize(pcbnew.VECTOR2I(int(TAM_VERSO * MM), int(TAM_VERSO * MM)))
+        t.SetTextThickness(int(round(TAM_VERSO * 0.2 * MM)))
+    # A ALTURA vem da fonte, nao do BoundingBox: para 1,2 mm o bbox mede 2,2 de
+    # altura contra 1,44 de tinta, e com essa folga fantasma o laco nao achava
+    # posicao nenhuma e abortava. A LARGURA continua vindo do bbox, que ali e
+    # conservador na medida certa.
+    tinta = (t.GetTextWidth() + t.GetTextThickness()) / MM
     for passo in range(0, 60):
         bb = t.GetBoundingBox()
-        x1, y1 = bb.GetLeft() / MM, bb.GetTop() / MM
-        x2, y2 = bb.GetRight() / MM, bb.GetBottom() / MM
+        cy = t.GetPosition().y / MM
+        x1, y1 = bb.GetLeft() / MM, cy - tinta / 2
+        x2, y2 = bb.GetRight() / MM, cy + tinta / 2
         bate = None
         for ls, ax, ay, bx, by in todas_ilhas:
             if not ls.Contains(t.GetLayer() == pcbnew.F_SilkS
