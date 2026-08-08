@@ -27,12 +27,22 @@ Ele não inventa o circuito: junta e redesenha dois trabalhos anteriores.
 
 | Origem | Autor | O que veio de lá |
 | --- | --- | --- |
-| **external 128kb upgrade** (`zx48_to_128-EASY_3`), 2009 | **Velesoft** (Pavel Cimbal, República Tcheca) | O circuito base: as equações do GAL20V8, o latch da porta `0x7FFD` e o esquema de paginação da SRAM, incluindo a extensão de 512K |
+| [**external 128kb upgrade**](https://velesoft.speccy.cz/zx/external_128kb_upgrade/index.htm) (`zx48_to_128-EASY_3`), 2009 | **Velesoft** (Pavel Cimbal, República Tcheca) | O circuito base: as equações do GAL20V8, o latch da porta `0x7FFD` e o esquema de paginação da SRAM, incluindo a extensão de 512K |
 | **TKMEM-128**, 2012 | **Luccas Eletrônica** (Eduardo Luccas, Brasil) | A adaptação ao TK90X/TK95: soquete de EPROM com a ROM do Spectrum 128, jumpers de seleção de ROM, a auto-desativação da RAM interna de 32K por um pino livre do barramento, e a divisão em placa principal + expansor |
 
 Créditos também a **Flávio Matsumoto**, que sugeriu o circuito do Velesoft para
 os TKs e identificou a caixa Patola PB 085/3, e a **Daniel Jose Viana
 (danjovic)**, cujo trabalho documentou as cotas da placa para essa caixa.
+
+E a [**goloskokovic/zx16to128upgrade**](https://github.com/goloskokovic/zx16to128upgrade),
+que redistribui o material do Velesoft com o crédito devido. De lá vieram duas
+coisas que não estavam aqui: os **pontos de desativação da RAM interna num ZX
+Spectrum 48K**, por Issue de placa-mãe (ver
+[`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md#e-num-zx-spectrum-48k)), e os
+arquivos da variante **`EASY_6b`**, que permitiram comparar as duas versões do
+circuito original (ver
+[`docs/VELESOFT-EASY3-x-EASY6B.md`](docs/VELESOFT-EASY3-x-EASY6B.md)). Nenhum
+desses dois foi verificado em bancada por nós.
 
 Este redesenho é distribuído sob **CERN-OHL-S v2** (ver [LICENSE.txt](LICENSE.txt)),
 uma licença *fortemente recíproca*: quem fabricar, modificar ou distribuir
