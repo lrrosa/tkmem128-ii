@@ -231,7 +231,6 @@ pinos: 29..56 na frente, 1..28 no verso.
 | **Passagem do barramento** (dedos de borda na expansora) | O original ocupava o barramento; agora dá para encadear outros periféricos |
 | **Desacoplamento por CI** (100 nF em cada um) + 10 µF de reservatório | O original tinha desacoplamento mínimo |
 | **4 camadas com planos de GND e +5V inteiros** | Alimentação sem uma única trilha nas faces de sinal, retorno de corrente curto e imunidade a ruído. O original era de 2 camadas |
-| **Trilha de sinal de 0,5 mm** | O dobro da primeira tentativa deste redesenho, e no mesmo patamar da placa original. Menos sujeito a erro de fabricação, curto e defeito difícil de achar |
 | **Jumper JP2 com duas estratégias de ROMCS** | O `ROMCS` do barramento é **ativo em nível alto** para desligar a ROM interna, o oposto da saída `/ROMCS` do GAL. É a explicação mais provável para a ROM 128 do original "funcionar num TK e não em outro". JP2 permite escolher entre acionar pelo GAL ou fixar em nível alto (como fazem os cartuchos da Interface 2), com R5 em série |
 | **Auto-desativação sem jumper nenhum** | A original usava o **pino 17**, livre no TK mas **V do vídeo componente no ZX Spectrum** — daí o jumper e o aviso de que a posição errada danifica o micro. Aqui o sinal vai pelo **pino 29**, que é N.C. nas duas máquinas, então o pull-up é permanente e **JP4 deixou de existir**. Ver [a análise](docs/PREPARAR-O-TK.md#por-que-o-pino-29) |
 | **GAL com `.jed` pronto e verificado** | O usuário não precisa montar nada: o `.jed` distribuído é gerado das equações deste projeto e conferido fusível a fusível contra o mapa de referência (checksum `C5752`, zero divergências) |
@@ -266,23 +265,6 @@ mesmas palavras — ver o render do verso acima.
 > nível 1 permanentemente, e esse pino é N.C. tanto no TK quanto no ZX Spectrum.
 > Num Spectrum a placa não faz nada ali; num TK, com o fio interno do pino 29 ao
 > pino 10 do IC27, ela desliga os 32 KB. Nada a configurar.
-
-### Por que não há solder jumpers de terra
-
-Versões anteriores deste redesenho traziam `SJ1` e `SJ2`, terra extra opcional
-pelos pinos **7** (GND só no ZX Spectrum) e **15** (GND só no TK). Foram
-**removidos**: o terra já chega pelos pinos **6 e 14**, que são GND nas duas
-máquinas, e agora vai direto para um plano interno inteiro. O ganho era marginal
-e cada um puxava uma rede do conector até o outro extremo da placa.
-
-Se você quiser mesmo o retorno extra, solde um fio do pino do conector ao plano
-de terra — mas confira antes qual é a sua máquina: fechar o pino errado põe um
-sinal em curto com o terra.
-
-| Pino | TK90X/TK95 | ZX Spectrum |
-| --- | --- | --- |
-| 7 | N.C. | GND |
-| 15 | GND | sinal |
 
 ---
 
