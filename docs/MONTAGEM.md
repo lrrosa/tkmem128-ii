@@ -102,13 +102,6 @@ Nessa configuração U4 (a EPROM) nem precisa estar montada.
 nada para configurar nem posição errada para escolher. Num Spectrum a placa
 simplesmente não faz nada nesse contato.
 
-**SJ1 e SJ2 não existem mais.** Eram terra extra opcional em pinos que só são
-GND numa das máquinas (7 no ZX Spectrum, 15 no TK90X/TK95), a orientação já era
-deixar os dois abertos, e cada um puxava uma rede do conector até o outro
-extremo da placa, atravessando o corredor por onde passam `A0`–`A13` e `D0`–`D7`.
-Saíram para abrir espaço de roteamento. Quem quiser o terra extra solda um fio
-do pino do conector direto ao plano de terra, que cobre as duas faces.
-
 ---
 
 ## Primeiro teste
