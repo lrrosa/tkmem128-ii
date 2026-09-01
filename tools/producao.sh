@@ -70,6 +70,7 @@ python tools/confere_saidas.py --grava
 # Com `set -e`, qualquer um destes agora derruba a geracao.
 echo "== conferindo"
 python tools/confere_pinos.py
+python tools/confere_links.py
 python tools/confere_compatibilidade.py
 python tools/confere_svg.py
 "$KIPY" tools/confere_alinhamento.py 2>&1 | grep -v "duplicate image handler"

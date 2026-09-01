@@ -62,6 +62,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `confere_compatibilidade.py` | **Verificação de regressão**: confere que a placa não liga nenhum contato que difere entre TK e ZX Spectrum 48K |
 | `confere_pinos.py` | **Verificação de regressão**: confere que os rótulos de pino do conector nos dois esquemáticos e na biblioteca de símbolos batem com `busdef.py` |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
+| `confere_links.py` | **Verificação de regressão**: confere que os links entre os documentos e as âncoras de seção ainda resolvem |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)
 
@@ -173,9 +174,10 @@ do projeto original.
 
 ## Uma geração que também confere
 
-`producao.sh` termina rodando `confere_pinos`, `confere_compatibilidade`,
-`confere_svg` e `confere_alinhamento`. Com `set -eo pipefail`, qualquer uma
-falhando derruba a geração antes do `pronto.` — conferido com teste negativo.
+`producao.sh` termina rodando `confere_pinos`, `confere_links`,
+`confere_compatibilidade`, `confere_svg` e `confere_alinhamento`. Com
+`set -eo pipefail`, qualquer uma falhando derruba a geração antes do
+`pronto.` — conferido com teste negativo.
 
 Não é zelo: regerar sem conferir já deixou passar coisa demais aqui. A
 biblioteca ficou com ilha de 1,75 mm enquanto a placa usava 1,50; o bloco de
