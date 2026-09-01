@@ -189,6 +189,18 @@ não leem `busdef.py` nem o esquemático um do outro.
 O `pipefail` não é decoração: a saída do `confere_alinhamento` passa por um
 `grep` para tirar o ruído do wxWidgets, e sem ele o status seria o do `grep`.
 
+### E no CI
+
+[`.github/workflows/conferidores.yml`](../.github/workflows/conferidores.yml)
+roda as mesmas verificações a cada push e pull request, **menos o
+`confere_alinhamento`**: ele importa `pcbnew` e exigiria instalar o KiCad
+inteiro no runner. As outras cinco são Python puro e terminam em segundos.
+
+Isso cobre o furo que o `producao.sh` não cobre: ele só confere quando alguém
+lembra de rodá-lo. A verificação que mais ganha com isso é o `confere_saidas`,
+que pega exatamente o caso de editar uma placa e commitar sem regerar — aí
+gerbers, BOM, PDF e renders passam a descrever uma placa que não existe mais.
+
 ## Como saber se as saídas estão atualizadas
 
 ```bash

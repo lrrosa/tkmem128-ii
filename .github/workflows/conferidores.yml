@@ -1,0 +1,48 @@
+# Roda as verificacoes de regressao do projeto a cada push e pull request.
+#
+# Sao as mesmas que `tools/producao.sh` roda no fim, menos uma: o
+# `confere_alinhamento.py` importa `pcbnew` e so funciona com o KiCad
+# instalado, o que exigiria baixar o KiCad inteiro no runner. As outras cinco
+# sao Python puro e rodam em segundos.
+#
+# O mais valioso aqui e o `confere_saidas`: ele pega quem edita uma placa e
+# esquece de rodar o `producao.sh`, deixando gerbers, BOM, PDF e renders
+# descrevendo uma placa que nao existe mais. Nada mais acusa isso.
+
+name: conferidores
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  confere:
+    runs-on: ubuntu-latest
+    env:
+      # Os conferidores imprimem acentos; sem isto um locale sem UTF-8
+      # derrubaria o job no print, nao no que ele confere.
+      PYTHONIOENCODING: utf-8
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Links e ancoras entre os documentos
+        run: python tools/confere_links.py
+
+      - name: Rotulos de pino do conector x busdef.py
+        run: python tools/confere_pinos.py
+
+      - name: Nenhum contato que difere entre TK e ZX Spectrum
+        run: python tools/confere_compatibilidade.py
+
+      - name: Texto sobreposto na vista de lado
+        run: python tools/confere_svg.py
+
+      - name: Saidas de producao correspondem as placas
+        run: python tools/confere_saidas.py
