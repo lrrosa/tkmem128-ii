@@ -5,11 +5,15 @@ Nao substitui olhar a imagem, mas pega o caso que mais escapa: texto pousado em
 cima de trilha, ilha, parede ou de outro texto. A largura do glifo e estimada
 (0,55 x tamanho da fonte), o que basta para acusar colisao real.
 """
-import re, sys, xml.etree.ElementTree as ET
+import os, re, sys, xml.etree.ElementTree as ET
 
-SVG = sys.argv[1] if len(sys.argv) > 1 else (
-    "F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/docs/img/"
-    "vista-de-lado.svg")
+# Caminho derivado do proprio script, nao absoluto: com "F:/downloads/..."
+# embutido isto rodava so na maquina de origem, e foi assim que o script
+# derrubou o CI na primeira execucao.
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+SVG = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
+    RAIZ, "docs", "img", "vista-de-lado.svg")
 NS = "{http://www.w3.org/2000/svg}"
 raiz = ET.parse(SVG).getroot()
 LARG_TELA, ALT_TELA = [float(v) for v in raiz.get("viewBox").split()[2:]]
