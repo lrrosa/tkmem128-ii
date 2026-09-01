@@ -1,13 +1,14 @@
 # Roda as verificacoes de regressao do projeto a cada push e pull request.
 #
-# Sao as mesmas que `tools/producao.sh` roda no fim, menos uma: o
-# `confere_alinhamento.py` importa `pcbnew` e so funciona com o KiCad
-# instalado, o que exigiria baixar o KiCad inteiro no runner. As outras cinco
-# sao Python puro e rodam em segundos.
+# Dois jobs em paralelo, porque tem custos muito diferentes:
 #
-# O mais valioso aqui e o `confere_saidas`: ele pega quem edita uma placa e
-# esquece de rodar o `producao.sh`, deixando gerbers, BOM, PDF e renders
-# descrevendo uma placa que nao existe mais. Nada mais acusa isso.
+#   rapidos     -- cinco conferidores em Python puro, ~15 s no total;
+#   alinhamento -- precisa do pcbnew, entao roda dentro da imagem oficial do
+#                  KiCad. Puxar a imagem domina o tempo.
+#
+# O `alinhamento` so se tornou possivel quando os caminhos absolutos sairam do
+# netlist.py e do netlist_exp.py: dentro do container eles resolviam para
+# "F:/downloads/...", que e o disco da maquina de origem.
 
 name: conferidores
 
@@ -18,7 +19,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  confere:
+  rapidos:
     runs-on: ubuntu-latest
     env:
       # Os conferidores imprimem acentos; sem isto um locale sem UTF-8
@@ -46,3 +47,21 @@ jobs:
 
       - name: Saidas de producao correspondem as placas
         run: python tools/confere_saidas.py
+
+  alinhamento:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Versao fixada na mesma que gera as placas na bancada. As placas estao
+      # no formato do KiCad 10 (`version 20260206`) e nao abrem em 8 nem 9.
+      #
+      # `docker run` em vez de `container:` de proposito: assim o checkout
+      # roda no host, como usuario normal, e so a conferencia entra no
+      # container. Com `container:` a imagem do KiCad, que nao roda como root,
+      # complica a permissao do workspace.
+      - name: Alinhamento entre a placa principal e a tira
+        run: |
+          docker run --rm -v "$PWD:/work" -w /work \
+            kicad/kicad:10.0.4 \
+            python3 tools/confere_alinhamento.py
