@@ -192,14 +192,31 @@ O `pipefail` não é decoração: a saída do `confere_alinhamento` passa por um
 ### E no CI
 
 [`.github/workflows/conferidores.yml`](../.github/workflows/conferidores.yml)
-roda as mesmas verificações a cada push e pull request, **menos o
-`confere_alinhamento`**: ele importa `pcbnew` e exigiria instalar o KiCad
-inteiro no runner. As outras cinco são Python puro e terminam em segundos.
+roda **as seis** verificações a cada push e pull request, em dois jobs
+paralelos porque os custos são diferentes:
+
+| Job | O que roda | Como |
+| --- | --- | --- |
+| `rapidos` | os cinco conferidores em Python puro | ~15 s, sem dependência nenhuma |
+| `alinhamento` | `confere_alinhamento.py` | dentro de `kicad/kicad:10.0.4`, porque precisa do `pcbnew` |
+
+A versão da imagem é a mesma da bancada de propósito: as placas estão no
+formato do KiCad 10 (`version 20260206`) e não abrem em 8 nem 9. O job usa
+`docker run` em vez de `container:` para o checkout rodar no host como
+usuário normal — a imagem do KiCad não roda como root, e o conferidor só
+precisa **ler** o workspace montado.
 
 Isso cobre o furo que o `producao.sh` não cobre: ele só confere quando alguém
-lembra de rodá-lo. A verificação que mais ganha com isso é o `confere_saidas`,
-que pega exatamente o caso de editar uma placa e commitar sem regerar — aí
-gerbers, BOM, PDF e renders passam a descrever uma placa que não existe mais.
+lembra de rodá-lo. As duas que mais ganham com isso são o `confere_saidas`,
+que pega o caso de editar uma placa e commitar sem regerar — aí gerbers, BOM,
+PDF e renders passam a descrever uma placa que não existe mais —, e o
+`confere_alinhamento`, que é o único a enxergar a relação **entre** as duas
+placas. Uma tira espelhada passa em ERC e em DRC, porque cada placa é válida
+sozinha; o que não existe é o casamento entre elas.
+
+O job do KiCad só se tornou possível depois que os caminhos absolutos saíram
+do `netlist.py` e do `netlist_exp.py`: dentro do container eles resolviam
+para `F:/downloads/...`, o disco da máquina de origem.
 
 ## Como saber se as saídas estão atualizadas
 
