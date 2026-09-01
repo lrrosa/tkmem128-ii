@@ -65,7 +65,7 @@ dispositivo e grave. Não precisa montar nada.
 | | |
 | --- | --- |
 | Arquivo | `tkmem128.jed` |
-| Dispositivo | `GAL20V8B` (Lattice) ou `ATF20V8B` (Microchip) |
+| Dispositivo | `GAL20V8B` (Lattice), `ATF20V8B` (Microchip) ou `PALCE20V8H` (AMD/Vantis) |
 | Fusíveis | 2706 |
 | **Checksum de fusíveis** | **`C5752`** |
 | Programador | XGecu T48/T56 (Xgpro) ou equivalente |
@@ -121,9 +121,24 @@ o do projeto original.
 | Peça | Situação |
 | --- | --- |
 | **GAL20V8B-15LP** (Lattice) | Descontinuada; ainda comum como estoque antigo |
-| **ATF20V8B-15PC** (Microchip) | Substituta pino a pino, ainda distribuída |
+| **ATF20V8B-15PC** (Microchip) | Substituta pino a pino, ainda distribuída — a mais fácil de achar nova |
+| **PALCE20V8H-15/-25** (AMD/Vantis/Lattice) | Serve; CMOS EEPROM, regravável. Ver as duas ressalvas abaixo |
 
-Ambas são DIP-24 de 300 mil e gravam com o mesmo mapa de fusíveis.
+Todas são DIP-24 de 300 mil e gravam com **o mesmo mapa de 2706 fusíveis** — o
+`.jed` deste diretório serve nas três sem alteração. O modo **complex** que o
+projeto usa (SYN=1, AC0=1, todas as saídas combinatórias em tristate) é
+justamente a emulação de um PAL20L8, que é o que a PALCE20V8H faz nativamente.
+
+Duas ressalvas para a PALCE20V8H:
+
+1. **Selecione `PALCE20V8H` no software do programador, não `GAL20V8`.** O mapa
+   de fusíveis é idêntico, mas o algoritmo de gravação (tensões e sequência) é
+   outro. Gravar com o perfil errado falha na verificação — ou grava torto.
+2. **Ela consome mais que a ATF20V8B**, e as versões rápidas (`-5`, `-7`)
+   consomem bem mais. Prefira `-10`, `-15` ou `-25`. Velocidade aqui não é
+   problema: com o barramento a 3,5 MHz há mais de 500 ns entre o endereço
+   ficar válido e o Z80 amostrar o dado, contra os 25 ns do pior caso da peça
+   mais lenta. A corrente é que pesa, porque tudo sai dos 5 V do micro.
 
 ## Mapa de colunas da matriz AND
 

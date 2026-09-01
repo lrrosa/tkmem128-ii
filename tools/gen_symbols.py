@@ -72,7 +72,7 @@ B = [(str(n), nm, et) for n, nm, et, side in GAL20V8B if side == "B"]
 parts.append(build(
     "GAL20V8B_TKMEM", "GAL20V8B",
     "Package_DIP:DIP-24_W7.62mm_Socket_LongPads",
-    "GAL20V8B / ATF20V8B programado com as equacoes da TKMEM-128 "
+    "GAL20V8B / ATF20V8B / PALCE20V8H programado com as equacoes da TKMEM-128 "
     "(nomes dos pinos = funcao programada)",
     "GAL PLD 20V8 decodificador",
     L, R, T, B, half_w=17.78, half_h=20.32))
@@ -132,9 +132,10 @@ R = [(str(p), "%s (%s)" % (BUS[p][1] if p in BUS else "GND", p), "passive")
      for p in range(56, 28, -1)]
 parts.append(build(
     "ZX_TK_Bus_Header_56", "ZX_TK_Bus_Header_56", "",
-    "Header 2x28 entre a placa principal e a expansora. Numeracao 1..56 do "
-    "TK; posicoes 5 e 52 (guia do conector de borda) sao GND adicional.",
-    "header 2x28 interligacao TK90X TK95",
+    "Conector de borda femea 56 vias (TE/AMP 5645235) que recebe os dedos "
+    "do micro. Numeracao 1..56 do TK; posicoes 5 e 52 sao a guia. A tira de "
+    "expansao e soldada entre as duas fileiras de terminais dele.",
+    "conector borda edge socket 56 TK90X TK95 ZX Spectrum",
     L, R, [], [], half_w=22.86, half_h=38.10, ref="J"))
 
 with io.open(OUT, "w", encoding="utf-8", newline="\n") as f:

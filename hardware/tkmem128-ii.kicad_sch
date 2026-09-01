@@ -2209,7 +2209,7 @@
 					)
 				)
 			)
-			(property "Description" "GAL20V8B / ATF20V8B programado com as equacoes da TKMEM-128 (nomes dos pinos = funcao programada)"
+			(property "Description" "GAL20V8B / ATF20V8B / PALCE20V8H programado com as equacoes da TKMEM-128 (nomes dos pinos = funcao programada)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3997,7 +3997,7 @@
 					)
 				)
 			)
-			(property "Description" "Header 2x28 entre a placa principal e a expansora. Numeracao 1..56 do TK; posicoes 5 e 52 (guia do conector de borda) sao GND adicional."
+			(property "Description" "Conector de borda femea 56 vias (TE/AMP 5645235) que recebe os dedos do micro. Numeracao 1..56 do TK; posicoes 5 e 52 sao a guia. A tira de expansao e soldada entre as duas fileiras de terminais dele."
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4008,7 +4008,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "header 2x28 interligacao TK90X TK95"
+			(property "ki_keywords" "conector borda edge socket 56 TK90X TK95 ZX Spectrum"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -12045,7 +12045,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Para a expansora"
+		(property "Value" "Barramento TK"
 			(at 76.2 151.892 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12056,7 +12056,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "tkmem128:ZX_TK_Bus_Header_2x28"
+		(property "Footprint" "tkmem128:ZX_TK_Bus_Socket_56"
 			(at 76.2 191.77 0)
 			(hide yes)
 			(show_name no)
@@ -12078,7 +12078,7 @@
 				)
 			)
 		)
-		(property "Description" "Soquete femea 2x28 angular - liga a placa expansora"
+		(property "Description" "Conector de borda TE 5645235 soldado nesta placa. O corpo fica do lado OPOSTO aos componentes; os terminais atravessam e recebem a tira de expansao pelo lado dos componentes."
 			(at 76.2 191.77 0)
 			(hide yes)
 			(show_name no)
@@ -13023,7 +13023,7 @@
 				)
 			)
 		)
-		(property "Description" "Decodificador de enderecos (GAL20V8B ou ATF20V8B)"
+		(property "Description" "Decodificador de enderecos (GAL20V8B, ATF20V8B ou PALCE20V8H)"
 			(at 199.39 107.95 0)
 			(hide yes)
 			(show_name no)

@@ -274,7 +274,7 @@ mesmas palavras — ver o render do verso acima.
 
 | Ref | Valor | Encapsulamento | Observação |
 | --- | --- | --- | --- |
-| U1 | GAL20V8B ou **ATF20V8B-15PC** | DIP-24 300 mil | Grave [`hardware/gal/tkmem128.jed`](hardware/gal/tkmem128.jed) |
+| U1 | GAL20V8B, **ATF20V8B-15PC** ou PALCE20V8H | DIP-24 300 mil | Grave [`hardware/gal/tkmem128.jed`](hardware/gal/tkmem128.jed) — peças equivalentes em [hardware/gal](hardware/gal/README.md) |
 | U2 | 74HCT273 | DIP-20 300 mil | Latch da porta 7FFD |
 | U3 | **AS6C1008-55PCN** (128K×8) | DIP-32 600 mil | Ou `AS6C4008-55PCN` (512K×8) no modo ZX512 |
 | U4 | 27C256 | DIP-28 600 mil | **Opcional** — ver seção da ROM |
@@ -370,7 +370,9 @@ conferido **fusível a fusível** contra o mapa de referência do projeto do
 Velesoft — *zero divergências em 2706 fusíveis*. O fonte em sintaxe GALasm está
 em [`tkmem128.pld`](hardware/gal/tkmem128.pld) para quem quiser modificar.
 
-Programadores XGecu (T48/T56) gravam tanto GAL20V8B quanto ATF20V8B.
+Programadores XGecu (T48/T56) gravam GAL20V8B, ATF20V8B e PALCE20V8H — mas
+**escolha no software o dispositivo que você tem de verdade**: o mapa de
+fusíveis é o mesmo, o algoritmo de gravação não.
 
 ---
 

@@ -13,7 +13,7 @@ PARTS = [
      "expansao pelo lado dos componentes."),
     ("U1", "tkmem128:GAL20V8B_TKMEM", "GAL20V8B",
      "Package_DIP:DIP-24_W7.62mm_Socket_LongPads",
-     "Decodificador de enderecos (GAL20V8B ou ATF20V8B)"),
+     "Decodificador de enderecos (GAL20V8B, ATF20V8B ou PALCE20V8H)"),
     ("U2", "tkmem128:74HCT273", "74HCT273",
      "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
      "Latch da porta 0x7FFD"),

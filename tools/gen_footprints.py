@@ -164,39 +164,6 @@ def gen_fingers():
     return s + ')\n'
 
 
-# ---------------------------------------------------------------- J header
-def gen_header():
-    """Header 2x28 entre a placa principal e a expansora.
-
-    Fileira y=+1.27 -> pinos 1..28   |   fileira y=-1.27 -> pinos 29..56
-    Posicoes 5 e 52 existem fisicamente e sao GND adicional entre as placas.
-    """
-    s = HDR % ("ZX_TK_Bus_Header_2x28",
-               "Header 2x28 passo 2,54mm ligando a placa principal (soquete "
-               "femea angular) a placa expansora (pino macho vertical). "
-               "Numeracao 1..56 do TK; posicoes 5 e 52 = GND adicional.",
-               "header 2x28 TK90X TK95 interligacao placas",
-               -5.0, "ZX_TK_Bus_Header_2x28", 5.0)
-    for c in range(1, NCOL + 1):
-        x = col_x(c)
-        for y, num in ((1.27, bottom_pin(c)), (-1.27, top_pin(c))):
-            shape = "rect" if num == 1 else "circle"
-            s += ('\t(pad "%d" thru_hole %s\n\t\t(at %s %s)\n'
-                  '\t\t(size 1.7 1.7)\n\t\t(drill 1.0)\n'
-                  '\t\t(layers "*.Cu" "*.Mask")\n\t)\n' % (num, shape, x, y))
-    x1, x2 = X0 - 1.9, col_x(NCOL) + 1.9
-    for ly, w in (("F.SilkS", 0.15), ("F.CrtYd", 0.05)):
-        s += line(x1, -3.2, x2, -3.2, ly, w)
-        s += line(x2, -3.2, x2, 3.2, ly, w)
-        s += line(x2, 3.2, x1, 3.2, ly, w)
-        s += line(x1, 3.2, x1, -3.2, ly, w)
-    s += text("1", col_x(1), -4.2, "F.SilkS", 0.9)
-    s += text("56", col_x(3), -4.2, "F.SilkS", 0.9)
-    s += text("28", col_x(NCOL), -4.2, "F.SilkS", 0.9)
-    s += text("29", col_x(NCOL - 2), -4.2, "F.SilkS", 0.9)
-    return s + ')\n'
-
-
 # ------------------------------------------------- ilhas de solda da tira
 def gen_solderpads():
     """Tira de expansao: ilhas que recebem os terminais do conector.
@@ -385,7 +352,6 @@ if not os.path.isdir(OUTDIR):
 for name, body in (("ZX_TK_Bus_Socket_56", gen_socket()),
                    ("MountingHole_5.4mm", gen_mountinghole()),
                    ("ZX_TK_Bus_Fingers_56", gen_fingers()),
-                   ("ZX_TK_Bus_Header_2x28", gen_header()),
                    ("ZX_TK_Bus_SolderPads_56", gen_solderpads()),
                    ("WireLink_GND_P20.32mm", gen_wirelink()),
                    ("WirePad_1.6mm", gen_wirepad())):
