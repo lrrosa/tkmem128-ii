@@ -12,3 +12,6 @@ fp-info-cache
 
 # arquivos de trava de sessao do KiCad
 *.lck
+
+# pacote de release montado por tools/monta_pacote.py
+dist/

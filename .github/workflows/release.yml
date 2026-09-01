@@ -1,0 +1,51 @@
+# Publica o pacote de fabricacao e montagem quando uma tag `v*` e empurrada.
+#
+#   git tag v1.0 && git push origin v1.0
+#
+# A tag TEM que bater com a versao gravada na serigrafia da placa; o
+# tools/monta_pacote.py aborta se divergirem. O numero no cobre e o que fica
+# na mao de quem monta -- se o download disser outra coisa, a placa e o
+# arquivo contam historias diferentes.
+#
+# Os conferidores rodam ANTES de publicar, reaproveitando o conferidores.yml
+# em vez de duplicar a lista. Tag com verificacao falhando nao vira release.
+
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  confere:
+    uses: ./.github/workflows/conferidores.yml
+
+  publica:
+    needs: confere
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # necessario para criar o release
+    env:
+      PYTHONIOENCODING: utf-8
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Monta o pacote
+        run: python tools/monta_pacote.py "$GITHUB_REF_NAME"
+
+      # O corpo do release e o proprio LEIA-ME.md do pacote: mesmo texto,
+      # mesmo aviso de que nenhuma placa foi fabricada ainda. Quem baixa o zip
+      # pode nunca abrir o repositorio, entao o aviso tem que estar nos dois.
+      - name: Publica o release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "dist/tkmem128-ii-$GITHUB_REF_NAME.zip" \
+            --title "TKMEM-128 II $GITHUB_REF_NAME" \
+            --notes-file "dist/tkmem128-ii-$GITHUB_REF_NAME/LEIA-ME.md"

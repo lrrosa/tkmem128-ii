@@ -25,8 +25,15 @@ import os
 import re
 import sys
 
-RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PADROES = ("*.md", "docs/*.md", "tools/*.md", "hardware/*/*.md")
+# Aceita uma raiz por argumento para conferir tambem o pacote de release
+# montado por tools/monta_pacote.py, que tem outra arvore de diretorios.
+RAIZ = (os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Varredura recursiva em vez de lista fixa de pastas: assim serve para as duas
+# arvores. Fora ficam os diretorios ocultos (.git, .history) e production/,
+# que so tem saida gerada.
+IGNORA = (".", "production")
 
 # O Git Bash e o Python nativo do Windows discordam do separador: glob devolve
 # "docs\X.md" e os links trazem "docs/X.md". Sem normalizar os dois lados, o
@@ -61,9 +68,14 @@ def indexa(caminho):
     return saida
 
 
-docs = sorted(norm(p) for pad in PADROES
-              for p in glob.glob(os.path.join(RAIZ, pad).replace("\\", "/")))
-docs = [d[len(norm(RAIZ)) + 1:] for d in docs]
+docs = []
+for base, dirs, arqs in os.walk(RAIZ):
+    dirs[:] = [d for d in dirs
+               if not d.startswith(".") and d not in IGNORA]
+    for a in arqs:
+        if a.endswith(".md"):
+            docs.append(norm(os.path.relpath(os.path.join(base, a), RAIZ)))
+docs.sort()
 ancoras = {d: indexa(d) for d in docs}
 
 ruins = []

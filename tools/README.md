@@ -62,7 +62,8 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `confere_compatibilidade.py` | **Verificação de regressão**: confere que a placa não liga nenhum contato que difere entre TK e ZX Spectrum 48K |
 | `confere_pinos.py` | **Verificação de regressão**: confere que os rótulos de pino do conector nos dois esquemáticos e na biblioteca de símbolos batem com `busdef.py` |
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
-| `confere_links.py` | **Verificação de regressão**: confere que os links entre os documentos e as âncoras de seção ainda resolvem |
+| `confere_links.py` | **Verificação de regressão**: confere que os links entre os documentos e as âncoras de seção ainda resolvem. Aceita uma raiz por argumento, para conferir também o pacote de release |
+| `monta_pacote.py` | Monta o `.zip` de fabricação e montagem publicado pelo `release.yml` |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)
 
@@ -217,6 +218,36 @@ sozinha; o que não existe é o casamento entre elas.
 O job do KiCad só se tornou possível depois que os caminhos absolutos saíram
 do `netlist.py` e do `netlist_exp.py`: dentro do container eles resolviam
 para `F:/downloads/...`, o disco da máquina de origem.
+
+## O pacote de release
+
+```bash
+python tools/monta_pacote.py v1.0
+```
+
+Monta em `dist/` o que alguém precisa para **mandar fabricar e montar** — os
+dois gerbers, a lista de material, o `.jed`, os renders, os esquemáticos e os
+três documentos — e fecha num `.zip`. Ficam de fora os fontes do KiCad e o
+`tools/` (quem quer modificar clona o repositório), o `posicoes.csv` (é
+pick-and-place, e aqui tudo é passante montado à mão) e a ROM do Spectrum 128
+(copyright da Amstrad/Sky).
+
+Não é para rodar à mão a cada versão: quem publica é o
+[`release.yml`](../.github/workflows/release.yml), disparado por uma tag
+`v*`, **depois** que os seis conferidores passam. O comando acima serve para
+conferir o resultado antes de criar a tag.
+
+Duas coisas que o script faz e que não são óbvias:
+
+1. **A tag tem que bater com a serigrafia da placa.** O `.kicad_pcb` traz
+   `LRRosa 2026 v1.0`, e uma tag divergente aborta a montagem. O número no
+   cobre é o que fica na mão de quem monta — se o download disser outra
+   coisa, a placa e o arquivo contam histórias diferentes.
+2. **Os links dos `.md` são reescritos.** Os que apontam para arquivos que
+   entram no pacote continuam relativos; os que apontam para fora (como
+   `../tools/galgen.py`) viram URL do GitHub na tag. No fim o próprio
+   `confere_links.py` roda sobre o pacote montado, então link quebrado
+   derruba a geração em vez de sair no zip.
 
 ## Como saber se as saídas estão atualizadas
 
