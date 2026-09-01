@@ -2,6 +2,10 @@
 """Netlist completa da TKMEM-128 II (fonte unica da verdade)."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Raiz do projeto derivada do proprio script. Antes era o caminho absoluto
+# da maquina de origem, o que fazia o script rodar so la.
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/")
 from busdef import BUS, HEADER_NETS
 
 # (ref, lib_id, valor, footprint, descricao)
@@ -133,7 +137,7 @@ for ref, lib, val, fp, conns, descr in DISCRETE:
 
 
 PROJ_NAME = "tkmem128-ii"
-PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware")
+PROJ_DIR = RAIZ + "/hardware"
 BOARD_W, BOARD_H = 78.74, 66.04
 # Ate J1 subir 1,5 mm as ilhas dele chegavam a 0,51 mm da aresta de baixo, e a
 # placa-isca do roteador NAO podia recuar essa aresta: recuando 0,35 ela passava

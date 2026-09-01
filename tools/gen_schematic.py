@@ -2,13 +2,17 @@
 """Gera tkmem128.kicad_sch (estilo netlist: cada pino recebe rotulo global)."""
 import io, os, re, sys, uuid as _uuid
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Raiz do projeto derivada do proprio script. Antes era o caminho absoluto
+# da maquina de origem, o que fazia o script rodar so la.
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/")
 import importlib
 BOARD = importlib.import_module(sys.argv[1] if len(sys.argv) > 1 else "netlist")
 PARTS, CONN = BOARD.PARTS, BOARD.CONN
 
 PROJ = BOARD.PROJ_DIR
 KILIB = "C:/Program Files/KiCad/10.0/share/kicad/symbols"
-LOCAL = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/lib/tkmem128.kicad_sym")
+LOCAL = RAIZ + "/hardware/lib/tkmem128.kicad_sym"
 ROOT_UUID = None  # definido em main()
 PROJECT_NAME = BOARD.PROJ_NAME
 

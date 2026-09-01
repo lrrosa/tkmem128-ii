@@ -2,10 +2,13 @@
 """Gera a biblioteca de simbolos local da TKMEM-128."""
 import io, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Raiz do projeto derivada do proprio script. Antes era o caminho absoluto
+# da maquina de origem, o que fazia o script rodar so la.
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/")
 from busdef import BUS, BOTTOM, TOP, GAL20V8B, SRAM, HCT273, M27C256
 
-OUT = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/lib/"
-       "tkmem128.kicad_sym")
+OUT = RAIZ + "/hardware/lib/tkmem128.kicad_sym"
 
 FONT = '(effects (font (size 1.27 1.27)))'
 

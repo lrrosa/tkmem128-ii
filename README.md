@@ -1,5 +1,7 @@
 # TKMEM-128 II
 
+[![conferidores](https://github.com/lrrosa/tkmem128-ii/actions/workflows/conferidores.yml/badge.svg)](https://github.com/lrrosa/tkmem128-ii/actions/workflows/conferidores.yml)
+
 Expansão externa de **128 KB (ou 512 KB) de RAM paginada no padrão ZX Spectrum 128**
 para **TK90X, TK95 e ZX Spectrum 48K**. Redesenho completo em **KiCad 10**, com
 arquivos de fabricação prontos.

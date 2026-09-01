@@ -20,6 +20,10 @@ apenas para criar acoplamento. Trilha grossa e direta vale mais.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Raiz do projeto derivada do proprio script. Antes era o caminho absoluto
+# da maquina de origem, o que fazia o script rodar so la.
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/")
 import pcbnew
 import netlist_exp as TIRA
 
@@ -91,8 +95,7 @@ for fp in list(b.GetFootprints()):
     if fp.GetFPIDAsString().endswith(nome):
         b.Remove(fp)
 link = pcbnew.FootprintLoad(
-    "F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/lib/"
-    "tkmem128.pretty", nome)
+    RAIZ + "/hardware/lib/tkmem128.pretty", nome)
 link.SetReference("W1")
 link.SetPosition(pcbnew.VECTOR2I(fmm(lx), fmm(ly)))
 b.Add(link)

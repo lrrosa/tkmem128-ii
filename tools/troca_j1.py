@@ -10,12 +10,15 @@ cobre e apagado para ser reroteado.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Raiz do projeto derivada do proprio script. Antes era o caminho absoluto
+# da maquina de origem, o que fazia o script rodar so la.
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/")
 import pcbnew
 from netlist import PROJ_DIR, PROJ_NAME, CONN, PLACE_PCB
 
 REAL = "%s/%s.kicad_pcb" % (PROJ_DIR, PROJ_NAME)
-LOCALFP = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/"
-           "lib/tkmem128.pretty")
+LOCALFP = RAIZ + "/hardware/lib/tkmem128.pretty"
 NOVO = "ZX_TK_Bus_Socket_56"
 FASE = sys.argv[1]
 

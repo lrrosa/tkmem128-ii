@@ -19,11 +19,14 @@ para o lado do conector: senao a placa dentro da caixa esbarra no micro.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Raiz do projeto derivada do proprio script. Antes era o caminho absoluto
+# da maquina de origem, o que fazia o script rodar so la.
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/")
 from busdef import BUS
 
 PROJ_NAME = "tkmem128-ii-expansor"
-PROJ_DIR = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/"
-            "expansor")
+PROJ_DIR = RAIZ + "/hardware/expansor"
 BOARD_W, BOARD_H = 78.74, 45.0
 KEYSLOT_COL = 5             # rasgo da guia nos dedos de J2
 # Profundidade conferida contra a placa real (impressao em papel, jul/2026):

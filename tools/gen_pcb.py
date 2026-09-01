@@ -5,13 +5,16 @@
 """
 import importlib, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Raiz do projeto derivada do proprio script. Antes era o caminho absoluto
+# da maquina de origem, o que fazia o script rodar so la.
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/")
 import pcbnew
 
 BOARD = importlib.import_module(sys.argv[1] if len(sys.argv) > 1 else "netlist")
 
 KIFP = "C:/Program Files/KiCad/10.0/share/kicad/footprints"
-LOCALFP = ("F:/downloads/_montagens - kits/TKMem128/tkmem128-kicad/hardware/"
-           "lib/tkmem128.pretty")
+LOCALFP = RAIZ + "/hardware/lib/tkmem128.pretty"
 OUT = "%s/%s.kicad_pcb" % (BOARD.PROJ_DIR, BOARD.PROJ_NAME)
 W, H = BOARD.BOARD_W, BOARD.BOARD_H
 CX = W / 2.0
