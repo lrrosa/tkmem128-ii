@@ -16,6 +16,30 @@ verificar de dentro do KiCad. Confira antes de gastar dinheiro com PCB.
 
 ---
 
+## 0. O formulário do pedido (o que não viaja nos gerbers)
+
+Os gerbers descrevem **o cobre**. Empilhamento e acabamento não estão neles:
+são campos que você preenche à mão no formulário da fábrica. Se esquecer, a
+placa sai errada com os arquivos certos — e nos dois casos o erro **não aparece
+na inspeção visual**.
+
+| Campo do pedido | Placa principal | Tira de expansão | Detalhe |
+| --- | --- | --- | --- |
+| Camadas | **4** | 2 | [item 3b](#3b-a-placa-principal-é-de-4-camadas-crítico-no-pedido) |
+| Acabamento | HASL serve | **ENIG (ouro)** | [item 4](#4-acabamento-dos-dedos-de-borda) |
+| Chanfro 45° nos dedos | não se aplica | **sim** | [item 4](#4-acabamento-dos-dedos-de-borda) |
+| Espessura | 1,6 mm | 1,6 mm | [item 8](#8-regras-de-fabricação) |
+
+São **dois pedidos separados**, um `.zip` cada:
+`production/placa-principal/gerbers.zip` e
+`production/tira-expansao/gerbers.zip`. Não dá para pedir as duas juntas — o
+número de camadas difere.
+
+O chanfro (*gold finger beveling*) costuma ser uma caixinha à parte, fora do
+bloco de opções principal, e é o item mais fácil de passar batido.
+
+---
+
 ## 1. O conector de borda (cotas do datasheet)
 
 **Onde:** placa principal, conector `J1`.
@@ -350,6 +374,7 @@ o vão abaixo de 0,90 mm**.
 
 | Item | Risco se errar |
 | --- | --- |
+| 0. Formulário do pedido | Camadas ou acabamento errados — **não aparecem na inspeção visual** |
 | 1. Cotas do conector | Conector não entra na placa |
 | 1b. Orientação invertida | A placa esbarra no micro e não encaixa |
 | 2. Fileira invertida | **Pode danificar o micro** |
