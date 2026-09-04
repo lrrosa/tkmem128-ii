@@ -278,7 +278,7 @@ mesmas palavras — ver o render do verso acima.
 | --- | --- | --- | --- |
 | U1 | GAL20V8B, **ATF20V8B-15PC** ou PALCE20V8H | DIP-24 300 mil | Grave [`hardware/gal/tkmem128.jed`](hardware/gal/tkmem128.jed) — peças equivalentes em [hardware/gal](hardware/gal/README.md) |
 | U2 | 74HCT273 | DIP-20 300 mil | Latch da porta 7FFD |
-| U3 | **AS6C1008-55PCN** (128K×8) | DIP-32 600 mil | Ou `AS6C4008-55PCN` (512K×8) no modo ZX512 |
+| U3 | **AS6C1008-55PCN** (128K×8) | DIP-32 600 mil | Ou `AS6C4008-55PCN` (512K×8) no modo ZX512 — outras peças servem, ver [equivalentes](#equivalentes-para-u3-a-sram) |
 | U4 | 27C256 | DIP-28 600 mil | **Opcional** — ver seção da ROM |
 | R2, R4 | 1 kΩ | axial, vertical | |
 | R5 | 0 Ω | axial, vertical | Fio; 100–470 Ω se houver disputa no ROMCS |
@@ -290,6 +290,63 @@ mesmas palavras — ver o render do verso acima.
 | JP3 | header 1×2 | passo 2,54 mm | |
 | J1 | **TE/AMP 5645235** — conector de borda 56 vias, entrada vertical | passo 2,54 mm, fileiras a 4,85 mm | Único componente do lado do cobre; recebe os dedos do micro |
 | — | soquetes torneados DIP-20/24/28/32 | | Recomendado |
+
+### Equivalentes para U3 (a SRAM)
+
+O projeto não depende de um fabricante. Serve **qualquer SRAM 128K×8 de 5 V em
+DIP-32 na pinagem JEDEC de 1 Mbit** — que é a pinagem padrão dessa família:
+`/CS1` no 22, `/OE` no 24, `/WE` no 29, `CE2` no 30, `VCC` no 32, `GND` no 16.
+
+| Peça | Fabricante | Situação |
+| --- | --- | --- |
+| **AS6C1008-55PCN** | Alliance | Da BOM — ainda em produção, a mais fácil de achar nova |
+| **HM628128A** (ex.: `HM628128ALP-7`) | Hitachi | Descontinuada; comum como estoque antigo |
+| **TC551001** | Toshiba | Descontinuada |
+| **KM681000** | Samsung | Descontinuada |
+| **CY62128** | Cypress | |
+| **IS61C1024 / IS62C1024** | ISSI | O `1024` é 1024 kbit = 1 Mbit, não 1 M×8 |
+
+> ⚠️ **Uma 62256 não serve.** É 32K×8 (256 kbit) em DIP-28 — outra
+> capacidade e outro encapsulamento. A confusão é fácil porque a numeração
+> parece próxima.
+
+**A única divergência real entre essas peças é o pino 30**, e vale conferir no
+datasheet da que você comprou:
+
+| Pino 30 | Funciona? |
+| --- | --- |
+| `CE2` / `CS2`, ativo alto | **Sim** — é o caso da `AS6C1008` |
+| `NC`, não conectado | **Sim** — o sinal é ignorado e o `/CS1` do pino 22 controla sozinho |
+| `A17` | Aí é uma 512K×8, não uma 128K — ver abaixo |
+
+Isso funciona porque `/SA17` é uma saída **invertida** do GAL:
+
+```
+/SA17 = A14 * A15 * BANK3 * /ZX512
+```
+
+Com **JP3 aberto**, o pull-up põe `ZX512` em alto, o produto zera e o pino 30
+fica **fixo em nível alto** — exatamente o `CE2` que a memória espera.
+
+> ⚠️ **Com uma 128K×8, JP3 fica aberto — sempre.** Fechado por engano, o
+> pino 30 deixa de ser nível fixo e passa a receber `/SA17` paginado: toda vez
+> que o software escrever `BANK3=1` na porta `0x7FFD`, o pino cai para nível
+> baixo e **desabilita a RAM** em 0xC000. A falha é intermitente e depende do
+> jogo, que é o pior tipo de falha para diagnosticar.
+
+**Velocidade é indiferente.** Peças dessa família vão de 55 a 100 ns, e a
+3,5 MHz há mais de 500 ns entre o endereço ficar válido e o Z80 amostrar o
+dado. Até a mais lenta sobra.
+
+**Procedência importa mais que velocidade.** As descontinuadas circulam como
+estoque antigo e SRAM antiga é alvo comum de remarcação. Se o preço for
+parecido, prefira a peça em produção.
+
+#### No modo 512 KB
+
+Aí a peça tem que ser uma **512K×8** de verdade — `AS6C4008`, `HM628512`,
+`TC554001`, `IS61C4008` — porque o pino 30 passa a ser `A17` e o pino 1, `A18`.
+E **JP3 fecha**. Ver [Modo 512 KB](docs/MONTAGEM.md#modo-512-kb).
 
 ### Tira de expansão
 

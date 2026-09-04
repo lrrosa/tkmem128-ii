@@ -134,6 +134,13 @@ Troque U3 por uma **AS6C4008** (512K×8, mesmo encapsulamento DIP-32) e feche
 **JP3**. O software precisa saber usar os bits 6 e 7 da porta `0x7FFD` — jogos
 comuns de 128 KB não usam.
 
+> Com a SRAM de **128K×8**, JP3 fica **aberto**. Fechado por engano, o pino 30
+> passa a receber `/SA17` paginado e a RAM em 0xC000 é desabilitada sempre que o
+> software escrever `BANK3=1` — falha intermitente, difícil de diagnosticar.
+
+Outras peças servem no lugar da `AS6C1008` e da `AS6C4008`: a regra e a lista
+estão em [Equivalentes para U3](../README.md#equivalentes-para-u3-a-sram).
+
 ---
 
 ## A EPROM (opcional)
