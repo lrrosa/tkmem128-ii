@@ -143,8 +143,12 @@ realmente usa, e falha se algum aparecer.
 > num Spectrum o ponto é outro e **depende da Issue da placa-mãe** — os dois
 > procedimentos estão em
 > [`docs/PREPARAR-O-TK.md`](docs/PREPARAR-O-TK.md#e-num-zx-spectrum-48k).
-> A auto-desativação pelo contato 29 é inerte num Spectrum, porque lá o contato
-> é N.C.; ali a intervenção é sempre por dentro.
+> Num Spectrum a placa não aciona nada pelo contato 29 — mas **não porque o
+> contato seja diferente**: ele é N.C. nas duas máquinas. É porque o
+> procedimento publicado para o Spectrum amarra o pino do mod ao +5 V do
+> próprio CI, sem trazer fio até o conector. Levar o truque do TK para lá é a
+> mesma topologia, e esbarra numa diferença *elétrica* —
+> [analisada aqui](docs/PREPARAR-O-TK.md#dava-para-levar-a-auto-desativação-para-o-spectrum).
 >
 > Não montamos a placa num Spectrum: a compatibilidade acima é do barramento,
 > conferida contato a contato, não de bancada — e o ponto interno do Spectrum

@@ -140,9 +140,17 @@ que redistribui o mesmo projeto do Velesoft de onde este aqui deriva.
 [issue](https://github.com/lrrosa/tkmem128-ii/issues) dizendo se funcionou é
 bem-vinda.
 
-A auto-desativação pelo contato 29 continua **inerte num Spectrum**: lá esse
-contato é N.C., então o pull-up de `R4` não chega a lugar nenhum. Isso é de
-propósito — é o que torna a placa segura nas duas máquinas.
+Sem esse fio, o pull-up de `R4` não chega a lugar nenhum — e isso vale para as
+**duas** máquinas, não só para o Spectrum. O contato 29 é `N.C.` no TK e no
+Spectrum, e é justamente isso que torna a placa segura nas duas: ela nunca
+injeta 5 V num contato que já tenha função.
+
+A diferença entre as duas máquinas não está no barramento, está no
+**procedimento**. No TK o fio vai do contato 29 até o ponto interno, e a
+desativação passa a acompanhar a presença da interface. O mod publicado para o
+Spectrum amarra o pino do mod ao +5 V do próprio CI, sem passar pelo conector —
+então ali a desativação é permanente, e o micro só volta a ser 48K desfazendo a
+solda. Se dá para mudar isso é o assunto da seção seguinte.
 
 ### Dava para levar a auto-desativação para o Spectrum?
 
