@@ -11,10 +11,12 @@ arquivos de fabricação prontos.
 > contato que no Spectrum carrega vídeo; aqui isso foi corrigido, e a placa voltou
 > a servir nas duas famílias. Ver [Compatibilidade](#compatibilidade).
 
-> **Estado: projeto validado em software, ainda não montado em hardware.**
-> ERC e DRC estão zerados e a netlist foi conferida contra a intenção de projeto,
-> mas nenhuma placa foi fabricada nem testada num micro real. Antes de mandar fabricar,
-> leia [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — há itens que
+> **Estado: placas fabricadas e conferidas eletricamente, ainda não montadas.**
+> ERC e DRC estão zerados, a netlist foi conferida contra a intenção de projeto,
+> e as duas placas **voltaram da fábrica em setembro de 2026 com todas as ilhas
+> aprovadas no teste de continuidade**. O que ainda não foi feito: **montar os
+> componentes e ligar num micro real**. Antes de mandar fabricar, leia
+> [`docs/ANTES-DE-FABRICAR.md`](docs/ANTES-DE-FABRICAR.md) — há itens que
 > dependem de medir peças físicas.
 >
 > O conector de borda é o **TE/AMP 5645235**, de entrada vertical. As cotas do

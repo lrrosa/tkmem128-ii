@@ -1,8 +1,9 @@
 # Antes de mandar fabricar
 
-Este projeto foi validado em software: **ERC e DRC zerados, netlist conferida
-item a item contra a intenção de projeto**. Mas nenhuma placa foi fabricada nem
-testada num micro real.
+Este projeto foi validado em software (**ERC e DRC zerados, netlist conferida
+item a item contra a intenção de projeto**) e as duas placas já voltaram da
+fábrica com a **continuidade conferida**. Mas nenhuma delas foi montada nem
+ligada num micro real.
 
 Os itens abaixo dependem de medir peças físicas ou de decisões que não dá para
 verificar de dentro do KiCad. Confira antes de gastar dinheiro com PCB.
@@ -10,9 +11,20 @@ verificar de dentro do KiCad. Confira antes de gastar dinheiro com PCB.
 > **Conferência em papel — julho de 2026.** As duas placas foram impressas em
 > escala 1:1 e comparadas com as peças reais. **Todas as medidas e alinhamentos
 > bateram**, com uma correção: o rasgo da guia da tira passou de 5,0 para
-> **7,0 mm** de profundidade (item 3). Isso confirma as cotas do conector, o
-> tamanho das placas e o encaixe na caixa — mas *não* substitui o teste de
-> continuidade com a placa fabricada, antes de plugar no micro.
+> **7,0 mm** de profundidade (item 3). Isso confirmou as cotas do conector, o
+> tamanho das placas e o encaixe na caixa.
+
+> ✅ **Continuidade na placa fabricada — setembro de 2026.** As duas placas
+> voltaram da fábrica e **todas as ilhas passaram no teste de continuidade**.
+> Isso fecha a pendência que este documento carregava desde o início: os gerbers
+> daqui produzem placas eletricamente corretas, com estas regras de fabricação e
+> este número de camadas.
+>
+> **O que isso não cobre:** as placas ainda não foram montadas nem ligadas num
+> micro. Os itens abaixo que dependem do *micro* — a fileira do conector
+> (item 2), a chaveta (item 3), a polaridade do ROMCS (item 5) e a preparação
+> descrita em [PREPARAR-O-TK.md](PREPARAR-O-TK.md) — continuam por confirmar na
+> bancada, e são os que podem danificar o computador.
 
 ---
 

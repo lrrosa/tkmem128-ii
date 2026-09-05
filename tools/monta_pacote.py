@@ -115,14 +115,15 @@ LEIAME = u"""# TKMEM-128 II {tag} — pacote de fabricação e montagem
 Expansão externa de **128 KB (ou 512 KB) de RAM paginada no padrão ZX
 Spectrum 128** para **TK90X, TK95 e ZX Spectrum 48K**.
 
-> ## ⚠️ Nenhuma placa deste projeto foi fabricada ainda
+> ## ⚠️ Fabricada e conferida, mas ainda não montada num micro
 >
 > ERC e DRC estão zerados, a netlist foi conferida contra a intenção de
-> projeto e as duas placas foram impressas em 1:1 e comparadas com as peças
-> reais. Mas **nenhuma placa foi fabricada nem testada num micro real**.
+> projeto, as duas placas foram impressas em 1:1 e comparadas com as peças
+> reais e, em **setembro de 2026**, voltaram da fábrica com **todas as ilhas
+> aprovadas no teste de continuidade**. Estes gerbers produzem placas
+> eletricamente corretas.
 >
-> O `{tag}` numera a revisão do desenho — o mesmo número gravado na
-> serigrafia da placa —, não uma validação em bancada. Se você for o
+> Mas **nenhuma foi montada nem ligada num micro real**. Se você for o
 > primeiro a montar, comece por `docs/ANTES-DE-FABRICAR.md`: há itens ali
 > que, se estiverem errados, **podem danificar o micro**.
 
