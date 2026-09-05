@@ -230,6 +230,27 @@ pinos: 29..56 na frente, 1..28 no verso.
 
 ![Tira de expansão, verso](docs/img/placa-expansora-verso.png)
 
+### E fabricadas
+
+Primeira tiragem, setembro de 2026. **Todas as ilhas passaram no teste de
+continuidade** — as placas ainda não foram montadas nem ligadas num micro.
+
+![Placa principal fabricada, lado dos componentes](docs/img/placa-principal-fabricada.jpg)
+
+![Placa principal fabricada, lado do cobre](docs/img/placa-principal-fabricada-verso.jpg)
+
+O verso cumpriu o que o render prometia: as três tabelas de jumper e a nota do
+`R4` ficam legíveis a olho nu com a serigrafia de 1,2 mm — que é o ponto de
+tê-las na placa em vez de só aqui.
+
+![Tira de expansão fabricada](docs/img/placa-expansora-fabricada.jpg)
+
+A tira mostra os dois itens do formulário que **não viajam nos gerbers** (item 0
+do [ANTES-DE-FABRICAR](docs/ANTES-DE-FABRICAR.md)) tendo saído certos: os dedos
+vieram com **ENIG** e com o **chanfro de 45°**. O entalhe na borda de baixo, à
+direita do centro, é o rasgo da guia — aprofundado de 5,0 para 7,0 mm depois da
+conferência em papel.
+
 ---
 
 ## O que mudou em relação ao original

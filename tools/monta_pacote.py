@@ -50,6 +50,14 @@ ARQUIVOS = [
     ("docs/img/placa-expansora.png",       "docs/img/placa-expansora.png"),
     ("docs/img/placa-expansora-verso.png", "docs/img/placa-expansora-verso.png"),
     ("docs/img/vista-de-lado.svg",         "docs/img/vista-de-lado.svg"),
+    # fotos da placa fabricada: ajudam quem monta a conferir orientacao e
+    # acabamento contra o que saiu da fabrica de verdade
+    ("docs/img/placa-principal-fabricada.jpg",
+     "docs/img/placa-principal-fabricada.jpg"),
+    ("docs/img/placa-principal-fabricada-verso.jpg",
+     "docs/img/placa-principal-fabricada-verso.jpg"),
+    ("docs/img/placa-expansora-fabricada.jpg",
+     "docs/img/placa-expansora-fabricada.jpg"),
 
     ("production/placa-principal/bom.csv", "producao/placa-principal-bom.csv"),
     ("production/tira-expansao/bom.csv",   "producao/tira-expansao-bom.csv"),

@@ -64,6 +64,7 @@ nasceu, e porque a CERN-OHL-S pede a fonte completa.
 | `confere_alinhamento.py` | **Verificação de regressão**: confere que as colunas, a guia, as faces e a numeração serigrafada batem entre a placa principal e a tira |
 | `confere_links.py` | **Verificação de regressão**: confere que os links entre os documentos e as âncoras de seção ainda resolvem. Aceita uma raiz por argumento, para conferir também o pacote de release |
 | `monta_pacote.py` | Monta o `.zip` de fabricação e montagem publicado pelo `release.yml` |
+| `corta_fotos.py` | Recorta a placa do fundo nas fotos das placas fabricadas, conferindo o resultado contra a razão real da placa |
 
 ## Refazendo tudo do zero (destrói os ajustes manuais)
 
