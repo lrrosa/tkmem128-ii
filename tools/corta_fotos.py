@@ -10,6 +10,13 @@ onde a placa aparece pequena. O recorte e mecanico, mas fazer a mao a cada nova
 foto -- e vao vir mais, quando as placas forem montadas -- da retrabalho e
 resultado inconsistente.
 
+ONDE FICAM AS FOTOS. As ORIGINAIS nao sao versionadas: sao ~2,3 MB cada, sao
+insumo e nao projeto, e estao no `.gitignore`. Ficam soltas em `docs/img/` na
+maquina de quem fotografou. O que o repositorio guarda sao os RECORTES, com
+sufixo `-fabricada`. Quem clonar o repositorio nao consegue rodar este script
+sem ter as fotos -- e nao precisa, do mesmo jeito que nao precisa rodar os
+geradores de footprint.
+
 COMO ACHA A PLACA. Nao por cor fixa: a cor do fundo muda com a mesa e a luz. O
 fundo e estimado a partir das BORDAS da propria imagem: a moldura de 3% em
 volta, que e mesa em qualquer foto util.

@@ -15,3 +15,8 @@ fp-info-cache
 
 # pacote de release montado por tools/monta_pacote.py
 dist/
+
+# fotos originais do celular: insumo do tools/corta_fotos.py, nao do projeto
+# (os recortes, esses sim, sao versionados)
+docs/img/*fabricada*.jpg
+!docs/img/*-fabricada*.jpg
